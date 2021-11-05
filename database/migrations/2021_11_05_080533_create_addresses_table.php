@@ -17,8 +17,8 @@ class CreateAddressesTable extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained();
             $table->string("name");
-            $table->string("phone");
-            $table->string("tax_number");
+            $table->string("phone")->nullable();
+            $table->string("tax_number")->nullable();
             $table->foreignId("country_id")->constrained();
             $table->string("postcode");
             $table->string("city");

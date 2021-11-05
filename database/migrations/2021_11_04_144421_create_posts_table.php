@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->longText("body");
             $table->string("cover");
             $table->foreignId("user_id")->constrained();
-            $table->integer('counter');
+            $table->integer('counter')->default(0);
             $table->foreignId("post_status_id")->constrained();
             $table->timestamps();
         });

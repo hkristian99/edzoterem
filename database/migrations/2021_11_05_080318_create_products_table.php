@@ -17,9 +17,10 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string("name");
             $table->integer("list_price");
-            $table->integer("discount_price");
+            $table->integer("discount_price")->nullable();
             $table->longText("description");
             $table->foreignId("category_id")->constrained();
+            $table->boolean("is_online_product");
             $table->timestamps();
         });
     }
