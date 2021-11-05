@@ -9,4 +9,4 @@ use App\Http\Controllers\AdminController;
 Route::get("/", [PublicController::class, 'Home'])->name("kezdolap");
 
 //ADMIN
-Route::get("/admin", [AdminController::class, 'Dashboard'])->name("dashboard");
+Route::get("/admin", [AdminController::class, 'Home'])->name("admin");
