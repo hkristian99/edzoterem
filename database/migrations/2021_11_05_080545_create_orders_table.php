@@ -15,12 +15,14 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("address_id")->constrained()->comment("address_billing_id");
-            $table->foreignId("address_id")->constrained()->comment("address_shipping_id");;
+            $table->unsignedBigInteger('address_billing_id');
+            $table->foreign('address_billing_id')->references('id')->on('addresses');
+            $table->unsignedBigInteger('address_shipping_id');
+            $table->foreign('address_shipping_id')->references('id')->on('addresses');
             $table->foreignId("order_status_id")->constrained();
             $table->foreignId("user_id")->constrained();
-            $table->intiger("subtotal");
-            $table->intiger("grandtotal");
+            $table->integer("subtotal");
+            $table->integer("grandtotal");
             $table->string("notes");
             $table->foreignId("paymode_id")->constrained();
             $table->timestamps();
