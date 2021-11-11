@@ -451,8 +451,8 @@ ol {
 	position: absolute;
 	right: 0;
 	top: 5px;
-	height: 15px;
-	width: 1px;
+	height: 25px;
+	width: 2px;
 	background: rgba(255, 255, 255, 0.3);
 	content: "";
 }
@@ -2771,7 +2771,7 @@ ol {
 
 /* Medium Device = 1200px */
 
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
+@media only screen and (min-width: 992px) and (max-width: 1381px) {
 	.nav-menu ul li {
 		margin-right: 5px;
 	}
@@ -3252,8 +3252,5 @@ ol {
 	.search-model-form input {
 		font-size: 28px;
 	}
-	#search{
-		background-color: rgba(0,0,0, 0.9) !important;
-		border: 0 !important;
-	}
+	
 }

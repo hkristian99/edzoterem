@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/assets/frontend/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="/assets/frontend/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/assets/frontend/css/style.css" type="text/css">
-    <link rel="stylesheet" href="/assets/frontend/css/styleMenu.css" type="text/css">
+    <link rel="stylesheet" href="/assets/frontend/css/custom.css" type="text/css">
 </head>
 <body>
     <!-- Page Preloder -->
@@ -81,7 +81,7 @@
                         <li class="{{Request::is('tobb') ? 'active stroke' : '' }}"><a href="#">Tudástár</a>
                             <ul class="dropdown">
                                 <li><a href="{{route('bmi')}}">BMI kalkulátor</a></li>
-                                <li><a href="{{route('gallery')}}">Galléria</a></li>
+                                <li><a href="{{route('gallery')}}">Galéria</a></li>
                                 <li><a href="{{route('blog')}}">Blog</a></li>
                             </ul>
                         </li>
@@ -91,11 +91,13 @@
             <div class="col-lg-3">
                 <div class="top-option">
                     <div class="to-search">
-                        <input id="search" type=text placeholder="Keresés">
-                        <a href="#"><i class="fa fa-search"></i></a>
+                        <form action="" method="">
+                        <input class="search" name="search" type="text" placeholder="Keresés">
+                        <button type="submit" class="fa fa-search"></button>
+                        </form>
                     </div>
                     <div class="to-social">
-                        <a href="#"><i class="fa fa-user"></i></a>
+                        <a href="{{route("login")}}"><i class="fa fa-user"></i></a>
                     </div>
                    <!-- <div class="to-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>

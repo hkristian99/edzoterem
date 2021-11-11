@@ -39,6 +39,73 @@
   nav.stroke ul li a:hover:after {
     width: 100%;
   }
+  input.search {
+		background-color: rgba(0,0,0, 0.7);
+    color: #fff;
+		border: 2.5px solid #fff;
+    border-radius: 47px;
+    padding: 0px 10px;
+    margin-right: 6px;
+	}
+  input.search:focus::placeholder {
+    color:transparent;
+	}
+  input.search:focus{
+    border: 2.5px solid #f36100;
+    transition: all 0.65s;
+  }
+  input.search:hover{
+    border: 2.5px solid #f36100;
+    transition: all 0.45s;
+  }
+  input.search:hover::placeholder{
+    color: transparent;
+    transition: all 0.45s;
+    opacity: 1; /* Firefox */
+  }
+  input.search::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #f36100;
+    transition: all 0.45s;
+    opacity: 1; /* Firefox */
+  }
+  .fa:hover{
+    color: #f36100;
+    transition: all 0.45s;
+  }
+  button.fa{
+    border:0px;
+    background-color: transparent;
+    color: #fff;
+  }
+  .nav-menu ul li .dropdown{
+    border-radius:15px;
+  }
+  a{
+    color:#f36100;
+  }
+  form input:focus{
+    border: 1.5px solid #f36100;
+    transition: all 0.3s;
+  }
+  form input:focus::placeholder {
+    color:transparent;
+	}
+  a.reg{
+    padding: 5.2%;
+  }
+  @media only screen and (min-width: 992px) and (max-width: 1381px){
+    div.to-search {
+      display: none !important;
+    }
+    div.to-option{
+      width:-60%;
+      left:-30%;
+    }
+  }
+
+  
+
+  
   /* Keyframes */
   @-webkit-keyframes fill {
     0% {

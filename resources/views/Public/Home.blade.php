@@ -10,7 +10,7 @@
                                 <div class="hi-text">
                                     <span>Formáld velünk a tested</span>
                                     <h1>Go <strong>hard</strong><br> or go home!</h1>
-                                    <a href="{{route('service')}}" class="primary-btn">Kezd el még ma!</a>
+                                    <a href="{{route('service')}}" class="primary-btn n">Kezd el még ma!</a>
                                 </div>
                             </div>
                         </div>
@@ -23,7 +23,7 @@
                                 <div class="hi-text">
                                     <span>Shape your body</span>
                                     <h1>Be <strong>strong</strong> traning hard</h1>
-                                    <a href="#" class="primary-btn">Get info</a>
+                                    <a href="#" class="primary-btn n">Get info</a>
                                 </div>
                             </div>
                         </div>
@@ -33,6 +33,83 @@
         </section>
         <!-- Hero Section End -->
     
+        <!-- Kedvezmények-->
+        <section class="classes-section spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title">
+                            <span>Ajánlataink</span>
+                            <h2>November 2021</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="class-item">
+                            <div class="ci-pic">
+                                <img src="/assets/frontend/img/classes/class-1.jpg" alt="">
+                            </div>
+                            <div class="ci-text">
+                                <span>Áraink</span>
+                                <h5>Akciós bérletek</h5>
+                                <a href="#"><i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="class-item">
+                            <div class="ci-pic">
+                                <img src="/assets/frontend/img/classes/class-2.jpg" alt="">
+                            </div>
+                            <div class="ci-text">
+                                <span>Webshop</span>
+                                <h5>Leértékelt termékek</h5>
+                                <a href="#"><i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="class-item">
+                            <div class="ci-pic">
+                                <img src="/assets/frontend/img/classes/class-3.jpg" alt="">
+                            </div>
+                            <div class="ci-text">
+                                <span>Szolgáltatásaink</span>
+                                <h5>Személyi edzés féláron</h5>
+                                <a href="#"><i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="class-item">
+                            <div class="ci-pic">
+                                <img src="/assets/frontend/img/classes/class-4.jpg" alt="">
+                            </div>
+                            <div class="ci-text">
+                                <span>Cardio</span>
+                                <h4>Indoor cycling</h4>
+                                <a href="#"><i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="class-item">
+                            <div class="ci-pic">
+                                <img src="/assets/frontend/img/classes/class-5.jpg" alt="">
+                            </div>
+                            <div class="ci-text">
+                                <span>Training</span>
+                                <h4>Boxing</h4>
+                                <a href="#"><i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Kedvezmények vége-->
+
         <!-- ChoseUs Section Begin -->
         <section class="choseus-section spad">
             <div class="container">
