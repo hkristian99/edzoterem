@@ -91,8 +91,10 @@
     color:transparent;
 	}
   a.reg{
-    padding: 5.2%;
+    padding: 3.7%;
+    margin:0% !important;
   }
+  
   @media only screen and (min-width: 992px) and (max-width: 1381px){
     div.to-search {
       display: none !important;
@@ -103,7 +105,20 @@
     }
   }
 
-  
+  ul.profilMenu{
+    left: -141px !important;
+    text-align: right !important;
+  }
+  a.profilMenuItem{
+    left: -10%;
+  }
+  div.alert-danger{
+    color:#f36100;
+    background-color: rgb(21,21,21);
+    border:#f36100 solid 1px;
+    text-align: center;
+
+  }
 
   
   /* Keyframes */

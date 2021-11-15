@@ -40,16 +40,16 @@
         <nav class="canvas-menu mobile-menu">
             <ul>
                 <li><a href="{{route('home')}}">Kezdőlap</a></li>
-                <li><a href="{{route('about')}}">Rólunk</a></li>
-                <li><a href="{{route('about')}}">Szolgáltatásaink</a></li>
-                <li><a href="{{route('about')}}">Csapatunk</a></li>
+                <li><a href="{{route('prices')}}">Rólunk</a></li>
+                <li><a href="{{route('prices')}}">Szolgáltatásaink</a></li>
+                <li><a href="{{route('prices')}}">Csapatunk</a></li>
                 <li><a href="#">További oldalak</a>
                     <ul class="dropdown">
-                        <li><a href="{{route('about')}}">About us</a></li>
-                        <li><a href="{{route('about')}}">Classes timetable</a></li>
-                        <li><a href="{{route('about')}}">Bmi calculate</a></li>
-                        <li><a href="{{route('about')}}">Our team</a></li>
-                        <li><a href="{{route('about')}}">About us</a></li>
+                        <li><a href="{{route('prices')}}">About us</a></li>
+                        <li><a href="{{route('prices')}}">Classes timetable</a></li>
+                        <li><a href="{{route('prices')}}">Bmi calculate</a></li>
+                        <li><a href="{{route('prices')}}">Our team</a></li>
+                        <li><a href="{{route('prices')}}">About us</a></li>
                     </ul>
                 </li>
                 <li><a href="./contact.html">Contact</a></li>
@@ -75,8 +75,13 @@
                 <nav class="nav-menu stroke">
                     <ul>
                         <li class="{{Request::is('szolgaltatasok') ? 'active stroke' : '' }}"><a href="{{route('service')}}">Szolgáltatásaink</a></li>
-                        <li class="{{Request::is('rolunk') ? 'active stroke' : '' }}"><a href="{{route('about')}}">Áraink</a></li>
-                        <li class="{{Request::is('csapatunk') ? 'active stroke' : '' }}"><a href="{{route('team')}}">Kapcsolat</a></li>
+                        <li class="{{Request::is('rolunk') ? 'active stroke' : '' }}"><a href="{{route('prices')}}">Áraink</a>
+                            <ul class="dropdown">
+                                <li><a href="{{route('prices')}}/#berletek">Bérletek</a></li>
+                                <li><a href="{{route('prices')}}/#webshop">Web Shop</a></li>
+                            </ul>
+                        </li>
+                        <li class="{{Request::is('csapatunk') ? 'active stroke' : '' }}"><a href="{{route('contact')}}">Kapcsolat</a></li>
                         <li class="{{Request::is('orarendek') ? 'active stroke' : '' }}"><a href="{{route('timetable')}}">Órarendek</a></li>
                         <li class="{{Request::is('tobb') ? 'active stroke' : '' }}"><a href="#">Tudástár</a>
                             <ul class="dropdown">
@@ -97,7 +102,24 @@
                         </form>
                     </div>
                     <div class="to-social">
-                        <a href="{{route("login")}}"><i class="fa fa-user"></i></a>
+                            <nav class="nav-menu stroke">
+                                <ul>
+                                    <li>
+                                        @if (Auth::check())
+                                        <a href="#"><i class="fa fa-user"></i></a>
+                                            <ul class="dropdown profilMenu">
+                                                <li><a class="profilMenuItem" href="{{route('prices')}}/#berletek">Profilom</a></li>
+                                                @if (Auth::user()->role_id != 4)
+                                                <li><a class="profilMenuItem" href="{{route('admin')}}">Adminisztráció</a></li>
+                                                @endif
+                                                <li><a class="profilMenuItem" href="{{route('logout')}}">Kijelentkezés</a></li>
+                                            </ul>
+                                        @else
+                                        <a href="{{route("login")}}"><i class="fa fa-user" title="Bejelentkezés"></i></a>
+                                        @endif
+                                    </li>
+                                </ul>
+                            </nav>
                     </div>
                    <!-- <div class="to-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>

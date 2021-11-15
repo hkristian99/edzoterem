@@ -10,8 +10,8 @@ class PublicController extends Controller
         return view("Public.Home");
     }
 
-    public function About(){
-        return view("Public.About");
+    public function Prices(){
+        return view("Public.Prices");
     }
 
     public function Bmi(){
@@ -25,10 +25,6 @@ class PublicController extends Controller
     public function Classes(){
         return view("Public.Classes");
     }
-    
-    public function Contact(){
-        return view("Public.Contact");
-    }
 
     public function Gallery(){
         return view("Public.Gallery");
@@ -38,8 +34,8 @@ class PublicController extends Controller
         return view("Public.Profile");
     }
 
-    public function Team(){
-        return view("Public.Team");
+    public function Contact(){
+        return view("Public.Contact");
     }
     public function Timetable(){
         return view("Public.ClassTimetable");

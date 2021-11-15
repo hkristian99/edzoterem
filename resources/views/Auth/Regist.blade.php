@@ -20,11 +20,20 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 leave-comment">
                         <h2 style="color:#fff;">Regisztráció</h2><br>
-                        <form name="regist" action="#">
-                            <input class="input" name="name" type="text" placeholder="Név"><br>
-                            <input class="input" name="email" type="email" placeholder="E-mail cím"><br>
+                        @if ($errors->any() )
+                            <div class="alert alert-danger">   
+                                @foreach ($errors->all() as $error)
+                                {{ $error }}<br>
+                                @endforeach 
+                            </div>
+                        @endif
+                        <form name="regist" action="{{route('sendregist')}}" method="POST">
+                            @csrf
+                            <input class="input" name="firstname" value="{{old("firstname")}}"type="text" placeholder="Vezetéknév"><br>
+                            <input class="input" name="lastname" value="{{old("lastname")}}"type="text" placeholder="Keresztnév"><br>
+                            <input class="input" name="email" value="{{old("email")}}"type="email" placeholder="E-mail cím"><br>
                             <input class="input" name="password" type="password" placeholder="Jelszó"><br>
-                            <input class="input" name="confim_password" type="password" placeholder="Jelszó mégegyszer"><br>
+                            <input class="input" name="password_confirmation" type="password" placeholder="Jelszó mégegyszer"><br>
                             <div class="row justify-content-center">
                                 <div class="col">
                                     <button type="submit" class= "primary-btn">Regisztráció</button>

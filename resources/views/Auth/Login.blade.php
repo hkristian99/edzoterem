@@ -20,21 +20,29 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 leave-comment">
                         <h2 style="color:#fff;">Bejelentkezés</h2><br>
-                        <form name="login" action="#">
-                            <input class="input" name="email" type="email" placeholder="E-mail cím"><br>
+                        @if ($errors->any() )
+                        <div class="alert alert-danger">   
+                            @foreach ($errors->all() as $error)
+                                {{ $error }}
+                            @endforeach 
+                        </div>
+                        @endif
+                        <form name="login" action="{{route('loginAttempt')}}" method="POST">
+                            @csrf
+                            <input class="input" name="email" value="{{old("email")}}" type="email" placeholder="E-mail cím"><br>
                             <input class="input" name="password"type="password" placeholder="Jelszó"><br>
                             <div class="row justify-content-center">
-                                <div class="col">
+                                <div class="col-lg-5">
                                     <button type="submit" class= "primary-btn">Bejelentkezés</button>
                                 </div>
-                                <div class="col text-right">
-                                    <a href="{{route("regist")}}" class= "primary-btn reg">Regisztráció</a>
+                                <div class="col-lg-7 text-right">
+                                    <a href="{{route("regist")}}" class="primary-btn btn-normal appoinment-btn reg">Regisztráció</a>
                                 </div>
                             </div>
                             <div class="row justify-content-center">
                                 <hr>
                                 <div class="col text-right" style="margin-top:2%;" >
-                                    <a href="#"  >Elfelejtett jelszó</a>
+                                    <a href="{{route('lostPassword')}}"  >Elfelejtett jelszó</a>
                                 </div>
                             </div>
                         </form>
