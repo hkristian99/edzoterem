@@ -1,5 +1,6 @@
 @extends('Public.Layouts.Master')
 @section('content')
+    
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="/assets/frontend/img/breadcrumb-bg.jpg">
         <div class="container">
@@ -19,7 +20,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-6 leave-comment">
-                        <h2 style="color:#fff;">Regisztráció</h2><br>
+                        <h2 class="text-white">Regisztráció</h2><br>
                         @if ($errors->any() )
                             <div class="alert alert-danger">   
                                 @foreach ($errors->all() as $error)
@@ -27,8 +28,9 @@
                                 @endforeach 
                             </div>
                         @endif
-                        <form name="regist" action="{{route('sendregist')}}" method="POST">
+                        <form   id="i_recaptcha" name="regist" action="{{route('sendregist')}}" method="POST">
                             @csrf
+                            <input type="hidden" id="reCaptchaToken" name="reCaptchaToken" value="">
                             <input class="input" name="firstname" value="{{old("firstname")}}"type="text" placeholder="Vezetéknév"><br>
                             <input class="input" name="lastname" value="{{old("lastname")}}"type="text" placeholder="Keresztnév"><br>
                             <input class="input" name="email" value="{{old("email")}}"type="email" placeholder="E-mail cím"><br>
@@ -36,7 +38,7 @@
                             <input class="input" name="password_confirmation" type="password" placeholder="Jelszó mégegyszer"><br>
                             <div class="row justify-content-center">
                                 <div class="col">
-                                    <button type="submit" class= "primary-btn">Regisztráció</button>
+                                    <button type="submit" class= "primary-btn g-recaptcha" data-sitekey="{{ env("G_RECAPTCHA_SITE_KEY") }}" data-callback='onSubmit'>Regisztráció</button>
                                 </div>
                             </div>
                             <div class="row justify-content-center">

@@ -19,24 +19,30 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-6 leave-comment">
-                        <h2 style="color:#fff;">Bejelentkezés</h2><br>
+                        <h2 class="text-white">Bejelentkezés</h2><br>
                         @if ($errors->any() )
-                        <div class="alert alert-danger">   
-                            @foreach ($errors->all() as $error)
-                                {{ $error }}
-                            @endforeach 
-                        </div>
+                            <div class="alert alert-danger">   
+                                @foreach ($errors->all() as $error)
+                                    {{ $error }}
+                                @endforeach 
+                            </div>
                         @endif
-                        <form name="login" action="{{route('loginAttempt')}}" method="POST">
+                        @if( Session::has('success') )
+                            <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                            </div>
+                        @endif
+                        <form id="i_recaptcha" name="login" action="{{route('loginAttempt')}}" method="POST">
                             @csrf
+                            <input type="hidden" id="reCaptchaToken" name="reCaptchaToken" value="">
                             <input class="input" name="email" value="{{old("email")}}" type="email" placeholder="E-mail cím"><br>
                             <input class="input" name="password"type="password" placeholder="Jelszó"><br>
                             <div class="row justify-content-center">
                                 <div class="col-lg-5">
-                                    <button type="submit" class= "primary-btn">Bejelentkezés</button>
+                                    <button type="submit" class="primary-btn g-recaptcha" data-sitekey="{{ env("G_RECAPTCHA_SITE_KEY") }}" data-callback='onSubmit'>Bejelentkezés</button>
                                 </div>
                                 <div class="col-lg-7 text-right">
-                                    <a href="{{route("regist")}}" class="primary-btn btn-normal appoinment-btn reg">Regisztráció</a>
+                                    <a href="{{route("regist")}}" class="primary-btn btn-normal appoinment-btn reg ">Regisztráció</a>
                                 </div>
                             </div>
                             <div class="row justify-content-center">

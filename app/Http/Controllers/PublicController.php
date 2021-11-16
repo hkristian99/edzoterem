@@ -31,7 +31,7 @@ class PublicController extends Controller
     }
     
     public function Profile(){
-        return view("Public.Profile");
+        return view("Public.Profiles.Profile");
     }
 
     public function Contact(){

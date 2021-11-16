@@ -17,6 +17,7 @@ Route::get("/orarendek", [PublicController::class, "Timetable"])->name("timetabl
 Route::get("/bmi-kalkulator", [PublicController::class, "Bmi"])->name("bmi");
 Route::get("/galeria", [PublicController::class, "Gallery"])->name("gallery");
 Route::get("/blog", [PublicController::class, "Blog"])->name("blog");
+Route::get("/profilom", [PublicController::class, "Profile"])->name("profile");
 
 //LOGIN /  REGISZRÁCIÓ / ELFELEJTETT JELSZÓ
 Route::get('/bejelentkezes', [AuthController::class, 'Login'])->name('login');
@@ -27,6 +28,10 @@ Route::post('/regisztracio', [AuthController::class, 'SendRegist'])->name('sendr
 Route::get('/regisztracio/sikeres', [AuthController::class, 'SuccessReg'])->name('successreg');
 
 Route::get('/elfelejtett-jelszo', [AuthController::class, 'LostPassword'])->name('lostPassword');
+Route::post('/elfelejtett-jelszo', [AuthController::class, 'SendLostPassword'])->name('sendLostPassword');
+Route::get('/elfelejtett-jelszo/{email}/{code}', [AuthController::class, 'ChangeLostPassword'])->name('changeLostPassword');
+Route::post('/elfelejtett-jelszo-modositas', [AuthController::class, 'SendChangeLostPassword'])->name('sendChangeLostPassword');
+
 Route::get('/kijelentkezes', [AuthController::class, 'LogOut'])->name('logout');
 
 //ADMIN

@@ -94,21 +94,17 @@
                 </nav>
             </div>
             <div class="col-lg-3">
-                <div class="top-option">
-                    <div class="to-search">
-                        <form action="" method="">
-                        <input class="search" name="search" type="text" placeholder="Keresés">
-                        <button type="submit" class="fa fa-search"></button>
-                        </form>
-                    </div>
+                <div class="top-option" style="padding:0px;">
                     <div class="to-social">
                             <nav class="nav-menu stroke">
                                 <ul>
                                     <li>
                                         @if (Auth::check())
-                                        <a href="#"><i class="fa fa-user"></i></a>
+                                        <a href="#" ><i class="fa fa-user" style="font-size:25px;"></i></a>
                                             <ul class="dropdown profilMenu">
-                                                <li><a class="profilMenuItem" href="{{route('prices')}}/#berletek">Profilom</a></li>
+                                                <p class="p">{{Auth::user()->name}}</p><hr class="hr">
+                                                <li><a class="profilMenuItem" href="{{route('profile')}}">Profilom</a></li>
+                                                <li><a class="profilMenuItem" href="{{route('profile')}}">Rendeléseim</a></li>
                                                 @if (Auth::user()->role_id != 4)
                                                 <li><a class="profilMenuItem" href="{{route('admin')}}">Adminisztráció</a></li>
                                                 @endif
@@ -121,13 +117,6 @@
                                 </ul>
                             </nav>
                     </div>
-                   <!-- <div class="to-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-youtube-play"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                    </div>
-                    -->
                 </div>
             </div>
         </div>
@@ -138,6 +127,7 @@
 </header>
 <!-- Header End -->
 @yield('content')
+
         <!-- Get In Touch Section Begin -->
         <div class="gettouch-section">
             <div class="container">
@@ -262,5 +252,9 @@
         <script src="/assets/frontend/js/jquery.slicknav.js"></script>
         <script src="/assets/frontend/js/owl.carousel.min.js"></script>
         <script src="/assets/frontend/js/main.js"></script>
+        <script src="/assets/frontend/js/custom.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+        @yield("scripts")
     </body>
     </html>

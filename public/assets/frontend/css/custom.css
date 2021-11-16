@@ -83,6 +83,9 @@
   a{
     color:#f36100;
   }
+  a.successLogin{
+    color:#f36100 !important;
+  }
   form input:focus{
     border: 1.5px solid #f36100;
     transition: all 0.3s;
@@ -106,8 +109,10 @@
   }
 
   ul.profilMenu{
-    left: -141px !important;
+    left: -100px !important;
     text-align: right !important;
+    padding-top:2% !important;
+    width: auto !important;
   }
   a.profilMenuItem{
     left: -10%;
@@ -117,7 +122,19 @@
     background-color: rgb(21,21,21);
     border:#f36100 solid 1px;
     text-align: center;
-
+  }
+  hr.hr{
+    border: 1px solid #fff !important;
+    margin: 2px !important;
+  }
+  p.p{
+    text-align: center; 
+    margin:2px;
+  }
+  .modify-btn{
+    width:auto !important;
+    padding:14px 20px !important;
+    border:0px !important;
   }
 
   
