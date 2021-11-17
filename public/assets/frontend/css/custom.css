@@ -122,6 +122,14 @@
     background-color: rgb(21,21,21);
     border:#f36100 solid 1px;
     text-align: center;
+    margin-top: 2%;
+  }
+  div.alert-success{
+    color:#37a820;
+    background-color: rgb(21,21,21);
+    border:#37a820 solid 1px;
+    text-align: center;
+    margin-top: 2%;
   }
   hr.hr{
     border: 1px solid #fff !important;
@@ -136,7 +144,36 @@
     padding:14px 20px !important;
     border:0px !important;
   }
-
+  .cancel-btn{
+    width: auto !important;
+    margin-top: 0% !important;
+    height:46px !important;
+    padding:0px 20px !important;
+    left:10% !important;
+  }
+  .order-btn{
+    width: auto !important;
+    margin: 1% !important;
+    margin-right: 0% !important;
+    height: 36px !important;
+    padding: 0px 14px !important;
+    font-size: 24px;
+    cursor:pointer;
+  }
+  .save-btn{
+    width: auto !important;
+    margin:0px 20px;
+    left:10% !important;
+  }
+  ol{
+    color:#fff;
+    margin-left: 23px;
+  }
+  #shipping-types{
+    padding-left:0px; 
+    margin: 0px; 
+    padding-left: 16px;
+  }
   
   /* Keyframes */
   @-webkit-keyframes fill {

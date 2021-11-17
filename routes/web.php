@@ -18,6 +18,7 @@ Route::get("/bmi-kalkulator", [PublicController::class, "Bmi"])->name("bmi");
 Route::get("/galeria", [PublicController::class, "Gallery"])->name("gallery");
 Route::get("/blog", [PublicController::class, "Blog"])->name("blog");
 Route::get("/profilom", [PublicController::class, "Profile"])->name("profile");
+Route::post("/profilom", [PublicController::class, "ProfilUpdate"])->name("profilUpdate");
 
 //LOGIN /  REGISZRÁCIÓ / ELFELEJTETT JELSZÓ
 Route::get('/bejelentkezes', [AuthController::class, 'Login'])->name('login');

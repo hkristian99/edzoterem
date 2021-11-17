@@ -194,7 +194,8 @@ class AuthController extends Controller
         */
 
         $user = new User();
-        $user->name = $request->firstname." ".$request->lastname;
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->role_id = 4;
