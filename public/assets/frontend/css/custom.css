@@ -169,10 +169,22 @@
     color:#fff;
     margin-left: 23px;
   }
-  #shipping-types{
+  #billing-types{
     padding-left:0px; 
-    margin: 0px; 
+    margin: 0px !important; 
     padding-left: 16px;
+  }
+  input.file{
+    font-size: 14px !important;
+    padding: 0px !important;
+    width: 269px !important;
+    height: 29px !important;
+  }
+  img.student_card{
+    width: 120px;
+    height: 80px;
+    border:#f36100 solid 3px;
+    margin-left: 261px;
   }
   
   /* Keyframes */

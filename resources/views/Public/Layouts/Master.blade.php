@@ -252,6 +252,7 @@
         <script src="/assets/frontend/js/jquery.slicknav.js"></script>
         <script src="/assets/frontend/js/owl.carousel.min.js"></script>
         <script src="/assets/frontend/js/main.js"></script>
+        <script src="/assets/frontend/js/inputmask.min.js"></script>
         <script src="/assets/frontend/js/custom.js"></script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 

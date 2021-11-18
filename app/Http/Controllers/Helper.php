@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class Helper extends Controller
 {
-    public function checkRecapctha($token)
+    public static function checkRecapctha($token)
     {
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $remoteip = $_SERVER['REMOTE_ADDR'];

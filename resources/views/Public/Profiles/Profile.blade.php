@@ -22,30 +22,30 @@
             <!-- Személyes adatok -->
             <div class="leave-comment">
                 <h2 class="text-white">Alapadatok: </h2><br>
-                <div class="col text-right" id="modify-button-div" style="padding:0px;">
-                    
-                    <button type="button" id="modify-button" class="primary-btn modify-btn">Módosítás</button>
-                </div>
-                <div class="form-row">
-                    <div class="col text-right d-none" id="save-button-div">
-                        <button type="submit" id="personal-save-btn" class="primary-btn modify-btn save-btn">Módosítások mentése</button>
-                        <button type="button" id="cancel-button" class="primary-btn appoinment-btn cancel-btn">Mégse</button>
-                    </div>
-                </div>
-                @if ($errors->any() )
+                
+                @if (count($errors->personalError) > 0 )
                     <div class="alert alert-danger">   
-                        @foreach ($errors->all() as $error)
+                        @foreach ($errors->personalError->all() as $error)
                         {{ $error }}<br>
                         @endforeach 
                     </div>
                 @endif
-                @if( Session::has('success') )
+                @if( session()->has('successPersonal') )
                     <div class="alert alert-success">
-                    {{ Session::get('success') }}
+                        {{ session()->get('successPersonal') }}
                     </div>
                 @endif
-                <form  name="profile" id="profile-form" action="{{route("profilUpdate")}}" method="POST">
+                <form  name="profile" id="profile-form" action="{{route("profilUpdate")}}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <div class="col text-right" id="modify-button-div" style="padding:0px;">
+                        <button type="button" id="modify-button" class="primary-btn modify-btn">Módosítás</button>
+                    </div>
+                    <div class="form-row">
+                        <div class="col text-right d-none" id="save-button-div">
+                            <button type="submit" id="personal-save-btn" class="primary-btn modify-btn save-btn">Módosítások mentése</button>
+                            <button type="button" id="cancel-button" class="primary-btn appoinment-btn cancel-btn">Mégse</button>
+                        </div>
+                    </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label class="text-white">Vezetéknév:</label>
@@ -61,15 +61,21 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label class="text-white">Diákgazolványszám: <small>*</small></label>
-                            <input class="input" name="student_card_number" value="764088829" type="text" disabled>
+                            <input class="input" name="student_card_number" value="{{Auth::user()->student_card_number}}" type="text" disabled>
                         </div>
                         <div class="form-group col-md-4">
-                            <label class="text-white">Diákgazolványkép - előlap: <small>*</small></label>
-                            <input class="input" name="student_card_front" value="764088829" type="file" disabled>
+                            <label class="text-white">Diákgazolványkép - előlap: <small>*</small></label><br>
+                            <input type="file" class="file " id="student_card_front" name="student_card_front" disabled>    
+                            @if (Auth::user()->student_card_front != null)
+                                <img src="images/student_cards/{{Auth::user()->student_card_front}}"  class="student_card">
+                            @endif
                         </div>
                         <div class="form-group col-md-4">
-                            <label class="text-white">Diákgazolványkép - hátlap: <small>*</small></label>
-                            <input class="input" name="student_card_back" value="764088829" type="file" disabled>
+                            <label class="text-white">Diákgazolványkép - hátlap: <small>*</small></label><br>
+                            <input type="file" class="file" name="student_card_back" disabled>  
+                            @if (Auth::user()->student_card_front != null)  
+                                <img src="images/student_cards/{{Auth::user()->student_card_back}}" class="student_card">
+                            @endif
                         </div>
                         <div class="form-group col-md-12 text-right">
                             <label class=text-white><small>*A kedvezményes bérlet igénybevételéhez szükséges az érvényes diákigazolvány feltöltése</small></label>
@@ -82,58 +88,78 @@
             <hr style="border:rgb(156, 156, 156) solid 2px; width:80%; margin-bottom:50px;">
 
             <!-- Számlázási adatok -->
-            <div class="leave-comment">
+            <div class="leave-comment" id="billingDiv">
                 <div class="form-group col-md-12" style="padding:0px;">
                     <h2 class="text-white">Számlázási cím: <small> (kötelező rendelés esetén)</small></h2><br>
                     <div class="form-row">
                         <div id="billing-address-form" class="col-12 col-md-7" style="padding-top: 20px;">
-                            <form  name="profile" id="profile-form" action="{{route("profilUpdate")}}" method="POST">
+                            <form  name="profile" id="profile-form" action="{{route("billingAddressNew")}}" method="POST">
                                 @csrf
                                 <div class="row">
                                     <div class="form-group col-md-12">
+                                        @if (count($errors->billingError) > 0 )
+                                            <div class="alert alert-danger">   
+                                                @foreach ($errors->billingError->all() as $error)
+                                                {{ $error }}<br>
+                                                @endforeach 
+                                            </div>
+                                        @endif
+                                        @if( session()->has('successBilling') )
+                                            <div class="alert alert-success">
+                                            {{ session()->get('successBilling') }}
+                                            </div>
+                                        @endif
                                         <div class="row">
-                                            <div  id="shipping-types" class="col-md-6 table-controls text-left">
-                                                <ul id="shipping-types-ul" >
+                                            <div  id="billing-types" class="col-md-6 table-controls text-left">
+                                                <ul id="billing-types-ul" >
                                                     <li id="person" class="active" >Magánszemély</li>
                                                     <li id="company" class="">Cég</li>
                                                 </ul>
                                             </div>
-                                            <div id="billing-new-btn" class="col-md-6 text-right">
-                                                <button type="submit" id="personal-save-btn" class="primary-btn modify-btn save-btn" style="margin:0px">Új cím hozzáadása</button>
-                                            </div>
-                                            <div id="billing-buttons"class="col-md-6 text-right d-none" style="padding-left:0px;">
-                                                <button type="submit" id="billing-save-btn" class="primary-btn modify-btn save-btn" style="">Módosítás</button>
-                                                <button type="button" id="billing-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</button>
-                                            </div>
                                         </div>
                                     </div>
+                                    <input type="hidden" id="billing-type" class="input" name="billing_type" value="1" >
                                     <div class="form-group col-md-12">
-                                        <input id="billing-name" class="input" name="" value="Név" type="text">
+                                        <input id="billing-name" class="input" name="billing_name" placeholder="Név" type="text">
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <input class="input" name="" value="Ország" type="text">
+                                        <select class="input form-control" name="billing_country_id">
+                                            @foreach ($countries as $country)
+                                            <option  value="{{$country["id"]}}"> {{$country["name"]}}</label></option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input class="input" name="" value="Irányítószám" type="text">
+                                        <input class="input" name="billing_postcode" placeholder="Irányítószám" type="text">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input class="input" name="" value="Város" type="text">
+                                        <input class="input" name="billing_city" placeholder="Város" type="text">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input class="input" name="" value="Utca, házszám" type="text">
+                                        <input class="input" name="billing_street" placeholder="Utca, házszám" type="text">
                                     </div>
                                     <div class="form-group col-md-12 taxNumber d-none">
-                                        <input class="input" name="" value="Adószám" type="text">
+                                        <input class="input" name="tax_number" placeholder="Adószám" type="text">
                                     </div>
-                                    
+                                    <div id="billing-new-btn" class="col-md-12 text-left">
+                                        <button type="submit" id="billing-save-btn" class="primary-btn modify-btn save-btn" style="margin:0px">Új cím hozzáadása</button>
+                                    </div>
+                                    <div id="billing-buttons"class="col-md-12 text-left d-none" style="padding-left:0px;">
+                                        <button type="submit" id="billing-edit-btn" class="primary-btn modify-btn save-btn" style="">Módosítás</button>
+                                        <button type="button" id="billing-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                         <div class="col-12 col-md-5 text-left" style="padding-left: 100px;">
                             <label class="text-white">Eddigi számlázási címeim:</label><br>
                             <ul>
-                                <li><a href="#" class="billing-address">Kis Pista - 1081 Budapest, Csokonai utca 3.</a></li>
-                                <li><a href="#" class="billing-address">Nagy Jóska - 1111 Budapest, Teszt utca 11.</a></li>
+                                @foreach ($billingAddresses as $billingAddress)
+                                    <li><a href="#" class="billing-address">
+                                        @if($billingAddress->tax_number != 0 ) Cég: @endif
+                                        {{$billingAddress->name}}
+                                        - {{$billingAddress->postcode}} {{$billingAddress->city}}, {{$billingAddress->street}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -144,46 +170,67 @@
             <hr style="border:rgb(156, 156, 156) solid 2px; width:80%; margin-bottom:50px;">
 
             <!--Szállítási adatok -->
-            <div class="leave-comment">
+            <div class="leave-comment" id="shippingDiv">
                 <div class="form-group col-md-12">
                     <h2 class="text-white">Szállítási címeim: <small> (opcionális)</small></h2><br>
                     <div class="row">
                         <div id="shipping-address-form" class="col-12 col-md-7" style="padding-top: 20px;">
-                            <form  name="profile" id="profile-form" action="{{route("profilUpdate")}}" method="POST">
+                            <form  name="profile" id="profile-form" action="{{route("shippingAddressNew")}}" method="POST">
                                 @csrf
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <div class="row">
-                                            <div id="shipping-new-btn" class="col-md-12 text-right" style="padding-left:0px;">
-                                                <button type="submit" id="shipping-save-btn" class="primary-btn modify-btn">Új cím hozzádása</button><button type="button" id="shipping-delete-btn" class="primary-btn appoinment-btn cancel-btn d-none">Törlés</button>
+                                        @if (count($errors->shippingError) > 0 )
+                                            <div class="alert alert-danger">   
+                                                @foreach ($errors->shippingError->all() as $error)
+                                                {{ $error }}<br>
+                                                @endforeach 
                                             </div>
-                                            <div id="shipping-buttons"class="col-md-12 text-right d-none" style="padding-left:0px;">
-                                                <button type="submit" id="shipping-modify-btn" class="primary-btn modify-btn save-btn">Módosítás</button>
+                                        @endif
+                                        @if( session()->has('successShipping') )
+                                            <div class="alert alert-success">
+                                            {{ session()->get('successShipping') }}
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <input id="shipping-name" class="input" name="shipping_name" value="{{old("shipping-name")}}" placeholder="Név" type="text">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input class="input" name="shipping_postcode" value="{{old("shipping-postcode")}}" placeholder="Irányítószám" type="text">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input class="input" name="shipping_city" value="{{old("shipping-city")}}" placeholder="Város" type="text">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input class="input" name="shipping_street"value="{{old("shipping-street")}}" placeholder="Utca, házszám" type="text">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <input id="phoneNumber" name="shipping_phone" value="{{old("shipping-phone")}}" placeholder="Telefonszám" maxlength="16" />
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <textarea  name="shipping_note" value="{{old("shipping-comment")}}" placeholder="Megjegyzés"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="row">
+                                            <div id="shipping-new-btn" class="col-md-12 text-left" style="padding-left:0px;">
+                                                <button type="submit" id="shipping-save-btn" class="primary-btn modify-btn">Új cím hozzádása</button>
+                                            </div>
+                                            <div id="shipping-buttons"class="col-md-12 text-left d-none" style="padding-left:0px;">
+                                                <button type="submit" id="shipping-edit-btn" class="primary-btn modify-btn save-btn">Módosítás</button>
                                                 <button type="button" id="shipping-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <input id="shipping-name" class="input" name="" value="Név" type="text">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input class="input" name="" value="Irányítószám" type="text">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input class="input" name="" value="Város" type="text">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input class="input" name="" value="Utca, házszám" type="text">
-                                    </div>
-                                    
                                 </div>
                             </form>
                         </div>
                         <div class="col-12 col-md-5" style="padding-left: 100px;">
                             <label class="text-white">Eddigi szállítási címeim:</label><br>
                             <ul>
-                                <li><a href="#" class="shipping-address"> Kis Pista - 1081 Budapest, Csokonai utca 3.</a></li>
-                                <li><a href="#" class="shipping-address">Nagy Jóska - 1111 Budapest, Teszt utca 11.</a></li>
+                                @foreach ($shippingAddresses as $shippingAddress)
+                                    <li><a href="#" class="shipping-address"> {{$shippingAddress->name}}
+                                        - {{$shippingAddress->postcode}} {{$shippingAddress->city}}, {{$shippingAddress->street}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -225,6 +272,7 @@
             $("#billing-new-btn").addClass("d-none");
             $("#billing-buttons").removeClass("d-none");
             $("#billing-name").focus();
+            $("#billing-name").attr('value','Kecske');
         });
         $("#billing-delete-btn").on("click", function() {
             $("#shipping-new-btn").addClass("d-none");
@@ -238,10 +286,14 @@
         });
         $("#person").on("click", function() {
             $(".taxNumber").addClass("d-none");
+            $("#billing-type").attr('value','s');
         });
         $("#company").on("click", function() {
-            console.log("itt");
+            
             $(".taxNumber").removeClass("d-none");
+            $("#billing-type").attr('value','2');
         });
+        $("#phoneNumber").inputmask("(99) 999-999[9]",{ "placeholder": "_" });
+
     </script>
     @endsection
