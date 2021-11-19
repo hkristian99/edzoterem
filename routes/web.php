@@ -13,7 +13,6 @@ use App\Http\Controllers\ProfilController;
     Route::get("/csoportok", [PublicController::class, "Classes"])->name("classes");
     Route::get("/szolgaltatasok", [PublicController::class, "Services"])->name("service");
     Route::get("/kapcsolat", [PublicController::class, "Contact"])->name("contact");
-    Route::get("/profilom", [PublicController::class, "Profile"])->name("profile");
     Route::get("/orarendek", [PublicController::class, "Timetable"])->name("timetable");
     Route::get("/bmi-kalkulator", [PublicController::class, "Bmi"])->name("bmi");
     Route::get("/galeria", [PublicController::class, "Gallery"])->name("gallery");
@@ -22,16 +21,18 @@ use App\Http\Controllers\ProfilController;
 //PROFIL ÉS MÁS ADATOK
 
     //Profil :
-    Route::get("/profilom", [ProfilController::class, "Profile"])->name("profile");
-    Route::post("/profilom", [ProfilController::class, "ProfilUpdate"])->name("profilUpdate");
+    Route::get("/profilom/{anchor?}", [ProfilController::class, "Profile"])->name("profile");
+    Route::post("/profilom", [ProfilController::class, "ProfileUpdate"])->name("profileUpdate");
 
     //Számlázási cím :
     Route::post('/uj-szamlazasi-cim', [ProfilController::class, 'BillingAddressNew'])->name('billingAddressNew');
     Route::post('/szamlazasi-cim-modositas', [ProfilController::class, 'BillingAddressUpdate'])->name('billingAddressUpdate');
+    Route::post('/szamlazasi-cim-torlese', [ProfilController::class, 'BillingAddressDelete'])->name('billingAddressDelete');
 
     //Szállítási cím :
     Route::post('/uj-szallitasi-cim', [ProfilController::class, 'ShippingAddressNew'])->name('shippingAddressNew');
-    Route::post('/szallitasi-cim-modositas', [ProfilController::class, 'ShippingAddressUpdate'])->name('shippingAddressUpdate');
+    Route::post('/szallitasi-cim-modositasa', [ProfilController::class, 'ShippingAddressUpdate'])->name('shippingAddressUpdate');
+    Route::post('/szallitasi-cim-torlese', [ProfilController::class, 'ShippingAddressDelete'])->name('shippingAddressDelete');
 
 //LOGIN /  REGISZRÁCIÓ / ELFELEJTETT JELSZÓ
 

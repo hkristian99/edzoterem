@@ -15,14 +15,14 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Contact Section Begin -->
-<section class="contact-section spad">
+<section class="contact-section spad pageProfile">
     <div class="container">
         <div class="row justify-content-center">
 
             <!-- Személyes adatok -->
             <div class="leave-comment">
                 <h2 class="text-white">Alapadatok: </h2><br>
-                
+                <div id="alapadatokDIV" class="d-none">{{ Auth::user() }}</div>
                 @if (count($errors->personalError) > 0 )
                     <div class="alert alert-danger">   
                         @foreach ($errors->personalError->all() as $error)
@@ -35,50 +35,53 @@
                         {{ session()->get('successPersonal') }}
                     </div>
                 @endif
-                <form  name="profile" id="profile-form" action="{{route("profilUpdate")}}" method="POST" enctype="multipart/form-data">
+                <form  name="profile" id="profile-form" action="{{route("profileUpdate")}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="col text-right" id="modify-button-div" style="padding:0px;">
+                    <input type="hidden" name="form_azonosito" value="alapadatok">
+                    
+                    <div class="col text-right {{ old() && old("form_azonosito")=="alapadatok" ? "d-none" : "" }}" id="modify-button-div" style="padding:0px;">
                         <button type="button" id="modify-button" class="primary-btn modify-btn">Módosítás</button>
                     </div>
+
                     <div class="form-row">
-                        <div class="col text-right d-none" id="save-button-div">
-                            <button type="submit" id="personal-save-btn" class="primary-btn modify-btn save-btn">Módosítások mentése</button>
+                    <div class="col text-right {{ old("form_azonosito") && old("form_azonosito")=="alapadatok" ? "" : "d-none" }}" id="save-button-div">
+                            <button type="submit" id="personal-save-btn" class="primary-btn modify-btn save-btn" style="margin-bottom: 16px;">Módosítások mentése</button>
                             <button type="button" id="cancel-button" class="primary-btn appoinment-btn cancel-btn">Mégse</button>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label class="text-white">Vezetéknév:</label>
-                            <input class="input" id="firstname" name="firstname" value="{{Auth::user()->firstname}}" type="text" disabled>
+                            <input class="input" id="firstname" name="firstname" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("firstname") : Auth::user()->firstname }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
                         </div>
                         <div class="form-group col-md-4">
                             <label class="text-white">Keresztnév:</label>
-                            <input class="input" name="lastname" value="{{Auth::user()->lastname}}" type="text" disabled>
+                            <input class="input" id="lastname" name="lastname" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("lastname") : Auth::user()->lastname }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
                         </div>
                         <div class="form-group col-md-4">
                             <label class="text-white">E-mail:</label>
-                            <input class="input" name="email" value="{{Auth::user()->email}}" type="email" disabled>
+                            <input class="input" id="email" name="email" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("email") : Auth::user()->email }}" type="email" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-12">
                             <label class="text-white">Diákgazolványszám: <small>*</small></label>
-                            <input class="input" name="student_card_number" value="{{Auth::user()->student_card_number}}" type="text" disabled>
+                            <input class="input" id="student_card_number" name="student_card_number" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("student_card_number") : Auth::user()->student_card_number }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label class="text-white">Diákgazolványkép - előlap: <small>*</small></label><br>
-                            <input type="file" class="file " id="student_card_front" name="student_card_front" disabled>    
                             @if (Auth::user()->student_card_front != null)
                                 <img src="images/student_cards/{{Auth::user()->student_card_front}}"  class="student_card">
                             @endif
+                            <input type="file" class="file " id="student_card_front" name="student_card_front" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label class="text-white">Diákgazolványkép - hátlap: <small>*</small></label><br>
-                            <input type="file" class="file" name="student_card_back" disabled>  
                             @if (Auth::user()->student_card_front != null)  
                                 <img src="images/student_cards/{{Auth::user()->student_card_back}}" class="student_card">
                             @endif
+                            <input type="file" class="file" name="student_card_back" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
                         </div>
-                        <div class="form-group col-md-12 text-right">
-                            <label class=text-white><small>*A kedvezményes bérlet igénybevételéhez szükséges az érvényes diákigazolvány feltöltése</small></label>
+                        <div class="form-group col-md-12 text-left">
+                            <label style="color: #696868;"><small>*A kedvezményes bérlet igénybevételéhez szükséges az érvényes diákigazolvány feltöltése</small></label>
                         </div>
                     </div>
                 </form>
@@ -91,10 +94,14 @@
             <div class="leave-comment" id="billingDiv">
                 <div class="form-group col-md-12" style="padding:0px;">
                     <h2 class="text-white">Számlázási cím: <small> (kötelező rendelés esetén)</small></h2><br>
+                    <div id="szamlazasiadatokDIV" class="d-none"></div>
                     <div class="form-row">
                         <div id="billing-address-form" class="col-12 col-md-7" style="padding-top: 20px;">
-                            <form  name="profile" id="profile-form" action="{{route("billingAddressNew")}}" method="POST">
+                            <form  name="profile" id="profile-form" action="{{ route("billingAddressNew") }}" method="POST">
                                 @csrf
+                                <input type="hidden" name="form_azonosito" value="szamlazasi">
+                                <input type="hidden" id="billing-type" class="input" name="billing_type" value="1" >
+                                <input type="hidden" id="billingAddressId" name="billingAddressId" value="">
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         @if (count($errors->billingError) > 0 )
@@ -112,41 +119,41 @@
                                         <div class="row">
                                             <div  id="billing-types" class="col-md-6 table-controls text-left">
                                                 <ul id="billing-types-ul" >
-                                                    <li id="person" class="active" >Magánszemély</li>
-                                                    <li id="company" class="">Cég</li>
+                                                    <li id="person" class="{{ !old() || (old() && old("billing_type") == 1) ? "active" : "" }}" >Magánszemély</li>
+                                                    <li id="company" class="{{ old() &&  old("billing_type") == 2 ? "active" : "" }}">Cég</li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="hidden" id="billing-type" class="input" name="billing_type" value="1" >
                                     <div class="form-group col-md-12">
-                                        <input id="billing-name" class="input" name="billing_name" placeholder="Név" type="text">
+                                        <input  type="text" class="input" id="billing_name" name="billing_name" placeholder="Név" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_name") : "" }}">
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <select class="input form-control" name="billing_country_id">
+                                        <select class="input form-control" id="billing_country_id" name="billing_country_id">
                                             @foreach ($countries as $country)
-                                            <option  value="{{$country["id"]}}"> {{$country["name"]}}</label></option>
+                                                <option  value="{{$country["id"]}}" {{ old() && old("billing_country_id")==$country["id"] ? "SELECTED" : "" }}> {{$country["name"]}}</label></option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input class="input" name="billing_postcode" placeholder="Irányítószám" type="text">
+                                        <input type="text" class="input" id="billing_postcode" name="billing_postcode" placeholder="Irányítószám"  value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_postcode") : "" }}">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input class="input" name="billing_city" placeholder="Város" type="text">
+                                        <input type="text" class="input" id="billing_city" name="billing_city" placeholder="Város" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_city") : "" }}">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input class="input" name="billing_street" placeholder="Utca, házszám" type="text">
+                                        <input type="text" class="input"id="billing_street" name="billing_street" placeholder="Utca, házszám" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_street") : "" }}">
                                     </div>
-                                    <div class="form-group col-md-12 taxNumber d-none">
-                                        <input class="input" name="tax_number" placeholder="Adószám" type="text">
+                                    <div class="form-group col-md-12 taxNumber {{ !old() || (old("billing_type") != 2) ? "d-none" : "" }}">
+                                        <input type="text" class="input" id="tax_number" name="tax_number" placeholder="Adószám" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("tax_number") : "" }}">
                                     </div>
-                                    <div id="billing-new-btn" class="col-md-12 text-left">
-                                        <button type="submit" id="billing-save-btn" class="primary-btn modify-btn save-btn" style="margin:0px">Új cím hozzáadása</button>
+                                    <div id="billing-new-btn" class="col-md-12 text-left" style="padding-left:0px;">
+                                        <button type="submit" id="billing-save-btn" class="primary-btn modify-btn save-btn" >Új cím hozzáadása</button>
                                     </div>
                                     <div id="billing-buttons"class="col-md-12 text-left d-none" style="padding-left:0px;">
                                         <button type="submit" id="billing-edit-btn" class="primary-btn modify-btn save-btn" style="">Módosítás</button>
-                                        <button type="button" id="billing-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</button>
+                                        <button type="submit" formaction="{{route("billingAddressDelete")}}" id="billing-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</button>
+                                        <button type="submit" formaction="javascript:void(0)"id="billing_cancel_btn" class="primary-btn appoinment-btn cancel-btn" style="margin-right: 10px;">Mégse</button>
                                     </div>
                                 </div>
                             </form>
@@ -155,10 +162,15 @@
                             <label class="text-white">Eddigi számlázási címeim:</label><br>
                             <ul>
                                 @foreach ($billingAddresses as $billingAddress)
-                                    <li><a href="#" class="billing-address">
-                                        @if($billingAddress->tax_number != 0 ) Cég: @endif
-                                        {{$billingAddress->name}}
-                                        - {{$billingAddress->postcode}} {{$billingAddress->city}}, {{$billingAddress->street}}</a></li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="billing_address">
+                                            @if($billingAddress->tax_number != null ) Cég: @endif
+                                            {{$billingAddress->name}} - {{$billingAddress->postcode}} {{$billingAddress->city}}, {{$billingAddress->street}}
+                                        </a>
+                                        <div class="d-none">
+                                            {{ $billingAddress }}
+                                        </div>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -177,6 +189,8 @@
                         <div id="shipping-address-form" class="col-12 col-md-7" style="padding-top: 20px;">
                             <form  name="profile" id="profile-form" action="{{route("shippingAddressNew")}}" method="POST">
                                 @csrf
+                                <input type="hidden" name="form_azonosito" value="szallitasi">
+                                <input type="hidden" id="shippingAddressId" name="shippingAddressId" value="">
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         @if (count($errors->shippingError) > 0 )
@@ -193,31 +207,32 @@
                                         @endif
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <input id="shipping-name" class="input" name="shipping_name" value="{{old("shipping-name")}}" placeholder="Név" type="text">
+                                        <input type="text" id="shipping_name" class="input" name="shipping_name" placeholder="Név" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_name") : "" }}" >
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input class="input" name="shipping_postcode" value="{{old("shipping-postcode")}}" placeholder="Irányítószám" type="text">
+                                        <input type="text" class="input" id="shipping_postcode" name="shipping_postcode" placeholder="Irányítószám" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_postcode") : "" }}" >
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input class="input" name="shipping_city" value="{{old("shipping-city")}}" placeholder="Város" type="text">
+                                        <input type="text" class="input" id="shipping_city" name="shipping_city" placeholder="Város" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_city") : "" }}" >
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input class="input" name="shipping_street"value="{{old("shipping-street")}}" placeholder="Utca, házszám" type="text">
+                                        <input type="text" class="input" id="shipping_street" name="shipping_street" placeholder="Utca, házszám" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_street") : "" }}" >
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <input id="phoneNumber" name="shipping_phone" value="{{old("shipping-phone")}}" placeholder="Telefonszám" maxlength="16" />
+                                        <input id="shipping_phone" name="shipping_phone" placeholder="Telefonszám" maxlength="16" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_phone") : "" }}" />
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <textarea  name="shipping_note" value="{{old("shipping-comment")}}" placeholder="Megjegyzés"></textarea>
+                                        <textarea  name="shipping_note" id="shipping_note" placeholder="Megjegyzés">{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_note") : "" }}</textarea>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <div class="row">
-                                            <div id="shipping-new-btn" class="col-md-12 text-left" style="padding-left:0px;">
+                                            <div id="shipping-new-btn" class="col-md-12 text-left" style="padding-left:14px;">
                                                 <button type="submit" id="shipping-save-btn" class="primary-btn modify-btn">Új cím hozzádása</button>
                                             </div>
-                                            <div id="shipping-buttons"class="col-md-12 text-left d-none" style="padding-left:0px;">
-                                                <button type="submit" id="shipping-edit-btn" class="primary-btn modify-btn save-btn">Módosítás</button>
-                                                <button type="button" id="shipping-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</button>
+                                            <div id="shipping-buttons"class="col-md-12 d-none" style="padding-left:0px;">
+                                                <button type="submit" formaction="{{route("shippingAddressUpdate")}}" id="shipping-edit-btn" class="primary-btn modify-btn save-btn">Módosítás</button>
+                                                <button type="submit" formaction="{{route('shippingAddressDelete')}}" id="shipping-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</a>
+                                                <button type="button" formaction="javascript:void(0)" id="shipping_cancel_btn" class="primary-btn appoinment-btn cancel-btn" style="margin-right: 10px;">Mégse</button>
                                             </div>
                                         </div>
                                     </div>
@@ -228,8 +243,14 @@
                             <label class="text-white">Eddigi szállítási címeim:</label><br>
                             <ul>
                                 @foreach ($shippingAddresses as $shippingAddress)
-                                    <li><a href="#" class="shipping-address"> {{$shippingAddress->name}}
-                                        - {{$shippingAddress->postcode}} {{$shippingAddress->city}}, {{$shippingAddress->street}}</a></li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="shipping_address">
+                                            {{$shippingAddress->name}} - {{$shippingAddress->postcode}} {{$shippingAddress->city}}, {{$shippingAddress->street}}
+                                        </a>
+                                        <div class="d-none">
+                                            {{ $shippingAddress }}
+                                        </div>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -246,54 +267,117 @@
 
     @section("scripts")
     <script>
+        $(".shipping_address").on("click", function() {
+            let szallitasiAdatok = JSON.parse($(this).parent().find("div").html());
+            
+            $("#shipping_name").val(szallitasiAdatok.name);
+            $("#shipping_postcode").val(szallitasiAdatok.postcode);
+            $("#shipping_city").val(szallitasiAdatok.city);
+            $("#shipping_street").val(szallitasiAdatok.street);
+            $("#shipping_phone").val(szallitasiAdatok.phone);
+            $("#shipping_note").val(szallitasiAdatok.note);
+            $("#shippingAddressId").val(szallitasiAdatok.id);
+        });
+
+        $(".billing_address").on("click", function() {
+            let szamlazasiAdatok = JSON.parse($(this).parent().find("div").html());
+            console.log(szamlazasiAdatok);
+
+            if(szamlazasiAdatok.tax_number != null){
+                $("#company").addClass("active");
+                $("#person").removeClass("active");
+                $(".taxNumber").removeClass("d-none");
+            }
+            if(szamlazasiAdatok.tax_number == null){
+                $("#person").addClass("active");
+                $("#company").removeClass("active");
+                $(".taxNumber").addClass("d-none");
+            }
+            $("#billing_name").val(szamlazasiAdatok.name);
+            $("#billing_country_id").val(szamlazasiAdatok.country_id);
+            $("#billing_postcode").val(szamlazasiAdatok.postcode);
+            $("#billing_city").val(szamlazasiAdatok.city);
+            $("#billing_street").val(szamlazasiAdatok.street);
+            $("#tax_number").val(szamlazasiAdatok.tax_number);
+            $("#billingAddressId").val(szamlazasiAdatok.id);
+        });
+
         $("#modify-button").on("click", function() {
             $("#profile-form").find("input").each(function() {
                 $(this).attr("disabled", false);
             });
             $("#firstname").focus();
-            $("#order-button1").removeClass("d-none");
-            $("#order-button2").removeClass("d-none");
             $("#save-button-div").removeClass("d-none");
             $("#cancel-button-div").removeClass("d-none");
             $("#modify-button-div").addClass("d-none");
         });
         $("#cancel-button").on("click", function() {
+            let alapadatok = JSON.parse($("#alapadatokDIV").html());
+           
+            $("#firstname").val(alapadatok.firstname);
+            $("#lastname").val(alapadatok.lastname);
+            $("#email").val(alapadatok.email);
+            $("#student_card_number").val(alapadatok.student_card_number);
+
             $("#profile-form").find("input").each(function() {
                 $(this).attr("disabled", true);
             });
-            $("#order-button1").addClass("d-none");
-            $("#order-button2").addClass("d-none");
             $("#save-button-div").addClass("d-none");
             $("#cancel-button-div").addClass("d-none");
             $("#modify-button-div").removeClass("d-none");
         });
-        $(".billing-address").on("click", function(e) {
+        $(".billing_address").on("click", function(e) {
             e.preventDefault();
+            
             $("#billing-new-btn").addClass("d-none");
             $("#billing-buttons").removeClass("d-none");
-            $("#billing-name").focus();
-            $("#billing-name").attr('value','Kecske');
+            $("#billing_name").focus();
+           
         });
         $("#billing-delete-btn").on("click", function() {
             $("#shipping-new-btn").addClass("d-none");
             $("#shipping-buttons").removeClass("d-none");
         });
-        $(".shipping-address").on("click", function(e) {
+        $(".shipping_address").on("click", function(e) {
             e.preventDefault();
             $("#shipping-new-btn").addClass("d-none");
             $("#shipping-buttons").removeClass("d-none");
-            $("#shipping-name").focus();
+            $("#shipping_name").focus();
         });
         $("#person").on("click", function() {
             $(".taxNumber").addClass("d-none");
-            $("#billing-type").attr('value','s');
+            $("#billing-type").val('1');
         });
         $("#company").on("click", function() {
             
             $(".taxNumber").removeClass("d-none");
             $("#billing-type").attr('value','2');
         });
-        $("#phoneNumber").inputmask("(99) 999-999[9]",{ "placeholder": "_" });
+        $("#shipping_phone").inputmask("(99) 999-999[9]",{ "placeholder": "_" });
 
+        $("#shipping_cancel_btn").on("click", function() {
+            $("#shipping_name").val("");
+            $("#shipping_postcode").val("");
+            $("#shipping_city").val("");
+            $("#shipping_street").val("");
+            $("#shipping_phone").val("");
+            $("#shipping_note").val("");
+
+            $("#shipping-new-btn").removeClass("d-none");
+            $("#shipping-buttons").addClass("d-none");
+            $("#shipping_name").focus();
+        });
+        $("#billing_cancel_btn").on("click", function() {
+            $("#billing_name").val("");
+            $("#billing_postcode").val("");
+            $("#billing_city").val("");
+            $("#billing_street").val("");
+            $("#billing_country_id").val("1");
+            $("#tax_number").val("");
+
+            $("#billing-new-btn").removeClass("d-none");
+            $("#billing-buttons").addClass("d-none");
+            $("#billing_name").focus();
+        });
     </script>
     @endsection
