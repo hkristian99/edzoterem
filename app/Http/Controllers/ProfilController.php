@@ -77,8 +77,8 @@ class ProfilController extends Controller
 
             // 2. kép feltöltés
             if ( $request->student_card_front ) {
-                $path = public_path()."/images/student_cards/".$user->student_card_front;
-            
+                $path = public_path()."/images/student_cards/".$request->student_card_front;
+                //dd($request->student_card_front);
                 if ( file_exists($path) ) 
                     unlink($path);
             
@@ -92,7 +92,7 @@ class ProfilController extends Controller
             }
 
             if ( $request->student_card_back ) {
-                $path = public_path()."/images/student_cards/".$user->student_card_back;
+                $path = public_path()."/images/student_cards/".$request->student_card_back;
                 if ( file_exists($path) ) 
                     unlink($path);
 

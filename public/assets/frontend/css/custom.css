@@ -39,35 +39,7 @@
   nav.stroke ul li a:hover:after {
     width: 100%;
   }
-  input.search {
-		background-color: rgba(0,0,0, 0.7);
-    color: #fff;
-		border: 2.5px solid #fff;
-    border-radius: 47px;
-    padding: 0px 10px;
-    margin-right: 6px;
-	}
-  input.search:focus::placeholder {
-    color:transparent;
-	}
-  input.search:focus{
-    border: 2.5px solid #f36100;
-    transition: all 0.65s;
-  }
-  input.search:hover{
-    border: 2.5px solid #f36100;
-    transition: all 0.45s;
-  }
-  input.search:hover::placeholder{
-    color: transparent;
-    transition: all 0.45s;
-    opacity: 1; /* Firefox */
-  }
-  input.search::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #f36100;
-    transition: all 0.45s;
-    opacity: 1; /* Firefox */
-  }
+  
   .fa:hover{
     color: #f36100;
     transition: all 0.45s;
@@ -83,12 +55,19 @@
   a{
     color:#f36100;
   }
+  a.lostpw{
+    color:#fff;
+  }
+  a.lostpw:hover{
+    color:#f36100;
+  }
   a.successLogin{
     color:#f36100 !important;
   }
   form input:focus{
-    border: 1.5px solid #f36100;
-    transition: all 0.3s;
+    border: 1.5px solid #f36100!important;
+    transition: all 0.3s!important;
+    background-color: rgba(243,97,0,0.05);
   }
   form input:focus::placeholder {
     color:transparent;
@@ -96,6 +75,26 @@
   a.reg{
     padding: 3.7%;
     margin:0% !important;
+  }
+  .copyright-textlogin {
+    font-size: 14px;
+    color: #c4c4c4;
+    letter-spacing: 0.5px;
+    padding-bottom:3px;
+  }
+  .loginformDiv{
+    background-color: rgba(27,27,27,0.3); 
+    border-radius: 57px; 
+    padding: 51px; 
+    backdrop-filter: blur(5px); 
+    margin-bottom:450px;
+  }
+  .registformDiv{
+    background-color: rgba(27,27,27,0.3); 
+    border-radius: 57px; 
+    padding: 51px; 
+    backdrop-filter: blur(5px); 
+    margin-bottom:250px;
   }
   
   @media only screen and (min-width: 992px) and (max-width: 1381px){
@@ -119,10 +118,11 @@
   }
   div.alert-danger{
     color:#f36100;
-    background-color: rgb(21,21,21);
+    background-color: rgb(21,21,21,0.7);
     border:#f36100 solid 1px;
     text-align: center;
     margin-top: 2%;
+    border-radius:20px;
   }
   div.alert-success{
     color:#37a820;
@@ -214,6 +214,54 @@
     background-color: #c0bfbf;
     color: rgb(99, 99, 99);
     border-radius: 0px;
+  }
+  .registBtn{
+    width: 33% !important;
+  }
+
+  section.login {
+    height: 1225px;
+    padding-top: 230px;
+  }
+  section.regist {
+    height: 1200px;
+    padding-top: 230px;
+  }
+  div.loginForm{
+    margin-top:65px !important;
+  }
+  .vl {
+    border-left: 3px solid #fff;
+    height: 270px;
+  }
+  .vlRegist {
+    border-left: 3px solid #fff;
+    height: 400px;
+  }
+  .leave-comment form.login input{
+    color:#fff;
+    font-size: 20px;
+    border: 2px solid #363636;
+    text-align: left;
+    border-radius: 10px;
+  }
+  
+  .leave-comment form button {
+    border-radius: 10px;
+  }
+  .primary-btn.appoinment-btn {
+    border-radius: 10px;
+  }
+  .set-bglogin {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.1)) , url(/assets/frontend/img/about-us.jpg) !important;
+  }
+  h2.login{
+    letter-spacing: 10px;
+  }
+  h2.regist{
+    font-size:47px;
+    letter-spacing: 3px;
+    margin-bottom:10px;
   }
   
   /* Keyframes */

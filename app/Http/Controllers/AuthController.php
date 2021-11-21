@@ -148,6 +148,7 @@ class AuthController extends Controller
     }
 
     public function SendRegist(Request $request){
+        
         //0. reCaptcha ellenőrzés
         if ( !Helper::checkRecapctha($request->reCaptchaToken) )
             return back()
