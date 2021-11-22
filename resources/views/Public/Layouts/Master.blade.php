@@ -102,7 +102,7 @@
                                         @if (Auth::check())
                                         <a href="#" ><i class="fa fa-user" style="font-size:25px;"></i></a>
                                             <ul class="dropdown profilMenu">
-                                                <p class="p">{{Auth::user()->firstname}} {{Auth::user()->lastname}}</p><hr class="hr">
+                                                <!--<p class="p">{{Auth::user()->firstname}} {{Auth::user()->lastname}}</p><hr class="hr">-->
                                                 <li><a class="profilMenuItem" href="{{route('profile')}}">Profilom</a></li>
                                                 <li><a class="profilMenuItem" href="{{route('profile')}}">Rendeléseim</a></li>
                                                 @if (Auth::user()->role_id != 4)
@@ -111,7 +111,7 @@
                                                 <li><a class="profilMenuItem" href="{{route('logout')}}">Kijelentkezés</a></li>
                                             </ul>
                                         @else
-                                        <a href="{{route("login")}}"><i class="fa fa-user" style="font-size:25px;" title="Bejelentkezés"></i></a>
+                                        <a href="{{route("login")}}">Bejelentkezés</a>
                                         @endif
                                     </li>
                                 </ul>

@@ -24,6 +24,9 @@ use App\Http\Controllers\ProfilController;
     Route::get("/profilom/{anchor?}", [ProfilController::class, "Profile"])->name("profile");
     Route::post("/profilom", [ProfilController::class, "ProfileUpdate"])->name("profileUpdate");
 
+    //Jelszó módosítás :
+    Route::post("/profilom/jelszo-modositas", [AuthController::class, "ChangePassword"])->name("ChangePassword");
+
     //Számlázási cím :
     Route::post('/uj-szamlazasi-cim', [ProfilController::class, 'BillingAddressNew'])->name('billingAddressNew');
     Route::post('/szamlazasi-cim-modositas', [ProfilController::class, 'BillingAddressUpdate'])->name('billingAddressUpdate');

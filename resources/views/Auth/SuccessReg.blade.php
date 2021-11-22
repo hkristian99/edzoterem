@@ -53,7 +53,7 @@
                 var mRunning = cdt.getMinutes();
                 var sRunning = cdt.getSeconds();
                 var secondTotalRunning = (hRunning * 3600) + (mRunning * 60) + sRunning;
-                var duration = secondTotalFinish - secondTotalRunning -3595;
+                var duration = secondTotalFinish - secondTotalRunning -3594;
                 var s = Math.floor(duration % 3600) % 60;
                 $("#countDown").html(s + " mp");
             }

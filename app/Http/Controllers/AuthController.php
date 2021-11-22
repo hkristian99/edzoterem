@@ -37,7 +37,7 @@ class AuthController extends Controller
         $credentials = $request->only(["email", "password"]);
         
        if( Auth::attempt($credentials)){
-            return redirect()->route("home");
+            return redirect()->route("profile");
        }
        else{
             return back()
@@ -110,6 +110,32 @@ class AuthController extends Controller
             abort(403);
         }
     }
+    public function ChangePassword(Request $request)
+    {
+        
+        // 1. létezik-e az adatbázisban
+        $user = User::findOrFail(Auth::user()->id);
+       
+        // 2. jelszó ellenőrzése
+        $rules = [
+            "password" => "required|confirmed"
+        ];
+        $messages = [
+            "password.required" => "A jelszó mező kitöltése kötelező!",
+            "password.confirmed" => "A beírt jelszavak nem egyeznek!"
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ( $validator->fails() )
+            return back()
+                ->withErrors($validator, "passwordError")
+                ->withInput();
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+    
+        return redirect()->route("profile")->with("successPassword", "A jelszó frissítve lett.");
+    }
 
     public function SendChangeLostPassword(Request $request)
     {
@@ -181,18 +207,6 @@ class AuthController extends Controller
                 ->withErrors($validator)
                 ->withInput();
 
-        /*kép feltöltés
-        $userAvatar="";
-
-        if ( $request->avatar ) {
-            $image = $request->file('avatar');
-            $imageInfo = pathinfo($image->getClientOriginalName());
-            $imageName = \Carbon\Carbon::now()->format("U").Str::slug($request->name).".".$imageInfo['extension'];
-            $destinationPath = public_path('/images/users');
-            $image->move($destinationPath, $imageName);
-            $userAvatar = "/images/users/".$imageName;
-        }
-        */
 
         $user = new User();
         $user->firstname = $request->firstname;

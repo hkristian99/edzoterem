@@ -130,6 +130,7 @@
     border:#37a820 solid 1px;
     text-align: center;
     margin-top: 2%;
+    border-radius:20px;
   }
   hr.hr{
     border: 1px solid #fff !important;
@@ -245,6 +246,20 @@
     text-align: left;
     border-radius: 10px;
   }
+  .leave-comment form.login select{
+    color:#fff;
+    font-size: 20px;
+    border: 2px solid #363636;
+    text-align: left;
+    border-radius: 10px;
+  }
+  .leave-comment form.login textarea{
+    color:#fff;
+    font-size: 20px;
+    border: 2px solid #363636;
+    text-align: left;
+    border-radius: 10px;
+  }
   
   .leave-comment form button {
     border-radius: 10px;
@@ -262,6 +277,26 @@
     font-size:47px;
     letter-spacing: 3px;
     margin-bottom:10px;
+  }
+  .profilMenuBtn{
+    display: inline-block;
+    font-size: 15px;
+    padding: 17px 30px 16px;
+    color: #ffffff;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 10px;
+    background: transparent;
+    border: 2px solid #f36100;
+    margin-right:15px;
+  }
+  .profilMenuBtn:hover{
+    background: #f36100;
+  }
+  .active-profilMenuBtn{
+    background: #f36100 !important;
   }
   
   /* Keyframes */

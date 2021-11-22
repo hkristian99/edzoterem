@@ -17,247 +17,311 @@
 <!-- Contact Section Begin -->
 <section class="contact-section spad pageProfile">
     <div class="container">
-        <div class="row justify-content-center">
 
-            <!-- Személyes adatok -->
-            <div class="leave-comment">
-                <h2 class="text-white">Alapadatok: </h2><br>
-                <div id="alapadatokDIV" class="d-none">{{ Auth::user() }}</div>
-                @if (count($errors->personalError) > 0 )
-                    <div class="alert alert-danger">   
-                        @foreach ($errors->personalError->all() as $error)
-                        {{ $error }}<br>
-                        @endforeach 
-                    </div>
-                @endif
-                @if( session()->has('successPersonal') )
-                    <div class="alert alert-success">
-                        {{ session()->get('successPersonal') }}
-                    </div>
-                @endif
-                <form  name="profile" id="profile-form" action="{{route("profileUpdate")}}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="form_azonosito" value="alapadatok">
-                    
-                    <div class="col text-right {{ old() && old("form_azonosito")=="alapadatok" ? "d-none" : "" }}" id="modify-button-div" style="padding:0px;">
-                        <button type="button" id="modify-button" class="primary-btn modify-btn">Módosítás</button>
-                    </div>
-
-                    <div class="form-row">
-                    <div class="col text-right {{ old("form_azonosito") && old("form_azonosito")=="alapadatok" ? "" : "d-none" }}" id="save-button-div">
-                            <button type="submit" id="personal-save-btn" class="primary-btn modify-btn save-btn" style="margin-bottom: 16px;">Módosítások mentése</button>
-                            <button type="button" id="cancel-button" class="primary-btn appoinment-btn cancel-btn">Mégse</button>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label class="text-white">Vezetéknév:</label>
-                            <input class="input" id="firstname" name="firstname" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("firstname") : Auth::user()->firstname }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="text-white">Keresztnév:</label>
-                            <input class="input" id="lastname" name="lastname" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("lastname") : Auth::user()->lastname }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="text-white">E-mail:</label>
-                            <input class="input" id="email" name="email" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("email") : Auth::user()->email }}" type="email" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label class="text-white">Diákgazolványszám: <small>*</small></label>
-                            <input class="input" id="student_card_number" name="student_card_number" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("student_card_number") : Auth::user()->student_card_number }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="text-white">Diákgazolványkép - előlap: <small>*</small></label><br>
-                            @if (Auth::user()->student_card_front != null)
-                                <img src="images/student_cards/{{Auth::user()->student_card_front}}"  class="student_card">
-                            @endif
-                            <input type="file" class="file " id="student_card_front" name="student_card_front" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="text-white">Diákgazolványkép - hátlap: <small>*</small></label><br>
-                            @if (Auth::user()->student_card_front != null)  
-                                <img src="images/student_cards/{{Auth::user()->student_card_back}}" class="student_card">
-                            @endif
-                            <input type="file" class="file" name="student_card_back" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
-                        </div>
-                        <div class="form-group col-md-12 text-left">
-                            <label style="color: #696868;"><small>*A kedvezményes bérlet igénybevételéhez szükséges az érvényes diákigazolvány feltöltése</small></label>
-                        </div>
-                    </div>
-                </form>
+        <!-- Menü -->
+        <div class="row">
+            <div class="form-group col-md-4">
+                <h2 id="selectedMenu" class="text-white">{{Auth::user()->firstname}} {{Auth::user()->lastname}}</h2>
             </div>
-            <!-- Személyes adatok vége -->
+            <div class="form-group col-md-8">
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                    <a id="nav_item_personal" class="nav-link profilMenuBtn active-profilMenuBtn" href="#">Személyes adataim</a>
+                    </li>
+                    <li class="nav-item">
+                    <a id="nav_item_password" class="nav-link profilMenuBtn" href="#">Jelszó módosítás</a>
+                    </li>
+                    <li class="nav-item">
+                    <a id="nav_item_address" class="nav-link profilMenuBtn" href="#">Címeim</a>
+                    </li>
+                </ul>
+                <div class="row justify-content-center">
+            </div>
+        </div>
+        <hr style="border:rgb(156, 156, 156) solid 2px; width:100%; margin-bottom:70px;">
+        <!-- Menü vége -->
 
-            <hr style="border:rgb(156, 156, 156) solid 2px; width:80%; margin-bottom:50px;">
+        <!-- Személyes adatok -->
+        <div id="personalDiv" class="leave-comment">
+            <h2 class="text-white">Személyes adatok: </h2><br>
+            <div id="alapadatokDIV" class="d-none">{{ Auth::user() }}</div>
+            @if (count($errors->personalError) > 0 )
+                <div class="alert alert-danger">   
+                    @foreach ($errors->personalError->all() as $error)
+                    {{ $error }}<br>
+                    @endforeach 
+                </div>
+            @endif
+            @if( session()->has('successPersonal') )
+                <div class="alert alert-success">
+                    {{ session()->get('successPersonal') }}
+                </div>
+            @endif
+            <form  name="profile" class="login" action="{{route("profileUpdate")}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="form_azonosito" value="alapadatok">
+                <div class="col text-right {{ old() && old("form_azonosito")=="alapadatok" ? "d-none" : "" }}" id="modify-button-div" style="padding:0px;">
+                    <button type="button" id="modify-button" class="primary-btn modify-btn">Módosítás</button>
+                </div>
+                <div class="form-row">
+                <div class="col text-right {{ old("form_azonosito") && old("form_azonosito")=="alapadatok" ? "" : "d-none" }}" id="save-button-div">
+                        <button type="submit" id="personal-save-btn" class="primary-btn modify-btn save-btn" style="margin-bottom: 16px;">Módosítások mentése</button>
+                        <button type="button" id="cancel-button" class="primary-btn appoinment-btn cancel-btn">Mégse</button>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label class="text-white">Vezetéknév:</label>
+                        <input class="input" id="firstname" name="firstname" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("firstname") : Auth::user()->firstname }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="text-white">Keresztnév:</label>
+                        <input class="input" id="lastname" name="lastname" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("lastname") : Auth::user()->lastname }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="text-white">E-mail:</label>
+                        <input class="input" id="email" name="email" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("email") : Auth::user()->email }}" type="email" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="text-white">Diákgazolványszám: <small>*</small></label>
+                        <input class="input" id="student_card_number" name="student_card_number" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("student_card_number") : Auth::user()->student_card_number }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="text-white">Diákgazolványkép - előlap: <small>*</small></label><br>
+                        @if (Auth::user()->student_card_front != null)
+                            <img src="images/student_cards/{{Auth::user()->student_card_front}}"  class="student_card">
+                        @endif
+                        <input type="file" class="file " id="student_card_front" name="student_card_front" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="text-white">Diákgazolványkép - hátlap: <small>*</small></label><br>
+                        @if (Auth::user()->student_card_front != null)  
+                            <img src="images/student_cards/{{Auth::user()->student_card_back}}" class="student_card">
+                        @endif
+                        <input type="file" class="file" name="student_card_back" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                    </div>
+                    <div class="form-group col-md-12 text-left">
+                        <label style="color: #696868;"><small>*A kedvezményes bérlet igénybevételéhez szükséges az érvényes diákigazolvány feltöltése</small></label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Személyes adatok vége -->
+    
 
-            <!-- Számlázási adatok -->
-            <div class="leave-comment" id="billingDiv">
-                <div class="form-group col-md-12" style="padding:0px;">
-                    <h2 class="text-white">Számlázási cím: <small> (kötelező rendelés esetén)</small></h2><br>
-                    <div id="szamlazasiadatokDIV" class="d-none"></div>
-                    <div class="form-row">
-                        <div id="billing-address-form" class="col-12 col-md-7" style="padding-top: 20px;">
-                            <form  name="profile" id="profile-form" action="{{ route("billingAddressNew") }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="form_azonosito" value="szamlazasi">
-                                <input type="hidden" id="billing-type" class="input" name="billing_type" value="1" >
-                                <input type="hidden" id="billingAddressId" name="billingAddressId" value="">
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        @if (count($errors->billingError) > 0 )
-                                            <div class="alert alert-danger">   
-                                                @foreach ($errors->billingError->all() as $error)
-                                                {{ $error }}<br>
-                                                @endforeach 
-                                            </div>
-                                        @endif
-                                        @if( session()->has('successBilling') )
-                                            <div class="alert alert-success">
-                                            {{ session()->get('successBilling') }}
-                                            </div>
-                                        @endif
-                                        <div class="row">
-                                            <div  id="billing-types" class="col-md-6 table-controls text-left">
-                                                <ul id="billing-types-ul" >
-                                                    <li id="person" class="{{ !old() || (old() && old("billing_type") == 1) ? "active" : "" }}" >Magánszemély</li>
-                                                    <li id="company" class="{{ old() &&  old("billing_type") == 2 ? "active" : "" }}">Cég</li>
-                                                </ul>
-                                            </div>
+        <!--Jelszó változtatás -->
+        <div  id="passwordDiv" class="leave-comment d-none" style="width:1150px;">
+            <div class="form-group col-md-12" style="padding:0px;">
+                <h2 class="text-white">Jelszó megváltoztatása:</h2><br>
+                <div id="jelszoDIV" class="d-none"></div>
+                <div class="form-row">
+                    <div id="password-form" class="col-12 col-md-12" style="padding-top: 20px;">
+                        <form  name="profile" class="login" action="{{route("ChangePassword")}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="form_azonosito" value="password">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    @if (count($errors->passwordError) > 0 )
+                                        <div id="dangerPasswordMsg" class="alert alert-danger">   
+                                            @foreach ($errors->passwordError->all() as $error)
+                                            {{ $error }}<br>
+                                            @endforeach 
                                         </div>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <input  type="text" class="input" id="billing_name" name="billing_name" placeholder="Név" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_name") : "" }}">
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <select class="input form-control" id="billing_country_id" name="billing_country_id">
-                                            @foreach ($countries as $country)
-                                                <option  value="{{$country["id"]}}" {{ old() && old("billing_country_id")==$country["id"] ? "SELECTED" : "" }}> {{$country["name"]}}</label></option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="text" class="input" id="billing_postcode" name="billing_postcode" placeholder="Irányítószám"  value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_postcode") : "" }}">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="text" class="input" id="billing_city" name="billing_city" placeholder="Város" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_city") : "" }}">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="text" class="input"id="billing_street" name="billing_street" placeholder="Utca, házszám" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_street") : "" }}">
-                                    </div>
-                                    <div class="form-group col-md-12 taxNumber {{ !old() || (old("billing_type") != 2) ? "d-none" : "" }}">
-                                        <input type="text" class="input" id="tax_number" name="tax_number" placeholder="Adószám" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("tax_number") : "" }}">
-                                    </div>
-                                    <div id="billing-new-btn" class="col-md-12 text-left" style="padding-left:0px;">
-                                        <button type="submit" id="billing-save-btn" class="primary-btn modify-btn save-btn" >Új cím hozzáadása</button>
-                                    </div>
-                                    <div id="billing-buttons"class="col-md-12 text-left d-none" style="padding-left:0px;">
-                                        <button type="submit" id="billing-edit-btn" class="primary-btn modify-btn save-btn" style="">Módosítás</button>
-                                        <button type="submit" formaction="{{route("billingAddressDelete")}}" id="billing-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</button>
-                                        <button type="submit" formaction="javascript:void(0)"id="billing_cancel_btn" class="primary-btn appoinment-btn cancel-btn" style="margin-right: 10px;">Mégse</button>
-                                    </div>
+                                    @endif
+                                    @if( session()->has('successPassword') )
+                                        <div id="successPasswordMsg" class="alert alert-success">
+                                        {{ session()->get('successPassword') }}
+                                        </div>
+                                    @endif
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col-12 col-md-5 text-left" style="padding-left: 100px;">
-                            <label class="text-white">Eddigi számlázási címeim:</label><br>
-                            <ul>
-                                @foreach ($billingAddresses as $billingAddress)
-                                    <li>
-                                        <a href="javascript:void(0)" class="billing_address">
-                                            @if($billingAddress->tax_number != null ) Cég: @endif
-                                            {{$billingAddress->name}} - {{$billingAddress->postcode}} {{$billingAddress->city}}, {{$billingAddress->street}}
-                                        </a>
-                                        <div class="d-none">
-                                            {{ $billingAddress }}
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                                <div class="form-group col-md-6">
+                                    <label class="text-white">Jelszó:</label><br>
+                                    <input type="password" class="input" id="password" name="password">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="text-white">Jelszó mégegyszer:</label><br>
+                                    <input type="password" class="input" id="password_confirmation" name="password_confirmation">
+                                </div>
+                                <div id="billing-new-btn" class="col-md-12 text-right" style="padding-left:15px;">
+                                    <button type="submit" id="password-change-btn" class="primary-btn modify-btn save-btn" >Módosítás</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <!--Számlázási adatok vége -->
+        </div>
+        <!--Jelszó változtatás vége -->
 
-            <hr style="border:rgb(156, 156, 156) solid 2px; width:80%; margin-bottom:50px;">
-
-            <!--Szállítási adatok -->
-            <div class="leave-comment" id="shippingDiv">
-                <div class="form-group col-md-12">
-                    <h2 class="text-white">Szállítási címeim: <small> (opcionális)</small></h2><br>
-                    <div class="row">
-                        <div id="shipping-address-form" class="col-12 col-md-7" style="padding-top: 20px;">
-                            <form  name="profile" id="profile-form" action="{{route("shippingAddressNew")}}" method="POST">
-                                @csrf
-                                <input type="hidden" name="form_azonosito" value="szallitasi">
-                                <input type="hidden" id="shippingAddressId" name="shippingAddressId" value="">
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        @if (count($errors->shippingError) > 0 )
-                                            <div class="alert alert-danger">   
-                                                @foreach ($errors->shippingError->all() as $error)
-                                                {{ $error }}<br>
-                                                @endforeach 
-                                            </div>
-                                        @endif
-                                        @if( session()->has('successShipping') )
-                                            <div class="alert alert-success">
-                                            {{ session()->get('successShipping') }}
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <input type="text" id="shipping_name" class="input" name="shipping_name" placeholder="Név" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_name") : "" }}" >
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="text" class="input" id="shipping_postcode" name="shipping_postcode" placeholder="Irányítószám" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_postcode") : "" }}" >
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="text" class="input" id="shipping_city" name="shipping_city" placeholder="Város" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_city") : "" }}" >
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="text" class="input" id="shipping_street" name="shipping_street" placeholder="Utca, házszám" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_street") : "" }}" >
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <input id="shipping_phone" name="shipping_phone" placeholder="Telefonszám" maxlength="16" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_phone") : "" }}" />
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <textarea  name="shipping_note" id="shipping_note" placeholder="Megjegyzés">{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_note") : "" }}</textarea>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <div class="row">
-                                            <div id="shipping-new-btn" class="col-md-12 text-left" style="padding-left:14px;">
-                                                <button type="submit" id="shipping-save-btn" class="primary-btn modify-btn">Új cím hozzádása</button>
-                                            </div>
-                                            <div id="shipping-buttons"class="col-md-12 d-none" style="padding-left:0px;">
-                                                <button type="submit" formaction="{{route("shippingAddressUpdate")}}" id="shipping-edit-btn" class="primary-btn modify-btn save-btn">Módosítás</button>
-                                                <button type="submit" formaction="{{route('shippingAddressDelete')}}" id="shipping-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</a>
-                                                <button type="button" formaction="javascript:void(0)" id="shipping_cancel_btn" class="primary-btn appoinment-btn cancel-btn" style="margin-right: 10px;">Mégse</button>
-                                            </div>
+        <!-- Számlázási adatok -->
+        <div id="billingDiv" class="leave-comment d-none" >
+            <div class="form-group col-md-12" style="padding:0px;">
+                <h2 class="text-white">Számlázási cím: <small> (kötelező rendelés esetén)</small></h2><br>
+                <div id="szamlazasiadatokDIV" class="d-none"></div>
+                <div class="form-row">
+                    <div id="billing-address-form" class="col-12 col-md-7" style="padding-top: 20px;">
+                        <form  name="profile"  class="login" action="{{ route("billingAddressNew") }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="form_azonosito" value="szamlazasi">
+                            <input type="hidden" id="billing-type" class="input" name="billing_type" value="1" >
+                            <input type="hidden" id="billingAddressId" name="billingAddressId" value="">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    @if (count($errors->billingError) > 0 )
+                                        <div id="dangerBillingMsg" class="alert alert-danger">   
+                                            @foreach ($errors->billingError->all() as $error)
+                                            {{ $error }}<br>
+                                            @endforeach 
+                                        </div>
+                                    @endif
+                                    @if( session()->has('successBilling') )
+                                        <div id="successBillingMsg" class="alert alert-success">
+                                        {{ session()->get('successBilling') }}
+                                        </div>
+                                    @endif
+                                    <div class="row">
+                                        <div  id="billing-types" class="col-md-6 table-controls text-left">
+                                            <ul id="billing-types-ul" >
+                                                <li id="person" class="{{ !old() || (old() && old("billing_type") == 1) ? "active" : "" }}" >Magánszemély</li>
+                                                <li id="company" class="{{ old() &&  old("billing_type") == 2 ? "active" : "" }}">Cég</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col-12 col-md-5" style="padding-left: 100px;">
-                            <label class="text-white">Eddigi szállítási címeim:</label><br>
-                            <ul>
-                                @foreach ($shippingAddresses as $shippingAddress)
-                                    <li>
-                                        <a href="javascript:void(0)" class="shipping_address">
-                                            {{$shippingAddress->name}} - {{$shippingAddress->postcode}} {{$shippingAddress->city}}, {{$shippingAddress->street}}
-                                        </a>
-                                        <div class="d-none">
-                                            {{ $shippingAddress }}
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                                <div class="form-group col-md-12">
+                                    <input  type="text" class="input" id="billing_name" name="billing_name" placeholder="Név" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_name") : "" }}">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <select class="input form-control" id="billing_country_id" name="billing_country_id">
+                                        @foreach ($countries as $country)
+                                            <option  value="{{$country["id"]}}" {{ old() && old("billing_country_id")==$country["id"] ? "SELECTED" : "" }}> {{$country["name"]}}</label></option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="input" id="billing_postcode" name="billing_postcode" placeholder="Irányítószám"  value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_postcode") : "" }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="input" id="billing_city" name="billing_city" placeholder="Város" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_city") : "" }}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="input"id="billing_street" name="billing_street" placeholder="Utca, házszám" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("billing_street") : "" }}">
+                                </div>
+                                <div class="form-group col-md-12 taxNumber {{ !old() || (old("billing_type") != 2) ? "d-none" : "" }}">
+                                    <input type="text" class="input" id="tax_number" name="tax_number" placeholder="Adószám" value="{{ old() && old("form_azonosito")=="szamlazasi" ? old("tax_number") : "" }}">
+                                </div>
+                                <div id="billing-new-btn" class="col-md-12 text-left" style="padding-left:0px;">
+                                    <button type="submit" id="billing-save-btn" class="primary-btn modify-btn save-btn" >Új cím hozzáadása</button>
+                                </div>
+                                <div id="billing-buttons"class="col-md-12 text-left d-none" style="padding-left:0px;">
+                                    <button type="submit" id="billing-edit-btn" class="primary-btn modify-btn save-btn" style="">Módosítás</button>
+                                    <button type="submit" formaction="{{route("billingAddressDelete")}}" id="billing-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</button>
+                                    <button type="submit" formaction="javascript:void(0)"id="billing_cancel_btn" class="primary-btn appoinment-btn cancel-btn" style="margin-right: 10px;">Mégse</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 col-md-5 text-left" style="padding-left: 100px;">
+                        <label class="text-white">Eddigi számlázási címeim:</label><br>
+                        <ul>
+                            @foreach ($billingAddresses as $billingAddress)
+                                <li>
+                                    <a href="javascript:void(0)" class="billing_address">
+                                        @if($billingAddress->tax_number != null ) Cég: @endif
+                                        {{$billingAddress->name}} - {{$billingAddress->postcode}} {{$billingAddress->city}}, {{$billingAddress->street}}
+                                    </a>
+                                    <div class="d-none">
+                                        {{ $billingAddress }}
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>
-            <!-- Szállítási adatok vége -->
+            <hr style="border:rgb(156, 156, 156) solid 2px; width:80%; margin-bottom:50px;margin-top:50px;">
+        </div>
+        <!--Számlázási adatok vége -->
+
+        
+
+        <!--Szállítási adatok -->
+        <div id="shippingDiv" class="leave-comment d-none">
+            <div class="form-group col-md-12">
+                <h2 class="text-white">Szállítási címeim: <small> (opcionális)</small></h2><br>
+                <div class="row">
+                    <div id="shipping-address-form" class="col-12 col-md-7" style="padding-top: 20px;">
+                        <form  name="profile" class="login" action="{{route("shippingAddressNew")}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="form_azonosito" value="szallitasi">
+                            <input type="hidden" id="shippingAddressId" name="shippingAddressId" value="">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    @if (count($errors->shippingError) > 0 )
+                                        <div class="alert alert-danger">   
+                                            @foreach ($errors->shippingError->all() as $error)
+                                            {{ $error }}<br>
+                                            @endforeach 
+                                        </div>
+                                    @endif
+                                    @if( session()->has('successShipping') )
+                                        <div class="alert alert-success">
+                                        {{ session()->get('successShipping') }}
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input type="text" id="shipping_name" class="input" name="shipping_name" placeholder="Név" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_name") : "" }}" >
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="input" id="shipping_postcode" name="shipping_postcode" placeholder="Irányítószám" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_postcode") : "" }}" >
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="input" id="shipping_city" name="shipping_city" placeholder="Város" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_city") : "" }}" >
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="input" id="shipping_street" name="shipping_street" placeholder="Utca, házszám" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_street") : "" }}" >
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input id="shipping_phone" name="shipping_phone" placeholder="Telefonszám" maxlength="16" value="{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_phone") : "" }}" />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <textarea  name="shipping_note" id="shipping_note" placeholder="Megjegyzés">{{ old() && old("form_azonosito")=="szallitasi" ? old("shipping_note") : "" }}</textarea>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <div class="row">
+                                        <div id="shipping-new-btn" class="col-md-12 text-left" style="padding-left:14px;">
+                                            <button type="submit" id="shipping-save-btn" class="primary-btn modify-btn">Új cím hozzádása</button>
+                                        </div>
+                                        <div id="shipping-buttons"class="col-md-12 d-none" style="padding-left:0px;">
+                                            <button type="submit" formaction="{{route("shippingAddressUpdate")}}" id="shipping-edit-btn" class="primary-btn modify-btn save-btn">Módosítás</button>
+                                            <button type="submit" formaction="{{route('shippingAddressDelete')}}" id="shipping-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</a>
+                                            <button type="button" formaction="javascript:void(0)" id="shipping_cancel_btn" class="primary-btn appoinment-btn cancel-btn" style="margin-right: 10px;">Mégse</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 col-md-5" style="padding-left: 100px;">
+                        <label class="text-white">Eddigi szállítási címeim:</label><br>
+                        <ul>
+                            @foreach ($shippingAddresses as $shippingAddress)
+                                <li>
+                                    <a href="javascript:void(0)" class="shipping_address">
+                                        {{$shippingAddress->name}} - {{$shippingAddress->postcode}} {{$shippingAddress->city}}, {{$shippingAddress->street}}
+                                    </a>
+                                    <div class="d-none">
+                                        {{ $shippingAddress }}
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Szállítási adatok vége -->
 
         </div>
     </div>
@@ -379,5 +443,38 @@
             $("#billing-buttons").addClass("d-none");
             $("#billing_name").focus();
         });
+        $(".profilMenuBtn").on("click", function(e) {
+            e.preventDefault();
+            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+            $(this).addClass("active-profilMenuBtn");
+
+            if( $(this).text() == "Személyes adataim"){
+                $("#personalDiv").removeClass("d-none");
+                $("#passwordDiv").addClass("d-none");
+                $("#billingDiv").addClass("d-none");
+                $("#shippingDiv").addClass("d-none");
+            }
+            else if( $(this).text() == "Jelszó módosítás"){
+                $("#passwordDiv").removeClass("d-none");
+                $("#personalDiv").addClass("d-none");
+                $("#billingDiv").addClass("d-none");
+                $("#shippingDiv").addClass("d-none");
+            }
+            else if( $(this).text() == "Címeim"){
+                $("#shippingDiv").removeClass("d-none");
+                $("#billingDiv").removeClass("d-none");
+                $("#passwordDiv").addClass("d-none");
+                $("#personalDiv").addClass("d-none");
+            }
+        });
+        /*if( $("#dangerPasswordMsg").length != 0 or $("#successPasswordMsg").length != 0 ){
+            $("#passwordDiv").removeClass("d-none");
+            $("#personalDiv").addClass("d-none");
+            $("#billingDiv").addClass("d-none");
+            $("#shippingDiv").addClass("d-none");
+            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+            $("#nav_item_password").addClass("active-profilMenuBtn");
+        };*/
+
     </script>
     @endsection
