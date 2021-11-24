@@ -1,3 +1,36 @@
 .input-group-text {
     width: 125px;
 }
+span.tag{
+    font-size: 19px;
+    padding: 9px 12px;
+}
+span.tag a {
+    color: #F1F6F7 !important;
+}
+.tagsinput span.tag a {
+    font-weight: bold;
+    color: #82ad2b;
+    text-decoration: none;
+    font-size: 19px;
+}
+ul.no-bullets {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+}
+.tagsinput{
+    width: auto;
+}
+.choosedRoles{
+    border: 2px solid;
+    height: auto;
+    padding: 9px 0px 44px 8px;
+    width: 691px;
+}
+span.add_roletag{
+    background-color: #5b90bf;
+}
+span.add_roletag:hover{
+    cursor:pointer;
+}
