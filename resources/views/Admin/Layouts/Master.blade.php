@@ -28,6 +28,7 @@
 
     <!-- Custom Theme Style -->
     <link href="/assets/admin/css/custom.min.css" rel="stylesheet">
+    <link href="/assets/admin/css/customAdmin.css" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -47,8 +48,8 @@
                 <img src="/gentelella-master/production/images/img.jpg" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <h2>Test Worker</h2>
-                <span>Munkatárs</span>
+                <h2>{{Auth::user()->firstname}} {{Auth::user()->lastname}}</h2>
+                <span></span>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -56,129 +57,7 @@
             <br />
 
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>Általános</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Személyes <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Profilom</a></li>
-                      <li><a href="index2.html">Naptár</a></li>
-                      <li><a href="index3.html">Napi teendők</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Web Shop feladatok<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
-                      <li><a href="form_wizards.html">Form Wizard</a></li>
-                      <li><a href="form_upload.html">Form Upload</a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-desktop"></i> Üzenetek <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="general_elements.html">Belső levelezés</a></li>
-                      <li><a href="media_gallery.html">Beszállítók</a></li>
-                      <li><a href="typography.html">Edzők</a></li>
-                      <li><a href="icons.html">Blog bejegyzés</a></li>
-                      <li><a href="calendar.html">Naptár</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Statisztika <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-clone"></i>Blog feladatok<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Bejegyzéseim</a></li>
-                      <li><a href="fixed_footer.html">Általam jóváhagyott</a></li>
-                      <li><a href="fixed_footer.html">Kifogásolható</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="menu_section">
-                <h3>Adminisztráció</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-user"></i> Felhasználó kezelés <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">Új felhasználó</a></li>
-                      <li><a href="projects.html">Felhasználók listája</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-newspaper-o"></i> Blog feladatok <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">Statisztikák</a></li>
-                      <li><a href="page_404.html">Olvasottság</a></li>
-                      <li><a href="page_500.html">Jóváhagyásra váró bejegyzések (5)</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
-                    </ul>
-                  </li>                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                </ul>
-              </div>
-
-              <div class="menu_section">
-                <h3>Pénzügyek</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-user"></i> Számlák kezelése <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">Új felhasználó</a></li>
-                      <li><a href="projects.html">Felhasználók listája</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-newspaper-o"></i> Riporting <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">Statisztikák</a></li>
-                      <li><a href="page_404.html">Olvasottság</a></li>
-                      <li><a href="page_500.html">Jóváhagyásra váró bejegyzések (5)</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> NAV <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
-                    </ul>
-                  </li>                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                </ul>
-              </div>
-            </div>
+            @include("Admin.Layouts.Menu");
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
@@ -280,3 +159,4 @@
       
     </body>
   </html>
+  @yield('scripts')

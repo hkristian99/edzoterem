@@ -55,6 +55,9 @@
   a{
     color:#f36100;
   }
+  a.profile{
+    font-size: 17px;
+  }
   a.lostpw{
     color:#fff;
   }
@@ -69,12 +72,20 @@
     transition: all 0.3s!important;
     background-color: rgba(243,97,0,0.05);
   }
+  .profileformDiv input:focus{
+    border: 1.5px solid #ffffff!important;
+    transition: all 0.3s!important;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
   form input:focus::placeholder {
     color:transparent;
 	}
   a.reg{
     padding: 3.7%;
     margin:0% !important;
+  }
+  .profileLabel{
+    font-size: 25px;
   }
   .copyright-textlogin {
     font-size: 14px;
@@ -89,6 +100,23 @@
     backdrop-filter: blur(5px); 
     margin-bottom:450px;
   }
+  .profileformDiv{
+    background-color: rgb(97 56 29);; 
+    border-radius: 57px; 
+    padding: 51px; 
+    backdrop-filter: blur(5px); 
+    margin-bottom:50px;
+  }
+  .profileformDiv input{
+    border: 2px solid #000000 !important;
+  }
+  .profileformDiv textarea{
+    border: 2px solid #000000 !important;
+  }
+  .profileformDiv select{
+    border: 2px solid #000000 !important;
+  }
+  
   .registformDiv{
     background-color: rgba(27,27,27,0.3); 
     border-radius: 57px; 
@@ -298,6 +326,10 @@
   .active-profilMenuBtn{
     background: #f36100 !important;
   }
+  #billing-types-ul{
+    border-radius:10px;
+  }
+
   
   /* Keyframes */
   @-webkit-keyframes fill {

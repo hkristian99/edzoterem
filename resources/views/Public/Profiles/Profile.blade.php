@@ -42,22 +42,22 @@
         <!-- Menü vége -->
 
         <!-- Személyes adatok -->
-        <div id="personalDiv" class="leave-comment">
+        <div id="personalDiv" class="leave-comment profileformDiv">
             <h2 class="text-white">Személyes adatok: </h2><br>
             <div id="alapadatokDIV" class="d-none">{{ Auth::user() }}</div>
             @if (count($errors->personalError) > 0 )
-                <div class="alert alert-danger">   
+                <div id="dangerPersonalMsg" class="alert alert-danger">   
                     @foreach ($errors->personalError->all() as $error)
                     {{ $error }}<br>
                     @endforeach 
                 </div>
             @endif
             @if( session()->has('successPersonal') )
-                <div class="alert alert-success">
+                <div id="successPersonalMsg" class="alert alert-success">
                     {{ session()->get('successPersonal') }}
                 </div>
             @endif
-            <form  name="profile" class="login" action="{{route("profileUpdate")}}" method="POST" enctype="multipart/form-data">
+            <form  id="profile-form" name="profile" class="login" action="{{route("profileUpdate")}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="form_azonosito" value="alapadatok">
                 <div class="col text-right {{ old() && old("form_azonosito")=="alapadatok" ? "d-none" : "" }}" id="modify-button-div" style="padding:0px;">
@@ -110,7 +110,7 @@
     
 
         <!--Jelszó változtatás -->
-        <div  id="passwordDiv" class="leave-comment d-none" style="width:1150px;">
+        <div  id="passwordDiv" class="leave-comment d-none profileformDiv" style="width:1150px;">
             <div class="form-group col-md-12" style="padding:0px;">
                 <h2 class="text-white">Jelszó megváltoztatása:</h2><br>
                 <div id="jelszoDIV" class="d-none"></div>
@@ -142,7 +142,7 @@
                                     <label class="text-white">Jelszó mégegyszer:</label><br>
                                     <input type="password" class="input" id="password_confirmation" name="password_confirmation">
                                 </div>
-                                <div id="billing-new-btn" class="col-md-12 text-right" style="padding-left:15px;">
+                                <div class="col-md-12 text-right" style="padding-left:15px;">
                                     <button type="submit" id="password-change-btn" class="primary-btn modify-btn save-btn" >Módosítás</button>
                                 </div>
                             </div>
@@ -154,7 +154,7 @@
         <!--Jelszó változtatás vége -->
 
         <!-- Számlázási adatok -->
-        <div id="billingDiv" class="leave-comment d-none" >
+        <div id="billingDiv" class="leave-comment d-none profileformDiv" >
             <div class="form-group col-md-12" style="padding:0px;">
                 <h2 class="text-white">Számlázási cím: <small> (kötelező rendelés esetén)</small></h2><br>
                 <div id="szamlazasiadatokDIV" class="d-none"></div>
@@ -222,11 +222,11 @@
                         </form>
                     </div>
                     <div class="col-12 col-md-5 text-left" style="padding-left: 100px;">
-                        <label class="text-white">Eddigi számlázási címeim:</label><br>
+                        <label class="text-white profileLabel">Eddigi számlázási címeim:</label><br>
                         <ul>
                             @foreach ($billingAddresses as $billingAddress)
                                 <li>
-                                    <a href="javascript:void(0)" class="billing_address">
+                                    <a href="javascript:void(0)" class="billing_address profile">
                                         @if($billingAddress->tax_number != null ) Cég: @endif
                                         {{$billingAddress->name}} - {{$billingAddress->postcode}} {{$billingAddress->city}}, {{$billingAddress->street}}
                                     </a>
@@ -246,7 +246,7 @@
         
 
         <!--Szállítási adatok -->
-        <div id="shippingDiv" class="leave-comment d-none">
+        <div id="shippingDiv" class="leave-comment d-none profileformDiv">
             <div class="form-group col-md-12">
                 <h2 class="text-white">Szállítási címeim: <small> (opcionális)</small></h2><br>
                 <div class="row">
@@ -258,14 +258,14 @@
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     @if (count($errors->shippingError) > 0 )
-                                        <div class="alert alert-danger">   
+                                        <div id="dangerShippingMsg" class="alert alert-danger">   
                                             @foreach ($errors->shippingError->all() as $error)
                                             {{ $error }}<br>
                                             @endforeach 
                                         </div>
                                     @endif
                                     @if( session()->has('successShipping') )
-                                        <div class="alert alert-success">
+                                        <div id="successShippingMsg" class="alert alert-success">
                                         {{ session()->get('successShipping') }}
                                         </div>
                                     @endif
@@ -304,11 +304,11 @@
                         </form>
                     </div>
                     <div class="col-12 col-md-5" style="padding-left: 100px;">
-                        <label class="text-white">Eddigi szállítási címeim:</label><br>
+                        <label class="text-white profileLabel">Eddigi szállítási címeim:</label><br>
                         <ul>
                             @foreach ($shippingAddresses as $shippingAddress)
                                 <li>
-                                    <a href="javascript:void(0)" class="shipping_address">
+                                    <a href="javascript:void(0)" class="shipping_address profile">
                                         {{$shippingAddress->name}} - {{$shippingAddress->postcode}} {{$shippingAddress->city}}, {{$shippingAddress->street}}
                                     </a>
                                     <div class="d-none">
@@ -467,14 +467,70 @@
                 $("#personalDiv").addClass("d-none");
             }
         });
-        /*if( $("#dangerPasswordMsg").length != 0 or $("#successPasswordMsg").length != 0 ){
+        if( $("#dangerPasswordMsg").length != 0 ){
             $("#passwordDiv").removeClass("d-none");
             $("#personalDiv").addClass("d-none");
             $("#billingDiv").addClass("d-none");
             $("#shippingDiv").addClass("d-none");
             $(".profilMenuBtn").removeClass("active-profilMenuBtn");
             $("#nav_item_password").addClass("active-profilMenuBtn");
-        };*/
-
+        };
+        if( $("#successPasswordMsg").length != 0 ){
+            $("#passwordDiv").removeClass("d-none");
+            $("#personalDiv").addClass("d-none");
+            $("#billingDiv").addClass("d-none");
+            $("#shippingDiv").addClass("d-none");
+            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+            $("#nav_item_password").addClass("active-profilMenuBtn");
+        };
+        if( $("#dangerBillingMsg").length != 0 ){
+            $("#passwordDiv").addClass("d-none");
+            $("#personalDiv").addClass("d-none");
+            $("#billingDiv").removeClass("d-none");
+            $("#shippingDiv").removeClass("d-none");
+            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+            $("#nav_item_address").addClass("active-profilMenuBtn");
+        };
+        if( $("#successBillingMsg").length != 0 ){
+            $("#passwordDiv").addClass("d-none");
+            $("#personalDiv").addClass("d-none");
+            $("#billingDiv").removeClass("d-none");
+            $("#shippingDiv").removeClass("d-none");
+            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+            $("#nav_item_address").addClass("active-profilMenuBtn");
+        };
+        if( $("#dangerShippingMsg").length != 0 ){
+            $("#passwordDiv").addClass("d-none");
+            $("#personalDiv").addClass("d-none");
+            $("#billingDiv").removeClass("d-none");
+            $("#shippingDiv").removeClass("d-none");
+            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+            $("#nav_item_address").addClass("active-profilMenuBtn");
+        };
+        if( $("#successShippingMsg").length != 0 ){
+            $("#passwordDiv").addClass("d-none");
+            $("#personalDiv").addClass("d-none");
+            $("#billingDiv").removeClass("d-none");
+            $("#shippingDiv").removeClass("d-none");
+            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+            $("#nav_item_address").addClass("active-profilMenuBtn");
+        };
+        if( $("#dangerPersonalMsg").length != 0 ){
+            $("#passwordDiv").addClass("d-none");
+            $("#personalDiv").removeClass("d-none");
+            $("#billingDiv").addClass("d-none");
+            $("#shippingDiv").addClass("d-none");
+            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+            $("#nav_item_personal").addClass("active-profilMenuBtn");
+        };
+        if( $("#successPersonalMsg").length != 0 ){
+            $("#passwordDiv").addClass("d-none");
+            $("#personalDiv").removeClass("d-none");
+            $("#billingDiv").addClass("d-none");
+            $("#shippingDiv").addClass("d-none");
+            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+            $("#nav_item_personal").addClass("active-profilMenuBtn");
+        };
+        
     </script>
     @endsection

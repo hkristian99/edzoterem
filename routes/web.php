@@ -5,9 +5,10 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfilController;
-
+use App\Http\Controllers\AdminUserController;
 
 //PUBLIC
+
     Route::get("/", [PublicController::class, 'Home'])->name("home");
     Route::get("/araink", [PublicController::class, "Prices"])->name("prices");
     Route::get("/csoportok", [PublicController::class, "Classes"])->name("classes");
@@ -58,4 +59,17 @@ use App\Http\Controllers\ProfilController;
     Route::get('/kijelentkezes', [AuthController::class, 'LogOut'])->name('logout');
 
 //ADMIN
-Route::get("/admin", [AdminController::class, 'Dashboard'])->name("admin");
+    Route::group(["prefix"=>"admin"], function(){
+
+        Route::get("/", [AdminController::class, 'Dashboard'])->name("admin");
+        //FELHASZNÁLÓK
+        Route::group(["prefix"=>"users"], function(){
+
+            Route::get('/', [AdminUserController::class, "index"])->name("adminUsers");
+            Route::get('/create', [AdminUserController::class, "create"])->name("adminUserCreate");
+            Route::post('/store', [AdminUserController::class, "store"])->name("adminUserStore");
+            Route::get('/edit/{userid}', [AdminUserController::class, "edit"])->name("adminUserEdit");
+            Route::post('/update/{userid}', [AdminUserController::class, "update"])->name("adminUserUpdate");
+            Route::get('/destroy/{userid}', [AdminUserController::class, "destroy"])->name("adminUserDestroy");
+        });
+    });

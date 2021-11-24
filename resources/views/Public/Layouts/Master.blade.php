@@ -105,7 +105,7 @@
                                                 <!--<p class="p">{{Auth::user()->firstname}} {{Auth::user()->lastname}}</p><hr class="hr">-->
                                                 <li><a class="profilMenuItem" href="{{route('profile')}}">Profilom</a></li>
                                                 <li><a class="profilMenuItem" href="{{route('profile')}}">Rendeléseim</a></li>
-                                                @if (Auth::user()->role_id != 4)
+                                                @if (1 > 0)
                                                 <li><a class="profilMenuItem" href="{{route('admin')}}">Adminisztráció</a></li>
                                                 @endif
                                                 <li><a class="profilMenuItem" href="{{route('logout')}}">Kijelentkezés</a></li>

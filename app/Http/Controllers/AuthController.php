@@ -13,6 +13,7 @@ use App\Http\Controllers\Helper;
 use App\Mail\LostPasswordMail;
 
 use App\Models\User;
+use App\Models\UserRole;
 
 class AuthController extends Controller
 {
@@ -213,10 +214,14 @@ class AuthController extends Controller
         $user->lastname = $request->lastname;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->role_id = 4;
-
+        
         $user->save();
 
+        $role = new UserRole();
+        $role->user_id = $user->id;
+        $role->role_id = 4;
+        
+        $role->save();
         return redirect()->route("successreg");
     }
     public function SuccessReg()
