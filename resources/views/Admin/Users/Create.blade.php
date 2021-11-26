@@ -17,49 +17,35 @@
                 <div class="x_title">
                     <br><h5>Új felhasználó felvétele</h5>
                 </div>
-                <div class="x_content">
+                <div class="d-flex justify-content-center">
                     <!-- HIBÁK HELYE-->
                     <!-- HIBÁK HELYE VÉGE-->
                     <form class="needs-validation" novalidate action="{{route("adminUserStore")}}" method="POST">
                         @csrf
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <br><h5 for="firstname" class="form-label">Vezetéknév</h5>
-                            <input type="text" class="form-control" id="firstname" style="text-transform: capitalize;" required>
+                            <input type="text" class="form-control" id="firstname" name="firstname" style="text-transform: capitalize;" required>
                         </div>
-                        <div class=" form-group col-md-6">
+                        <div class=" form-group col-md-12">
                             <br><h5 for="lastname" class="form-label">Keresztnév</h5>
-                            <input type="text" class="form-control" id="lastname" style="text-transform: capitalize;" required>
+                            <input type="text" class="form-control" id="lastname" name="lastname"style="text-transform: capitalize;" required>
                         </div>
                         <div class="form-group col-md-12">
                             <br><h5 for="email" class="form-label">Email cím</h5>
-                            <input type="email" class="form-control" id="email" required>
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="form-group col-md-12">
-                            <br><h5 for="email" class="form-label">Szerepkör(ök)</h5>
-                            <div class="form-group col-md-12" style="border:2px solid;">
-                                <table class="table">
-                                    <tr>
-                                        <th><h6 style="padding-top: 14px;">Választott:</h6></th>
-                                        <th>
-                                            @foreach ($roles as $role)
-                                                <span class="tag d-none" id="span_{{$role->id}}">{{$role->name}}&nbsp;
-                                                    <a href="#" class="removing_roletag">x</a>
-                                                </span>
-                                            @endforeach
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td><h6 style="padding-top: 14px;">Választható:</h6></td>
-                                        <td>
-                                            @foreach ($roles as $role)
-                                                <span class="tag add_roletag" id="span_addRole_{{$role->id}}">{{$role->name}}</span>
-                                            @endforeach
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
+                            <br><h5 for="email" class="form-label">Szerepkör(ök)</h5><br>
+                            
+                            @foreach ($roles as $role)
+                                <div class="">
+                                    <input type="checkbox" class="flat roles" id="role_{{$role->id}}">
+                                    <label for="role_{{$role->id}}">{{$role->name}}</label>
+                                </div>
+                            @endforeach
+                            <label id="activeRoles">Választott szerepkörök: <label><br>
                         </div>
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-12 text-right">
                             <br><button class="btn btn-success" type="submit">Felhasználó felvétele</button>
                         </div>
                       </form>
@@ -73,15 +59,5 @@
 @endsection
 @section('scripts')
     <script>
-        $(".add_roletag").on("click", function() {
-            $(this).addClass("d-none");
-            var span = ($(this).get(0).innerHTML);
-            console.log($(span).find("span"));
-        });
-        $(".removing_roletag").on("click", function() {
-            var span = $(this).parent().get( 0 );
-            $(span).addClass("d-none");
-            $("#span_addRole_1").removeClass("d-none");
-        });
     </script>
 @endsection

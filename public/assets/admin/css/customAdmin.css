@@ -34,3 +34,14 @@ span.add_roletag{
 span.add_roletag:hover{
     cursor:pointer;
 }
+.taskModalInput{
+    width: 763px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 6px;
+    padding: 10px;
+    border: 2px solid #dee2e6;
+}
+h4.taskModal{
+    font-size: 19px;
+}

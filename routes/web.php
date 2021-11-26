@@ -6,6 +6,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\WebshopController;
+use App\Http\Controllers\WorkoutController;
+
 
 //PUBLIC
 
@@ -62,6 +66,9 @@ use App\Http\Controllers\AdminUserController;
     Route::group(["prefix"=>"admin"], function(){
 
         Route::get("/", [AdminController::class, 'Dashboard'])->name("admin");
+        Route::get("/naptar", [AdminController::class, 'Calendar'])->name("calendar");
+        Route::get("/napi-teendo", [AdminController::class, 'Daily'])->name("daily");
+
         //FELHASZNÁLÓK
         Route::group(["prefix"=>"users"], function(){
 
@@ -71,5 +78,39 @@ use App\Http\Controllers\AdminUserController;
             Route::get('/edit/{userid}', [AdminUserController::class, "edit"])->name("adminUserEdit");
             Route::post('/update/{userid}', [AdminUserController::class, "update"])->name("adminUserUpdate");
             Route::get('/destroy/{userid}', [AdminUserController::class, "destroy"])->name("adminUserDestroy");
+        });
+
+        //BLOGOK
+        Route::group(["prefix"=>"blogs"], function(){
+            Route::get('/osszes', [BlogController::class, "index"])->name('blogAll');
+            Route::get('/sajat', [BlogController::class, "indexByUser"])->name('blogByUser');
+            Route::get('/uj', [BlogController::class, "create"])->name('blogCreate');
+            Route::post('/store', [BlogController::class, "store"])->name('blogStore');
+            Route::get('/szerkesztes/{postid}', [BlogController::class, "edit"])->name('blogEdit');
+            Route::post('/update/{postid}', [BlogController::class, "update"])->name('blogUpdate');
+            Route::get('/torles/{postid}', [BlogController::class, "destroy"])->name('blogDestroy');
+            Route::get('/bejegyzesstatusza', [BlogController::class, "PostStatus"])->name('postStatus');
+            Route::get('/{postid}/approval', [BlogController::class, "PostApproval"])->name('postApproval');
+        });
+
+        //EDZÉS
+        Route::group(["prefix"=>"workout"], function(){
+            Route::get('/edzestervek', [WorkoutController::class, "index"])->name('workoutPlans');
+            Route::get('/etrendek', [WorkoutController::class, "Diet"])->name('workoutDiet');
+            Route::get('/jegyzetfuzet', [WorkoutController::class, "Notes"])->name('workoutNotes');
+        });
+
+        //WEBSHOP
+        Route::group(["prefix"=>"webshop"], function(){
+            Route::get('/termekek', [WebshopController::class, "index"])->name('products');
+            Route::get('/uj', [WebshopController::class, "create"])->name('productCreate');
+            Route::get('/kedvezmenyes-termekek', [WebshopController::class, "discont"])->name('productDiscont');
+            Route::get('/termekotletek', [WebshopController::class, "productIdeas"])->name('productIdeas');
+            Route::post('/store', [WebshopController::class, "store"])->name('productStore');
+            Route::get('/szerkesztes/{productid}', [WebshopController::class, "edit"])->name('productEdit');
+            Route::post('/update/{productid}', [WebshopController::class, "update"])->name('productUpdate');
+            Route::get('/torles/{productid}', [WebshopController::class, "destroy"])->name('productDestroy');
+            Route::get('/termekstatusza', [WebshopController::class, "PostStatus"])->name('productStatus');
+            Route::get('/{productid}/approval', [WebshopController::class, "PostApproval"])->name('productApproval');
         });
     });

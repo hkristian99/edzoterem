@@ -20,4 +20,10 @@ class AdminController extends Controller
         return view("Admin.Dashboard")
                 ->with("roles",$roles);
     }
+    public function Calendar(){
+        return view("Admin.Personal.Calendar");
+    }
+    public function Daily(){
+        return view("Admin.Personal.Daily");
+    }
 }

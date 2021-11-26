@@ -2,41 +2,40 @@
     <div class="menu_section">
       <h3>Általános</h3>
       <ul class="nav side-menu">
-        <li><a><i class="fa fa-home"></i> Személyes <span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa fa-user"></i> Személyes <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="#">Profilom</a></li>
-            <li><a href="#">Naptár</a></li>
-            <li><a href="#">Napi teendők</a></li>
+            <li><a href="{{route("profile")}}">Profilom</a></li>
+            <li><a href="{{route("calendar")}}">Naptár</a></li>
+            <li><a href="{{route("daily")}}">Napi teendők</a></li>
           </ul>
         </li>
-        <li><a><i class="fa fa-edit"></i>WebShop<span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa fa-shopping-cart"></i>WebShop<span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a>Termékek kezelése<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                  <li class="sub_menu"><a href="#">Új termék hozzáadása</a>
+                  <li class="sub_menu"><a href="{{route("productCreate")}}">Új termék hozzáadása</a>
                   </li>
-                  <li><a href="#">Termékek listája</a>
+                  <li><a href="{{route("products")}}">Termékek listája</a>
                   </li>
-                  <li><a href="#">Kedvezmények kezelése</a>
+                  <li><a href="{{route("productDiscont")}}">Kedvezmények kezelése</a>
                   </li>
                 </ul>
               </li>
-            <li><a href="#">Ötletláda</a></li>
+            <li><a href="{{route("productIdeas")}}">Ötletláda</a></li>
           </ul>
         </li>
-        <li><a><i class="fa fa-desktop"></i>Edzés<span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa fa-bicycle"></i>Edzés<span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="#">Edzéstervek</a></li>
-            <li><a href="#">Étrendek</a></li>
-            <li><a href="#">Jegyzetfüzet</a></li>
+            <li><a href="{{route("workoutPlans")}}">Edzéstervek</a></li>
+            <li><a href="{{route("workoutDiet")}}">Étrendek</a></li>
+            <li><a href="{{route("workoutNotes")}}">Jegyzetfüzet</a></li>
           </ul>
         </li>
-        <li><a><i class="fa fa-bar-chart-o"></i>Blog<span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa fa-newspaper-o"></i>Blog<span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="#">Új bejegyzés</a></li>
-            <li><a href="#">Bejegyzéseim</a></li>
-            <li><a href="#">Összes bejegyzés</a></li>
-            <li><a href="#">Kifogásolható bejegyzések</a></li>
+            <li><a href="{{route("blogCreate")}}">Új bejegyzés</a></li>
+            <li><a href="{{route("blogByUser")}}">Bejegyzéseim</a></li>
+            <li><a href="{{route("blogAll")}}">Összes bejegyzés</a></li>
           </ul>
         </li>
       </ul>
@@ -45,7 +44,7 @@
     <div class="menu_section">
       <h3>Adminisztráció</h3>
       <ul class="nav side-menu">
-        <li><a><i class="fa fa-user"></i>Felhasználó kezelés<span class="fa fa-chevron-down"></span></a>
+        <li><a><i class="fa fa-users"></i>Felhasználó kezelés<span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{route("adminUserCreate")}}">Új felhasználó</a></li>
             <li><a href="{{route("adminUsers")}}">Felhasználók listája</a></li>

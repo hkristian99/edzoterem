@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="hu">
   <head>
+    @yield('custom1')
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -43,14 +44,8 @@
             <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="/gentelella-master/production/images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
+            <div class="profile clearfix text-center">
                 <h2>{{Auth::user()->firstname}} {{Auth::user()->lastname}}</h2>
-                <span></span>
-              </div>
             </div>
             <!-- /menu profile quick info -->
 
@@ -156,7 +151,8 @@
   
       <!-- Custom Theme Scripts -->
       <script src="/assets/admin/js/custom.min.js"></script>
-      
+      @yield('custom2')
     </body>
   </html>
+ 
   @yield('scripts')
