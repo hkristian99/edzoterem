@@ -127,48 +127,16 @@
 </header>
 <!-- Header End -->
 @yield('content')
-
-<!-- Get In Touch Section Begin -->
-<div class="gettouch-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="gt-text">
-                    <i class="fa fa-map-marker"></i>
-                    <p>333 Middle Winchendon Rd, Rindge,<br/> NH 03461</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="gt-text">
-                    <i class="fa fa-mobile"></i>
-                    <ul>
-                        <li>125-711-811</li>
-                        <li>125-668-886</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="gt-text email">
-                    <i class="fa fa-envelope"></i>
-                    <p>Support.gymcenter@gmail.com</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Get In Touch Section End -->
     
 <!-- Footer Section Begin -->
 <section class="footer-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-1">
                 <div class="fs-about">
                     <div class="fa-logo">
-                        <a href="#"><img src="/assets/frontend/img/logo.png" alt=""></a>
+                        <a href="{{route('home')}}"><img src="/assets/frontend/img/logo.png" alt=""></a>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore dolore magna aliqua endisse ultrices gravida lorem.</p>
                     <div class="fa-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
@@ -178,35 +146,37 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-6">
-                <div class="fs-widget">
-                    <h4>Useful links</h4>
-                    <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Classes</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 text-right">
-                <div class="fs-widget">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Login</a></li>
-                        <li><a href="#">My account</a></li>
-                        <li><a href="#">Subscribe</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
+            <div class="col-lg-11 col-md-3 col-sm-7 text-right">
+                <div class="fs-widget gt-text">
+                        <div class="col-md-4">
+                            <i class="fa fa-map-marker"></i>
+                            <p>333 Middle Winchendon Rd, Rindge, NH 03461</p>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="fa fa-mobile"></i>
+                            <ul>
+                                <li>125-711-811</li>
+                                <li>125-668-886</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="fa fa-envelope"></i>
+                            <p>info@forcegym.com</p>
+                        </div>
+                   
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="copyright-text">
-                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    <p>Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> 
+                        All rights reserved | This template is made with 
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                        by 
+                        <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -234,9 +204,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="/assets/frontend/js/owl.carousel.min.js"></script>
 <script src="/assets/frontend/js/main.js"></script>
 <script src="/assets/frontend/js/inputmask.min.js"></script>
-<script src="/assets/frontend/js/custom.js"></script>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="/assets/frontend/js/custom.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-@yield("scripts")
-</body>
-</html>
+    @yield("scripts")
+    </body>
+    </html>

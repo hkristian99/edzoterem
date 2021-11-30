@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
@@ -68,6 +69,7 @@ use App\Http\Controllers\WorkoutController;
         Route::get("/", [AdminController::class, 'Dashboard'])->name("admin");
         Route::get("/naptar", [AdminController::class, 'Calendar'])->name("calendar");
         Route::get("/napi-teendo", [AdminController::class, 'Daily'])->name("daily");
+        Route::post("/napi-teendo/hozzaadas", [AdminController::class, 'AddDailyTask'])->name("addDailyTask");
 
         //FELHASZNÁLÓK
         Route::group(["prefix"=>"users"], function(){

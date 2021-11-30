@@ -18,7 +18,7 @@ class BlogController extends Controller
     {
         $posts = Post::where("user_id", Auth::user()->id)
             ->get();
-    $user = User::findOrFail( Auth::user()->id);
+        $user = User::findOrFail( Auth::user()->id);
 
     return view("Admin.Blogs.IndexAll")
         ->with("posts", $posts)

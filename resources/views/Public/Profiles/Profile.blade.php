@@ -1,8 +1,8 @@
 @extends('Public.Layouts.Master')
 @section('content')
 <!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg" data-setbg="/assets/frontend/img/breadcrumb-bg.jpg">
-    <div class="container">
+<section class="breadcrumb-section set-bg set-bgprofile" data-setbg="/assets/frontend/img/profile-bg.jpg">
+    <div class="container" style="margin-bottom:70px;">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb-text">
@@ -11,12 +11,7 @@
             </div>
         </div>
     </div>
-</section>
-<!-- Breadcrumb Section End -->
-
-<!-- Contact Section Begin -->
-<section class="contact-section spad pageProfile">
-    <div class="container">
+    <div class="container profileContainer spad pageProfile">
 
         <!-- Menü -->
         <div class="row">
@@ -101,7 +96,7 @@
                         <input type="file" class="file" name="student_card_back" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
                     </div>
                     <div class="form-group col-md-12 text-left">
-                        <label style="color: #696868;"><small>*A kedvezményes bérlet igénybevételéhez szükséges az érvényes diákigazolvány feltöltése</small></label>
+                        <label style="color: #fff;"><small>*A kedvezményes bérlet igénybevételéhez szükséges az érvényes diákigazolvány feltöltése</small></label>
                     </div>
                 </div>
             </form>
@@ -326,211 +321,214 @@
         </div>
     </div>
 </section>
-<!-- Contact Section End -->
-    @endsection
+<!-- Breadcrumb Section End -->
+@endsection
 
-    @section("scripts")
-    <script>
-        $(".shipping_address").on("click", function() {
-            let szallitasiAdatok = JSON.parse($(this).parent().find("div").html());
-            
-            $("#shipping_name").val(szallitasiAdatok.name);
-            $("#shipping_postcode").val(szallitasiAdatok.postcode);
-            $("#shipping_city").val(szallitasiAdatok.city);
-            $("#shipping_street").val(szallitasiAdatok.street);
-            $("#shipping_phone").val(szallitasiAdatok.phone);
-            $("#shipping_note").val(szallitasiAdatok.note);
-            $("#shippingAddressId").val(szallitasiAdatok.id);
-        });
-
-        $(".billing_address").on("click", function() {
-            let szamlazasiAdatok = JSON.parse($(this).parent().find("div").html());
-            console.log(szamlazasiAdatok);
-
-            if(szamlazasiAdatok.tax_number != null){
-                $("#company").addClass("active");
-                $("#person").removeClass("active");
-                $(".taxNumber").removeClass("d-none");
-            }
-            if(szamlazasiAdatok.tax_number == null){
-                $("#person").addClass("active");
-                $("#company").removeClass("active");
-                $(".taxNumber").addClass("d-none");
-            }
-            $("#billing_name").val(szamlazasiAdatok.name);
-            $("#billing_country_id").val(szamlazasiAdatok.country_id);
-            $("#billing_postcode").val(szamlazasiAdatok.postcode);
-            $("#billing_city").val(szamlazasiAdatok.city);
-            $("#billing_street").val(szamlazasiAdatok.street);
-            $("#tax_number").val(szamlazasiAdatok.tax_number);
-            $("#billingAddressId").val(szamlazasiAdatok.id);
-        });
-
-        $("#modify-button").on("click", function() {
-            $("#profile-form").find("input").each(function() {
-                $(this).attr("disabled", false);
-            });
-            $("#firstname").focus();
-            $("#save-button-div").removeClass("d-none");
-            $("#cancel-button-div").removeClass("d-none");
-            $("#modify-button-div").addClass("d-none");
-        });
-        $("#cancel-button").on("click", function() {
-            let alapadatok = JSON.parse($("#alapadatokDIV").html());
-           
-            $("#firstname").val(alapadatok.firstname);
-            $("#lastname").val(alapadatok.lastname);
-            $("#email").val(alapadatok.email);
-            $("#student_card_number").val(alapadatok.student_card_number);
-
-            $("#profile-form").find("input").each(function() {
-                $(this).attr("disabled", true);
-            });
-            $("#save-button-div").addClass("d-none");
-            $("#cancel-button-div").addClass("d-none");
-            $("#modify-button-div").removeClass("d-none");
-        });
-        $(".billing_address").on("click", function(e) {
-            e.preventDefault();
-            
-            $("#billing-new-btn").addClass("d-none");
-            $("#billing-buttons").removeClass("d-none");
-            $("#billing_name").focus();
-           
-        });
-        $("#billing-delete-btn").on("click", function() {
-            $("#shipping-new-btn").addClass("d-none");
-            $("#shipping-buttons").removeClass("d-none");
-        });
-        $(".shipping_address").on("click", function(e) {
-            e.preventDefault();
-            $("#shipping-new-btn").addClass("d-none");
-            $("#shipping-buttons").removeClass("d-none");
-            $("#shipping_name").focus();
-        });
-        $("#person").on("click", function() {
-            $(".taxNumber").addClass("d-none");
-            $("#billing-type").val('1');
-        });
-        $("#company").on("click", function() {
-            
-            $(".taxNumber").removeClass("d-none");
-            $("#billing-type").attr('value','2');
-        });
-        $("#shipping_phone").inputmask("(99) 999-999[9]",{ "placeholder": "_" });
-
-        $("#shipping_cancel_btn").on("click", function() {
-            $("#shipping_name").val("");
-            $("#shipping_postcode").val("");
-            $("#shipping_city").val("");
-            $("#shipping_street").val("");
-            $("#shipping_phone").val("");
-            $("#shipping_note").val("");
-
-            $("#shipping-new-btn").removeClass("d-none");
-            $("#shipping-buttons").addClass("d-none");
-            $("#shipping_name").focus();
-        });
-        $("#billing_cancel_btn").on("click", function() {
-            $("#billing_name").val("");
-            $("#billing_postcode").val("");
-            $("#billing_city").val("");
-            $("#billing_street").val("");
-            $("#billing_country_id").val("1");
-            $("#tax_number").val("");
-
-            $("#billing-new-btn").removeClass("d-none");
-            $("#billing-buttons").addClass("d-none");
-            $("#billing_name").focus();
-        });
-        $(".profilMenuBtn").on("click", function(e) {
-            e.preventDefault();
-            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
-            $(this).addClass("active-profilMenuBtn");
-
-            if( $(this).text() == "Személyes adataim"){
-                $("#personalDiv").removeClass("d-none");
-                $("#passwordDiv").addClass("d-none");
-                $("#billingDiv").addClass("d-none");
-                $("#shippingDiv").addClass("d-none");
-            }
-            else if( $(this).text() == "Jelszó módosítás"){
-                $("#passwordDiv").removeClass("d-none");
-                $("#personalDiv").addClass("d-none");
-                $("#billingDiv").addClass("d-none");
-                $("#shippingDiv").addClass("d-none");
-            }
-            else if( $(this).text() == "Címeim"){
-                $("#shippingDiv").removeClass("d-none");
-                $("#billingDiv").removeClass("d-none");
-                $("#passwordDiv").addClass("d-none");
-                $("#personalDiv").addClass("d-none");
-            }
-        });
-        if( $("#dangerPasswordMsg").length != 0 ){
-            $("#passwordDiv").removeClass("d-none");
-            $("#personalDiv").addClass("d-none");
-            $("#billingDiv").addClass("d-none");
-            $("#shippingDiv").addClass("d-none");
-            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
-            $("#nav_item_password").addClass("active-profilMenuBtn");
-        };
-        if( $("#successPasswordMsg").length != 0 ){
-            $("#passwordDiv").removeClass("d-none");
-            $("#personalDiv").addClass("d-none");
-            $("#billingDiv").addClass("d-none");
-            $("#shippingDiv").addClass("d-none");
-            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
-            $("#nav_item_password").addClass("active-profilMenuBtn");
-        };
-        if( $("#dangerBillingMsg").length != 0 ){
-            $("#passwordDiv").addClass("d-none");
-            $("#personalDiv").addClass("d-none");
-            $("#billingDiv").removeClass("d-none");
-            $("#shippingDiv").removeClass("d-none");
-            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
-            $("#nav_item_address").addClass("active-profilMenuBtn");
-        };
-        if( $("#successBillingMsg").length != 0 ){
-            $("#passwordDiv").addClass("d-none");
-            $("#personalDiv").addClass("d-none");
-            $("#billingDiv").removeClass("d-none");
-            $("#shippingDiv").removeClass("d-none");
-            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
-            $("#nav_item_address").addClass("active-profilMenuBtn");
-        };
-        if( $("#dangerShippingMsg").length != 0 ){
-            $("#passwordDiv").addClass("d-none");
-            $("#personalDiv").addClass("d-none");
-            $("#billingDiv").removeClass("d-none");
-            $("#shippingDiv").removeClass("d-none");
-            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
-            $("#nav_item_address").addClass("active-profilMenuBtn");
-        };
-        if( $("#successShippingMsg").length != 0 ){
-            $("#passwordDiv").addClass("d-none");
-            $("#personalDiv").addClass("d-none");
-            $("#billingDiv").removeClass("d-none");
-            $("#shippingDiv").removeClass("d-none");
-            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
-            $("#nav_item_address").addClass("active-profilMenuBtn");
-        };
-        if( $("#dangerPersonalMsg").length != 0 ){
-            $("#passwordDiv").addClass("d-none");
-            $("#personalDiv").removeClass("d-none");
-            $("#billingDiv").addClass("d-none");
-            $("#shippingDiv").addClass("d-none");
-            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
-            $("#nav_item_personal").addClass("active-profilMenuBtn");
-        };
-        if( $("#successPersonalMsg").length != 0 ){
-            $("#passwordDiv").addClass("d-none");
-            $("#personalDiv").removeClass("d-none");
-            $("#billingDiv").addClass("d-none");
-            $("#shippingDiv").addClass("d-none");
-            $(".profilMenuBtn").removeClass("active-profilMenuBtn");
-            $("#nav_item_personal").addClass("active-profilMenuBtn");
-        };
+@section("scripts")
+<script>
+    $(".shipping_address").on("click", function() {
+        let szallitasiAdatok = JSON.parse($(this).parent().find("div").html());
         
-    </script>
-    @endsection
+        $("#shipping_name").val(szallitasiAdatok.name);
+        $("#shipping_postcode").val(szallitasiAdatok.postcode);
+        $("#shipping_city").val(szallitasiAdatok.city);
+        $("#shipping_street").val(szallitasiAdatok.street);
+        $("#shipping_phone").val(szallitasiAdatok.phone);
+        $("#shipping_note").val(szallitasiAdatok.note);
+        $("#shippingAddressId").val(szallitasiAdatok.id);
+    });
+
+    $(".billing_address").on("click", function() {
+        let szamlazasiAdatok = JSON.parse($(this).parent().find("div").html());
+        console.log(szamlazasiAdatok);
+
+        if(szamlazasiAdatok.tax_number != null){
+            $("#company").addClass("active");
+            $("#person").removeClass("active");
+            $(".taxNumber").removeClass("d-none");
+        }
+        if(szamlazasiAdatok.tax_number == null){
+            $("#person").addClass("active");
+            $("#company").removeClass("active");
+            $(".taxNumber").addClass("d-none");
+        }
+        $("#billing_name").val(szamlazasiAdatok.name);
+        $("#billing_country_id").val(szamlazasiAdatok.country_id);
+        $("#billing_postcode").val(szamlazasiAdatok.postcode);
+        $("#billing_city").val(szamlazasiAdatok.city);
+        $("#billing_street").val(szamlazasiAdatok.street);
+        $("#tax_number").val(szamlazasiAdatok.tax_number);
+        $("#billingAddressId").val(szamlazasiAdatok.id);
+    });
+
+    $("#modify-button").on("click", function() {
+        $("#profile-form").find("input").each(function() {
+            $(this).attr("disabled", false);
+        });
+        $("#firstname").focus();
+        $("#save-button-div").removeClass("d-none");
+        $("#cancel-button-div").removeClass("d-none");
+        $("#modify-button-div").addClass("d-none");
+    });
+    $("#cancel-button").on("click", function() {
+        let alapadatok = JSON.parse($("#alapadatokDIV").html());
+        
+        $("#firstname").val(alapadatok.firstname);
+        $("#lastname").val(alapadatok.lastname);
+        $("#email").val(alapadatok.email);
+        $("#student_card_number").val(alapadatok.student_card_number);
+
+        $("#profile-form").find("input").each(function() {
+            $(this).attr("disabled", true);
+        });
+        $("#save-button-div").addClass("d-none");
+        $("#cancel-button-div").addClass("d-none");
+        $("#modify-button-div").removeClass("d-none");
+    });
+    $(".billing_address").on("click", function(e) {
+        e.preventDefault();
+        
+        $("#billing-new-btn").addClass("d-none");
+        $("#billing-buttons").removeClass("d-none");
+        $("#billing_name").focus();
+        
+    });
+    $("#billing-delete-btn").on("click", function() {
+        $("#shipping-new-btn").addClass("d-none");
+        $("#shipping-buttons").removeClass("d-none");
+    });
+    $(".shipping_address").on("click", function(e) {
+        e.preventDefault();
+        $("#shipping-new-btn").addClass("d-none");
+        $("#shipping-buttons").removeClass("d-none");
+        $("#shipping_name").focus();
+    });
+    $("#person").on("click", function() {
+        $(".taxNumber").addClass("d-none");
+        $("#billing-type").val('1');
+    });
+    $("#company").on("click", function() {
+        
+        $(".taxNumber").removeClass("d-none");
+        $("#billing-type").attr('value','2');
+    });
+    $("#shipping_phone").inputmask("(99) 999-999[9]",{ "placeholder": "_" });
+
+    $("#shipping_cancel_btn").on("click", function() {
+        $("#shipping_name").val("");
+        $("#shipping_postcode").val("");
+        $("#shipping_city").val("");
+        $("#shipping_street").val("");
+        $("#shipping_phone").val("");
+        $("#shipping_note").val("");
+
+        $("#shipping-new-btn").removeClass("d-none");
+        $("#shipping-buttons").addClass("d-none");
+        $("#shipping_name").focus();
+    });
+    $("#billing_cancel_btn").on("click", function() {
+        $("#billing_name").val("");
+        $("#billing_postcode").val("");
+        $("#billing_city").val("");
+        $("#billing_street").val("");
+        $("#billing_country_id").val("1");
+        $("#tax_number").val("");
+
+        $("#billing-new-btn").removeClass("d-none");
+        $("#billing-buttons").addClass("d-none");
+        $("#billing_name").focus();
+    });
+    $(".profilMenuBtn").on("click", function(e) {
+        e.preventDefault();
+        $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+        $(this).addClass("active-profilMenuBtn");
+
+        if( $(this).text() == "Személyes adataim"){
+            $("#personalDiv").removeClass("d-none");
+            $("#passwordDiv").addClass("d-none");
+            $("#billingDiv").addClass("d-none");
+            $("#shippingDiv").addClass("d-none");
+        }
+        else if( $(this).text() == "Jelszó módosítás"){
+            $("#passwordDiv").removeClass("d-none");
+            $("#personalDiv").addClass("d-none");
+            $("#billingDiv").addClass("d-none");
+            $("#shippingDiv").addClass("d-none");
+        }
+        else if( $(this).text() == "Címeim"){
+            $("#shippingDiv").removeClass("d-none");
+            $("#billingDiv").removeClass("d-none");
+            $("#passwordDiv").addClass("d-none");
+            $("#personalDiv").addClass("d-none");
+        }
+    });
+    if( $("#dangerPasswordMsg").length != 0 ){
+        $("#passwordDiv").removeClass("d-none");
+        $("#personalDiv").addClass("d-none");
+        $("#billingDiv").addClass("d-none");
+        $("#shippingDiv").addClass("d-none");
+        $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+        $("#nav_item_password").addClass("active-profilMenuBtn");
+    };
+    if( $("#successPasswordMsg").length != 0 ){
+        $("#passwordDiv").removeClass("d-none");
+        $("#personalDiv").addClass("d-none");
+        $("#billingDiv").addClass("d-none");
+        $("#shippingDiv").addClass("d-none");
+        $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+        $("#nav_item_password").addClass("active-profilMenuBtn");
+    };
+    if( $("#dangerBillingMsg").length != 0 ){
+        $("#passwordDiv").addClass("d-none");
+        $("#personalDiv").addClass("d-none");
+        $("#billingDiv").removeClass("d-none");
+        $("#shippingDiv").removeClass("d-none");
+        $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+        $("#nav_item_address").addClass("active-profilMenuBtn");
+    };
+    if( $("#successBillingMsg").length != 0 ){
+        $("#passwordDiv").addClass("d-none");
+        $("#personalDiv").addClass("d-none");
+        $("#billingDiv").removeClass("d-none");
+        $("#shippingDiv").removeClass("d-none");
+        $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+        $("#nav_item_address").addClass("active-profilMenuBtn");
+    };
+    if( $("#dangerShippingMsg").length != 0 ){
+        $("#passwordDiv").addClass("d-none");
+        $("#personalDiv").addClass("d-none");
+        $("#billingDiv").removeClass("d-none");
+        $("#shippingDiv").removeClass("d-none");
+        $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+        $("#nav_item_address").addClass("active-profilMenuBtn");
+    };
+    if( $("#successShippingMsg").length != 0 ){
+        $("#passwordDiv").addClass("d-none");
+        $("#personalDiv").addClass("d-none");
+        $("#billingDiv").removeClass("d-none");
+        $("#shippingDiv").removeClass("d-none");
+        $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+        $("#nav_item_address").addClass("active-profilMenuBtn");
+    };
+    if( $("#dangerPersonalMsg").length != 0 ){
+        $("#passwordDiv").addClass("d-none");
+        $("#personalDiv").removeClass("d-none");
+        $("#billingDiv").addClass("d-none");
+        $("#shippingDiv").addClass("d-none");
+        $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+        $("#nav_item_personal").addClass("active-profilMenuBtn");
+    };
+    if( $("#successPersonalMsg").length != 0 ){
+        $("#passwordDiv").addClass("d-none");
+        $("#personalDiv").removeClass("d-none");
+        $("#billingDiv").addClass("d-none");
+        $("#shippingDiv").addClass("d-none");
+        $(".profilMenuBtn").removeClass("active-profilMenuBtn");
+        $("#nav_item_personal").addClass("active-profilMenuBtn");
+    };
+    
+</script>
+@endsection
+@section('footer')
+    
+@endsection

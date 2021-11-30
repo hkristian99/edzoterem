@@ -72,6 +72,13 @@
     transition: all 0.3s!important;
     background-color: rgba(243,97,0,0.05);
   }
+  .profileContainer{
+    background-color: rgba(27,27,27,0.3); 
+    border-radius: 57px; 
+    padding: 51px; 
+    backdrop-filter: blur(5px); 
+    
+  }
   .profileformDiv input:focus{
     border: 1.5px solid #ffffff!important;
     transition: all 0.3s!important;
@@ -101,11 +108,11 @@
     margin-bottom:450px;
   }
   .profileformDiv{
-    background-color: rgb(97 56 29);; 
-    border-radius: 57px; 
-    padding: 51px; 
-    backdrop-filter: blur(5px); 
-    margin-bottom:50px;
+    background-color: rgb(255 255 255 / 35%);
+    border-radius: 57px;
+    padding: 51px;
+    backdrop-filter: blur(5px);
+    margin-bottom: 50px;
   }
   .profileformDiv input{
     border: 2px solid #000000 !important;
@@ -217,6 +224,9 @@
     margin-left:0px !important;;
   }
 
+  .pageProfile{
+    background: #000000c2;
+  }
   .pageProfile form input{
     margin-bottom: 0px;
   }
@@ -294,6 +304,10 @@
   }
   .primary-btn.appoinment-btn {
     border-radius: 10px;
+  }
+  .set-bgprofile{
+    height: auto;
+    padding-bottom:70px;
   }
   .set-bglogin {
     background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.1)) , url(/assets/frontend/img/about-us.jpg) !important;

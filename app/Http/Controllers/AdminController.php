@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 
 use App\Models\User;
 use App\Models\UserRole;
+use App\Models\DailyTask;
 
 class AdminController extends Controller
 {
@@ -24,6 +25,18 @@ class AdminController extends Controller
         return view("Admin.Personal.Calendar");
     }
     public function Daily(){
-        return view("Admin.Personal.Daily");
+        $tasks = DailyTask::where("user_id", Auth::user()->id)
+                    ->get();
+        
+        return view("Admin.Personal.Daily")
+            ->with("tasks", $tasks);
+    }
+    public function AddDailyTask(Request $request){
+        $newtask = new DailyTask;
+        $newtask->user_id =  Auth::user()->id;
+        $newtask->task = $request->newTask;
+        $newtask->save();
+
+        return redirect()->back();
     }
 }

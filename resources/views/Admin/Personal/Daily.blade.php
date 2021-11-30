@@ -29,8 +29,9 @@
                             <div class="x_content">
                                 <div class="">
                                 <ul class="to_do" id="taskList">
-                                    <li><p><input type="checkbox" class="flat"> Schedule meeting with new client</p></li>
-                                    <li><p><input type="checkbox" class="flat"> Create email address for new intern</p></li>
+                                    @foreach ($tasks as $task)
+                                        <li><p><input type="checkbox" class="flat"> {{$task->task}}</p></li>
+                                    @endforeach
                                 </ul>
                                 </div>
                             </div>
@@ -42,6 +43,8 @@
                         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
+                                    <form action="{{route("addDailyTask")}}" method="POST">
+                                        @csrf 
                                     <div class="modal-header">
                                         <h4 class="modal-title taskModal" id="myModalLabel2">Új feladat hozzáadása</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
@@ -49,12 +52,13 @@
                                     </div>
                                     <div class="modal-body">
                                             <h4 class="taskModal">Feladat leírása:</h4>
-                                            <input type="text" class="taskModalInput" id="addTask" placeholder="Leírás">
+                                            <input type="text" name="newTask" class="taskModalInput" id="addTask" placeholder="Leírás">
                                     </div>
                                     <div class="modal-footer">
                                         <a href="#" class="btn btn-secondary" data-dismiss="modal">Mégse</a>
-                                        <button id="addTaskBtn" class="btn btn-success" data-dismiss="modal">Hozzáad</button>
+                                        <button id="addTaskBtn" type="submit" class="btn btn-success">Hozzáad</button>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -69,11 +73,6 @@
 @endsection
 @section('scripts')
 <script>
-    $("#addTaskBtn").click(function() {
-        var value = $('#addTask').val();
-        $('ul li:last').after("<li><p><input type='checkbox' class="+"flat"+">" + value + "</p></li>");
-        $('#addTask').val('');
-    });
 </script>
 @endsection
 
