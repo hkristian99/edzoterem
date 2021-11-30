@@ -61,7 +61,7 @@
 <!-- Offcanvas Menu Section End -->
 
 <!-- Header Section Begin -->
-<header class="header-section">
+<header class="header-section examHeader">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3">
@@ -132,7 +132,7 @@
 <section class="footer-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-1">
+            <div class="col-lg-4">
                 <div class="fs-about">
                     <div class="fa-logo">
                         <a href="{{route('home')}}"><img src="/assets/frontend/img/logo.png" alt=""></a>
@@ -146,24 +146,23 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-11 col-md-3 col-sm-7 text-right">
-                <div class="fs-widget gt-text">
-                        <div class="col-md-4">
+            <div class="col-lg-7 col-md-3 col-sm-7 ">
+                <div class="gt-text">
+                        <div class="col-12">
                             <i class="fa fa-map-marker"></i>
                             <p>333 Middle Winchendon Rd, Rindge, NH 03461</p>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-12">
                             <i class="fa fa-mobile"></i>
                             <ul>
                                 <li>125-711-811</li>
                                 <li>125-668-886</li>
                             </ul>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-12">
                             <i class="fa fa-envelope"></i>
                             <p>info@forcegym.com</p>
                         </div>
-                   
                 </div>
             </div>
         </div>
@@ -204,9 +203,9 @@
 <script src="/assets/frontend/js/owl.carousel.min.js"></script>
 <script src="/assets/frontend/js/main.js"></script>
 <script src="/assets/frontend/js/inputmask.min.js"></script>
-    <script src="/assets/frontend/js/custom.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="/assets/frontend/js/custom.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-    @yield("scripts")
-    </body>
-    </html>
+@yield("scripts")
+</body>
+</html>

@@ -6,12 +6,12 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb-text">
-                    <h2>Profilom</h2>
+                    <h2></h2>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container profileContainer spad pageProfile">
+    <div class="container profileContainer pageProfile spad">
 
         <!-- Menü -->
         <div class="row">

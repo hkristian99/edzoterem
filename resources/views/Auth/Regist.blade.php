@@ -27,9 +27,9 @@
                                 <form   id="i_recaptcha" name="regist" class="login"action="{{route('sendregist')}}" method="POST">
                                     @csrf
                                     <input type="hidden" id="reCaptchaToken" name="reCaptchaToken" value="">
-                                    <input class="input" name="firstname" value="{{old("firstname")}}"type="text" placeholder="Vezetéknév"><br>
-                                    <input class="input" name="lastname" value="{{old("lastname")}}"type="text" placeholder="Keresztnév"><br>
-                                    <input class="input" name="email" value="{{old("email")}}"type="email" placeholder="E-mail cím"><br>
+                                    <input class="input" name="firstname" value="{{old("firstname")}}" type="text" placeholder="Vezetéknév"><br>
+                                    <input class="input" name="lastname" value="{{old("lastname")}}" type="text" placeholder="Keresztnév"><br>
+                                    <input class="input" name="email" value="{{old("email")}}" type="email" placeholder="E-mail cím"><br>
                                     <input class="input" name="password" type="password" placeholder="Jelszó"><br>
                                     <input class="input" name="password_confirmation" type="password" placeholder="Jelszó mégegyszer"><br>
                                     <div class="row justify-content-center">

@@ -151,6 +151,7 @@
   
       <!-- Custom Theme Scripts -->
       <script src="/assets/admin/js/custom.min.js"></script>
+      <script src="/assets/frontend/js/inputmask.min.js"></script>
       @yield('custom2')
     </body>
   </html>

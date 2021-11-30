@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\UserRole;
 
 class AdminUserController extends Controller
 {
@@ -33,10 +34,17 @@ class AdminUserController extends Controller
      */
     public function create()
     {
+        
+        $password = "";
+        $elements = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"];
+        for ($i=0; $i < 12; $i++) { 
+            $password = $password . $elements[rand(0,count($elements)-1)];
+        }
         $roles = Role::all();
 
         return view("Admin.Users.Create")
-                ->with("roles", $roles);
+                ->with("roles", $roles)
+                ->with("password", $password);
     }
 
     /**
@@ -48,42 +56,52 @@ class AdminUserController extends Controller
     public function store(Request $request)
     {
         
+        $roles=$request->roles;
+        
         dd($request);
+        foreach($roles as $roleID){ 
+            $val = $roles[1];
+        }
+        dd($val);
         //1. validálás
         $rules = [
             "firstname" => "required",
             "lastname" => "required",
             "email" => "required|email|unique:users",
-            "role_id" => "required"
+            "roles" => "required"
         ];
 
         $messages = [
             "firstname.required" => "A vezetéknév megadása kötelező!",
-            "laststname.required" => "A keresztnév megadása kötelező!",
+            "lastname.required" => "A keresztnév megadása kötelező!",
             "email.required" => "Az e-mail cím megadása kötelező!",
             "email.unique" => "A megadott e-mail cím már létezik, válasszon másikat!",
             "email.email" => "Az e-mail cím formátuma hibás!",
-            "role_id.required" => "A szerepkör megadása kötelező!"
+            "roles.required" => "A szerepkör megadása kötelező!"
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
-        
 
         if ( $validator->fails() )
             return back()
                 ->withErrors($validator)
                 ->withInput();
+
         $user = new User();
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
+        $user->password = $request->password;
         $user->email = $request->email;
-        $user->role_id = 4;
-        
         $user->save();
 
+        foreach($request->roles as $roleID){
+            $role = new UserRole();
+            $role->user_id= $user->id;
+            $role->role_id=$roleID;
+            $role->save();
+        }
         return redirect()->route("adminUsers")->withSuccess("A felhasználó létrehozása sikerült!");
     }
-
 
     /**
      * Show the form for editing the specified resource.

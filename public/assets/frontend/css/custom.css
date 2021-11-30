@@ -8,6 +8,10 @@
     color: #555;
   }
   
+  .gt-text i {
+    background: none !important;
+    font-size:25px;
+}
   /* stroke */
   nav.stroke ul li a{
     position: relative;
@@ -77,6 +81,8 @@
     border-radius: 57px; 
     padding: 51px; 
     backdrop-filter: blur(5px); 
+   
+    margin:0% 24%;
     
   }
   .profileformDiv input:focus{
@@ -131,14 +137,54 @@
     backdrop-filter: blur(5px); 
     margin-bottom:250px;
   }
-  
+  .examHeader{
+    background: rgba(0,0,0,0.5);
+    opacity: 1;
+    border-radius: 22px;
+    width: 80%;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 3%;
+    padding: 1%;
+    position: absolute;
+  }
+  .nav-menu {
+    width: 111%;
+}
   @media only screen and (min-width: 992px) and (max-width: 1381px){
-    div.to-search {
-      display: none !important;
-    }
     div.to-option{
       width:-60%;
       left:-30%;
+    }
+    .examHeader{
+      background: rgba(0,0,0,0.5);
+      opacity: 1;
+      border-radius: 22px;
+      width: 80%;
+      margin-right: 10%;
+      margin-left: 10%;
+      margin-top: 3%;
+      padding: 2%;
+      position: absolute;
+    }
+    .nav-menu {
+      width: 127%;
+    }
+  }
+
+  @media only screen and (max-width: 479px) {
+    .examHeader{
+      background: rgba(0,0,0,0.5);
+      opacity: 1;
+      border-radius: 22px;
+      width: 90%;
+      margin-top: 3%;
+      padding: 2%;
+      position: absolute;
+    }
+    .canvas-open {
+      right: 18px;
+      top: 17px;
     }
   }
 

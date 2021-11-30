@@ -1,5 +1,6 @@
 @extends('Admin.Layouts.Master')
 @section('content')
+<link href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 <!-- page content -->
 <div class="right_col" role="main">
 
@@ -12,46 +13,54 @@
     <!-- FelhasználókCím vége -->
 
     <!-- Felhasználók táblázat -->
-    <div class="col-md-12 col-sm-12 ">
-        <div class="x_panel tile">
-            <div class="x_title">
-                <h2>Felhasználók lista</h2><br><br>
-            </div>
-            <div class="x_content">
-                <div class="table-responsive">
-                    <table class="table jambo_table bulk_action">
-                        <thead class="thead-dark">
-                            <tr class="text-center">
-                                <th scope="col">#</th>
-                                <th scope="col">Vezetéknév</th>
-                                <th scope="col">Keresztnév</th>
-                                <th scope="col">E-mail cím</th>
-
-                                <!--<th scope="col">@sortablelink('id','#')</th>
-                                <th scope="col">@sortablelink('firstname','Vezetéknév')</th>
-                                <th scope="col">@sortablelink('lastname','Keresztnév')</th>
-                                <th scope="col">@sortablelink('email','E-mail cím')</th>-->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $user)
-                            <tr class="" style="cursor:pointer;" onClick="document.location.href='{{ route("adminUserEdit", $user->id) }}';">
-                                <td scope="row">{{$user->id}}</td>
-                                <td>{{$user->firstname}}</td>
-                                <td>{{$user->lastname}}</td>
-                                <td>{{$user->email}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                   
+<div class="col-md-12 col-sm-12 ">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Felhasználók lista</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+                        <table id="user_table" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Vezetéknév</th>
+                                    <th>Keresztnév</th>
+                                    <th>E-mail cím</th>
+                                    <th><input type="checkbox" id="check-all"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                <tr  class="odd" style="cursor:pointer;" onClick="document.location.href='{{ route("adminUserEdit", $user->id) }}';">
+                                    <td>{{$user->id}}</td>
+                                    <td>{{$user->firstname}}</td>
+                                    <td>{{$user->lastname}}</td>
+                                    <td>{{$user->email}}</td>
+                                    <th class="sorting_1"><input type="checkbox" id="check-all"></th>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Felhasználók táblázat vége -->
-
-
-    </div>
+</div>
+<!-- Felhasználók táblázat vége -->
+</div>
 <!-- /page content -->
+
+@endsection
+@section('scripts')
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#user_table').DataTable();
+        } );
+    </script>
 @endsection
