@@ -19,28 +19,33 @@
             <h2>Felhasználók lista</h2>
             <div class="clearfix"></div>
         </div>
+        @if( Session::has('success') )
+            <div class="alert alert-success text-center">
+                {{ Session::get('success') }}
+            </div>
+        @endif
         <div class="x_content">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-box table-responsive">
                         <table id="user_table" class="table table-striped">
                             <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <th>#</th>
                                     <th>Vezetéknév</th>
                                     <th>Keresztnév</th>
                                     <th>E-mail cím</th>
-                                    <th><input type="checkbox" id="check-all"></th>
+                                    <th>Státusz</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
-                                <tr  class="odd" style="cursor:pointer;" onClick="document.location.href='{{ route("adminUserEdit", $user->id) }}';">
+                                <tr  class="odd text-left" style="cursor:pointer;" onClick="document.location.href='{{ route("adminUserEdit", $user->id) }}';">
                                     <td>{{$user->id}}</td>
                                     <td>{{$user->firstname}}</td>
                                     <td>{{$user->lastname}}</td>
                                     <td>{{$user->email}}</td>
-                                    <th class="sorting_1"><input type="checkbox" id="check-all"></th>
+                                    <td>{{$user->getStatus->name}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -60,7 +65,30 @@
     <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready( function () {
-            $('#user_table').DataTable();
+            $('#user_table').DataTable({
+                language: {
+                    emptyTable: "Nincs rendelkezésre álló adat",
+                    info: "Találatok: _START_ - _END_ Összesen: _TOTAL_",
+                    infoEmpty: "Nulla találat",
+                    infoFiltered: "(_MAX_ összes rekord közül szűrve)",
+                    infoThousands: " ",
+                    lengthMenu: "_MENU_ találat oldalanként",
+                    loadingRecords: "Betöltés...",
+                    processing: "Feldolgozás...",
+                    search: "Keresés:",
+                    zeroRecords: "Nincs a keresésnek megfelelő találat",
+                    paginate: {
+                        first: "Első",
+                        previous: "Előző",
+                        next: "Következő",
+                        last: "Utolsó"
+                    },
+                    aria: {
+                        sortAscending: ": aktiválja a növekvő rendezéshez",
+                        sortDescending: ": aktiválja a csökkenő rendezéshez"
+                    },
+                }
+            });
         } );
     </script>
 @endsection

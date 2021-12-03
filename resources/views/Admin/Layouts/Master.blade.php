@@ -150,10 +150,11 @@
       <script src="/assets/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
   
       <!-- Custom Theme Scripts -->
-      <script src="/assets/admin/js/custom.min.js"></script>
+      <script src="/assets/admin/js/custom.js"></script>
       <script src="/assets/frontend/js/inputmask.min.js"></script>
       @yield('custom2')
+      @yield('scripts')
     </body>
   </html>
  
-  @yield('scripts')
+  

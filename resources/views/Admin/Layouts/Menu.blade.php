@@ -57,8 +57,7 @@
       <ul class="nav side-menu">
         <li><a><i class="fa fa-user"></i> Számlák kezelése <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="#">Új felhasználó</a></li>
-            <li><a href="#">Felhasználók listája</a></li>
+           
           </ul>
         </li>
         <li><a><i class="fa fa-newspaper-o"></i> Riporting <span class="fa fa-chevron-down"></span></a>

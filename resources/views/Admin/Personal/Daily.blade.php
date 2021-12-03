@@ -28,9 +28,33 @@
                             </div>
                             <div class="x_content">
                                 <div class="">
-                                <ul class="to_do" id="taskList">
-                                    @foreach ($tasks as $task)
-                                        <li><p><input type="checkbox" class="flat"> {{$task->task}}</p></li>
+                                <ul class="to_do" id="activeTaskList">
+                                    @foreach ($activeTasks as $activeTask)
+                                        <li>
+                                            <input type="checkbox" value="{{ $activeTask->id }}" class="flat task"> {{$activeTask->task}}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <!-- End to do list -->
+                        <!-- Start to do list -->
+                        <div class="col-md-12 col-sm-12 ">
+                            <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Elvégzett feladatok</h2>
+                                <div class="text-right">
+                                    <a href="{{route('deleteTasks')}}" class="btn btn-danger">Lista ürítése</a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="">
+                                <ul class="to_do" id="inactiveTaskList">
+                                    @foreach ($inActiveTasks as $inActiveTask)
+                                        <li><p> - {{$inActiveTask->task}}</p></li>
                                     @endforeach
                                 </ul>
                                 </div>
@@ -73,6 +97,39 @@
 @endsection
 @section('scripts')
 <script>
+
+$('input.flat.task').on('ifChecked', async function(event){
+    //feladat ID
+    let val = $(this).val();
+    // feladat szöveg
+    let text = $(this).parent().parent().text();
+
+    // ajax hívás API felé
+    let resp = await getAjax(val);
+    
+    // TODO: jogosultság vizsgálata
+
+    if ( resp=="OK" ) {
+        // feladat levétele az aktívok közül
+        $(this).parent().parent().addClass('d-none');
+
+        // feladat felvétele az inaktívok közé
+        $("#inactiveTaskList").append("<li>- "+text+"</li>");
+    } else {
+        alert("HIBA");
+    }
+});
+
+async function getAjax(val) {
+    return $.ajax({
+        type: "GET",
+        url: "/api/taskinactive/"+val,
+        success : function(text) {
+            return text;
+        }
+    });
+}
+
 </script>
 @endsection
 

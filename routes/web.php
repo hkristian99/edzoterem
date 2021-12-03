@@ -24,25 +24,6 @@ use App\Http\Controllers\WorkoutController;
     Route::get("/galeria", [PublicController::class, "Gallery"])->name("gallery");
     Route::get("/blog", [PublicController::class, "Blog"])->name("blog");
 
-//PROFIL ÉS MÁS ADATOK
-
-    //Profil :
-    Route::get("/profilom/{anchor?}", [ProfilController::class, "Profile"])->name("profile");
-    Route::post("/profilom", [ProfilController::class, "ProfileUpdate"])->name("profileUpdate");
-
-    //Jelszó módosítás :
-    Route::post("/profilom/jelszo-modositas", [AuthController::class, "ChangePassword"])->name("ChangePassword");
-
-    //Számlázási cím :
-    Route::post('/uj-szamlazasi-cim', [ProfilController::class, 'BillingAddressNew'])->name('billingAddressNew');
-    Route::post('/szamlazasi-cim-modositas', [ProfilController::class, 'BillingAddressUpdate'])->name('billingAddressUpdate');
-    Route::post('/szamlazasi-cim-torlese', [ProfilController::class, 'BillingAddressDelete'])->name('billingAddressDelete');
-
-    //Szállítási cím :
-    Route::post('/uj-szallitasi-cim', [ProfilController::class, 'ShippingAddressNew'])->name('shippingAddressNew');
-    Route::post('/szallitasi-cim-modositasa', [ProfilController::class, 'ShippingAddressUpdate'])->name('shippingAddressUpdate');
-    Route::post('/szallitasi-cim-torlese', [ProfilController::class, 'ShippingAddressDelete'])->name('shippingAddressDelete');
-
 //LOGIN /  REGISZRÁCIÓ / ELFELEJTETT JELSZÓ
 
     //Bejelentkezés :
@@ -59,17 +40,42 @@ use App\Http\Controllers\WorkoutController;
     Route::post('/elfelejtett-jelszo', [AuthController::class, 'SendLostPassword'])->name('sendLostPassword');
     Route::get('/elfelejtett-jelszo/{email}/{code}', [AuthController::class, 'ChangeLostPassword'])->name('changeLostPassword');
     Route::post('/elfelejtett-jelszo-modositas', [AuthController::class, 'SendChangeLostPassword'])->name('sendChangeLostPassword');
+    
+    Route::get("/jelszo-modositas", [AuthController::class, "PasswordStatus"])->name("PasswordStatus");
+    Route::post("/jelszo-modositas", [AuthController::class, "SendPasswordStatus"])->name("sendPasswordStatus");
 
     //Kijelentkezés :
     Route::get('/kijelentkezes', [AuthController::class, 'LogOut'])->name('logout');
 
+
+//PROFIL ÉS MÁS ADATOK
+Route::group(["prefix"=>"profilom", 'middleware' => 'checkLogin'], function(){
+    //Profil :
+    Route::post("/", [ProfilController::class, "ProfileUpdate"])->name("profileUpdate");
+    Route::get("/{anchor?}", [ProfilController::class, "Profile"])->name("profile");
+
+    //Jelszó módosítás :
+    Route::post("/jelszo-modositas", [AuthController::class, "ChangePassword"])->name("ChangePassword");
+
+    //Számlázási cím :
+    Route::post('/uj-szamlazasi-cim', [ProfilController::class, 'BillingAddressNew'])->name('billingAddressNew');
+    Route::post('/szamlazasi-cim-modositas', [ProfilController::class, 'BillingAddressUpdate'])->name('billingAddressUpdate');
+    Route::post('/szamlazasi-cim-torlese', [ProfilController::class, 'BillingAddressDelete'])->name('billingAddressDelete');
+
+    //Szállítási cím :
+    Route::post('/uj-szallitasi-cim', [ProfilController::class, 'ShippingAddressNew'])->name('shippingAddressNew');
+    Route::post('/szallitasi-cim-modositasa', [ProfilController::class, 'ShippingAddressUpdate'])->name('shippingAddressUpdate');
+    Route::post('/szallitasi-cim-torlese', [ProfilController::class, 'ShippingAddressDelete'])->name('shippingAddressDelete'); 
+});
+
 //ADMIN
-    Route::group(["prefix"=>"admin"], function(){
+    Route::group(["prefix"=>"admin", 'middleware' => 'isNotVisitor'], function(){
 
         Route::get("/", [AdminController::class, 'Dashboard'])->name("admin");
         Route::get("/naptar", [AdminController::class, 'Calendar'])->name("calendar");
         Route::get("/napi-teendo", [AdminController::class, 'Daily'])->name("daily");
         Route::post("/napi-teendo/hozzaadas", [AdminController::class, 'AddDailyTask'])->name("addDailyTask");
+        Route::get("/napi-teendo/lista-torlese", [AdminController::class, 'DeleteTasks'])->name("deleteTasks");
 
         //FELHASZNÁLÓK
         Route::group(["prefix"=>"users"], function(){
@@ -79,7 +85,6 @@ use App\Http\Controllers\WorkoutController;
             Route::post('/store', [AdminUserController::class, "store"])->name("adminUserStore");
             Route::get('/edit/{userid}', [AdminUserController::class, "edit"])->name("adminUserEdit");
             Route::post('/update/{userid}', [AdminUserController::class, "update"])->name("adminUserUpdate");
-            Route::get('/destroy/{userid}', [AdminUserController::class, "destroy"])->name("adminUserDestroy");
         });
 
         //BLOGOK

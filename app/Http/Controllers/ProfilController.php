@@ -159,8 +159,45 @@ class ProfilController extends Controller
             return redirect()->route("profile", "#billingDiv")->with("successBilling", "Az új számlázási cím felvételre került.");
         }
 
-        public function BillingAddressUpdate(){
-            //
+        public function BillingAddressUpdate(Request $request){
+            $address = Address::findorFail($request->billingAddressId);
+            
+            //1. validálás
+            $rules = [
+                "billing_name" => "required",
+                "billing_postcode" => "required",
+                "billing_city" => "required",
+                "billing_street" => "required",
+            ];
+            if($request->billing_type == 2)
+                $rules["tax_number"] = "required";
+
+            $messages = [
+                "billing_name.required" => "A név megadása kötelező!",
+                "billing_postcode.required" => "Az irányítószám megadása kötelező!",
+                "billing_city.required" => "A város megadása kötelező!",
+                "billing_street.required" => "Az utca, házszám megadása kötelező!",
+                "tax_number.required" => "Cégként az adószám megadása kötelező!"
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages);
+
+            if ( $validator->fails() )
+                return redirect(url()->previous() . '#billingDiv')
+                    ->withErrors($validator,"billingError")
+                    ->withInput();
+            
+            $address->user_id = Auth::user()->id;
+            $address->address_type = 1;
+            $address->name = $request->billing_name;
+            $address->country_id = $request->billing_country_id;
+            $address->postcode = $request->billing_postcode;
+            $address->city = $request->billing_city;
+            $address->street = $request->billing_street;
+            $address->tax_number = $request->tax_number;
+            $address->save();
+
+            return redirect()->route("profile", "#billingDiv")->with("successBilling", "A számlázási cím módosítása sikeres volt.");
             
         }
 

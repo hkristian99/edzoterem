@@ -25,11 +25,18 @@ class AdminController extends Controller
         return view("Admin.Personal.Calendar");
     }
     public function Daily(){
-        $tasks = DailyTask::where("user_id", Auth::user()->id)
+        $activeTasks = DailyTask::where("user_id", Auth::user()->id)
+                    ->where("status", 1)
                     ->get();
+
+        $inActiveTasks = DailyTask::where("user_id", Auth::user()->id)
+        ->where("status", 0)
+        ->get();
+
         
         return view("Admin.Personal.Daily")
-            ->with("tasks", $tasks);
+            ->with("activeTasks", $activeTasks)
+            ->with("inActiveTasks", $inActiveTasks);
     }
     public function AddDailyTask(Request $request){
         $newtask = new DailyTask;
@@ -37,6 +44,28 @@ class AdminController extends Controller
         $newtask->task = $request->newTask;
         $newtask->save();
 
-        return redirect()->back();
+        return redirect()->route("daily");
+    }
+
+    public function SetDalyTaskInactice($id)
+    {
+        $task = DailyTask::findOrFail($id);
+        $task->status="0";
+        $task->save();
+
+        return "OK";
+    }
+
+    public function DeleteTasks()
+    {
+        $inActiveTasks = DailyTask::where("user_id", Auth::user()->id)
+            ->where("status", 0)
+            ->get();
+
+        foreach ($inActiveTasks as $inActiveTask) {
+            $inActiveTask->delete();
+        }
+
+        return redirect()->route("daily");
     }
 }

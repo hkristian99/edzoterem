@@ -2375,7 +2375,6 @@ function init_compose() {
 /* CALENDAR */
 
 function init_calendar() {
-
     if (typeof ($.fn.fullCalendar) === 'undefined') { return; }
     console.log('init_calendar');
 
@@ -2390,8 +2389,9 @@ function init_calendar() {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay,listMonth'
+            right: 'month,agendaWeek,agendaDay,listMonth',
         },
+        locale: "hu",
         selectable: true,
         selectHelper: true,
         select: function (start, end, allDay) {
@@ -2472,7 +2472,6 @@ function init_calendar() {
             url: 'http://google.com/'
         }]
     });
-
 };
 
 /* DATA TABLES */

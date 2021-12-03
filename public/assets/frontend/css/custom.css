@@ -11,6 +11,7 @@
   .gt-text i {
     background: none !important;
     font-size:25px;
+    width: 100px;
 }
   /* stroke */
   nav.stroke ul li a{
@@ -82,7 +83,7 @@
     padding: 51px; 
     backdrop-filter: blur(5px); 
    
-    margin:0% 24%;
+    /*margin:0% 24%;*/
     
   }
   .profileformDiv input:focus{
@@ -354,6 +355,8 @@
   .set-bgprofile{
     height: auto;
     padding-bottom:70px;
+    background-size: cover;
+    background-attachment: fixed;
   }
   .set-bglogin {
     background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.1)) , url(/assets/frontend/img/about-us.jpg) !important;
@@ -367,18 +370,17 @@
     margin-bottom:10px;
   }
   .profilMenuBtn{
-    display: inline-block;
     font-size: 15px;
-    padding: 17px 30px 16px;
     color: #ffffff;
-    line-height: normal;
     letter-spacing: 1px;
     text-transform: uppercase;
     font-weight: 700;
     border-radius: 10px;
-    background: transparent;
     border: 2px solid #f36100;
-    margin-right:15px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .profilMenuBtn:hover{
     background: #f36100;

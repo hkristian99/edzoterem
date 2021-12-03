@@ -12,6 +12,7 @@ use App\Models\Paymode;
 use App\Models\Category;
 use App\Models\Room;
 use App\Models\Shipping_mode;
+use App\Models\UserStatus;
 
 class BasicSeeder extends Seeder
 {
@@ -31,6 +32,7 @@ class BasicSeeder extends Seeder
         $categories = array("Bérlet","Napijegy","Étrend-kiegészítő","Felszerelés");
         $rooms = array("Nagy", "Közepes", "Kis", "Spinning");
         $shipping_modes = array("Személyesen üzletünkben", "Szállítás GLS futárszolgálattal", "On-line átvétel");
+        $user_statuses = array("Aktív", "Inaktív", "Jelszó változtatás kötelező");
         
         
         //DB FELTÖLTÉSE BASIC ADATOKKAL
@@ -100,6 +102,12 @@ class BasicSeeder extends Seeder
                 $newItem = new Shipping_mode();
                 $newItem->name = $item;
                 $newItem->price = 0;
+                $newItem->save();
+            }
+            //USER_STATUS TÁBLA
+            foreach($user_statuses as $item) {
+                $newItem = new UserStatus();
+                $newItem->name = $item;
                 $newItem->save();
             }
     }

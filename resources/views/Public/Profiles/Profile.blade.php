@@ -15,22 +15,21 @@
 
         <!-- Menü -->
         <div class="row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-12 col-lg-4 text-center text-lg-left">
                 <h2 id="selectedMenu" class="text-white">{{Auth::user()->firstname}} {{Auth::user()->lastname}}</h2>
             </div>
-            <div class="form-group col-md-8">
-                <ul class="nav justify-content-end">
-                    <li class="nav-item">
-                    <a id="nav_item_personal" class="nav-link profilMenuBtn active-profilMenuBtn" href="#">Személyes adataim</a>
-                    </li>
-                    <li class="nav-item">
-                    <a id="nav_item_password" class="nav-link profilMenuBtn" href="#">Jelszó módosítás</a>
-                    </li>
-                    <li class="nav-item">
-                    <a id="nav_item_address" class="nav-link profilMenuBtn" href="#">Címeim</a>
-                    </li>
-                </ul>
-                <div class="row justify-content-center">
+            <div class="form-group col-12 col-lg-8">
+                <div class="row">
+                    <div class="col-12 col-lg-4 text-center mt-4 mt-lg-0">
+                        <a id="nav_item_personal" class="profilMenuBtn active-profilMenuBtn" href="#">Személyes adataim</a>
+                    </div>
+                    <div class="col-12 col-lg-4 text-center mt-4 mt-lg-0">
+                        <a id="nav_item_password" class="profilMenuBtn" href="#">Jelszó módosítás</a>
+                    </div>
+                    <div class="col-12 col-lg-4 text-center mt-4 mt-lg-0">
+                        <a id="nav_item_address" class="profilMenuBtn" href="#">Címeim</a>
+                    </div>
+                </div>
             </div>
         </div>
         <hr style="border:rgb(156, 156, 156) solid 2px; width:100%; margin-bottom:70px;">
@@ -105,7 +104,7 @@
     
 
         <!--Jelszó változtatás -->
-        <div  id="passwordDiv" class="leave-comment d-none profileformDiv" style="width:1150px;">
+        <div  id="passwordDiv" class="leave-comment d-none profileformDiv">
             <div class="form-group col-md-12" style="padding:0px;">
                 <h2 class="text-white">Jelszó megváltoztatása:</h2><br>
                 <div id="jelszoDIV" class="d-none"></div>
@@ -129,15 +128,15 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-12 col-lg-6">
                                     <label class="text-white">Jelszó:</label><br>
                                     <input type="password" class="input" id="password" name="password">
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-12 col-lg-6">
                                     <label class="text-white">Jelszó mégegyszer:</label><br>
                                     <input type="password" class="input" id="password_confirmation" name="password_confirmation">
                                 </div>
-                                <div class="col-md-12 text-right" style="padding-left:15px;">
+                                <div class=" col-12 col-lg-12 text-right" style="padding:0px;">
                                     <button type="submit" id="password-change-btn" class="primary-btn modify-btn save-btn" >Módosítás</button>
                                 </div>
                             </div>
@@ -154,7 +153,7 @@
                 <h2 class="text-white">Számlázási cím: <small> (kötelező rendelés esetén)</small></h2><br>
                 <div id="szamlazasiadatokDIV" class="d-none"></div>
                 <div class="form-row">
-                    <div id="billing-address-form" class="col-12 col-md-7" style="padding-top: 20px;">
+                    <div id="billing-address-form" class="col-12 col-lg-7">
                         <form  name="profile"  class="login" action="{{ route("billingAddressNew") }}" method="POST">
                             @csrf
                             <input type="hidden" name="form_azonosito" value="szamlazasi">
@@ -209,14 +208,14 @@
                                     <button type="submit" id="billing-save-btn" class="primary-btn modify-btn save-btn" >Új cím hozzáadása</button>
                                 </div>
                                 <div id="billing-buttons"class="col-md-12 text-left d-none" style="padding-left:0px;">
-                                    <button type="submit" id="billing-edit-btn" class="primary-btn modify-btn save-btn" style="">Módosítás</button>
+                                    <button type="submit" formaction="{{route("billingAddressUpdate")}}" id="billing-edit-btn" class="primary-btn modify-btn save-btn" style="">Módosítás</button>
                                     <button type="submit" formaction="{{route("billingAddressDelete")}}" id="billing-delete-btn" class="primary-btn appoinment-btn cancel-btn">Törlés</button>
                                     <button type="submit" formaction="javascript:void(0)"id="billing_cancel_btn" class="primary-btn appoinment-btn cancel-btn" style="margin-right: 10px;">Mégse</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="col-12 col-md-5 text-left" style="padding-left: 100px;">
+                    <div class="col-12 col-lg-5 text-left mt-4 mt-lg-0 pl-0 pl-lg-4">
                         <label class="text-white profileLabel">Eddigi számlázási címeim:</label><br>
                         <ul>
                             @foreach ($billingAddresses as $billingAddress)
@@ -245,7 +244,7 @@
             <div class="form-group col-md-12">
                 <h2 class="text-white">Szállítási címeim: <small> (opcionális)</small></h2><br>
                 <div class="row">
-                    <div id="shipping-address-form" class="col-12 col-md-7" style="padding-top: 20px;">
+                    <div id="shipping-address-form" class="col-12 col-lg-7">
                         <form  name="profile" class="login" action="{{route("shippingAddressNew")}}" method="POST">
                             @csrf
                             <input type="hidden" name="form_azonosito" value="szallitasi">
@@ -298,7 +297,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-12 col-md-5" style="padding-left: 100px;">
+                    <div class="col-12 col-lg-5 text-left mt-4 mt-lg-0 pl-0 pl-lg-4">
                         <label class="text-white profileLabel">Eddigi szállítási címeim:</label><br>
                         <ul>
                             @foreach ($shippingAddresses as $shippingAddress)

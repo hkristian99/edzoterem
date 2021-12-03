@@ -21,7 +21,7 @@ class AuthController extends Controller
         
         //Login
         if (Auth::check())
-            return redirect()->route("home");
+            return redirect()->route("profile");
         else
             return view("Auth.Login");;
     }
@@ -35,12 +35,16 @@ class AuthController extends Controller
         //1.login
         $email = $request->email;
         $password = $request->password;
+        //$user_status = $request->status;
         $credentials = $request->only(["email", "password"]);
+        $credentials["status"] = ["1","3"]; //aktív felhasználó
         
        if( Auth::attempt($credentials)){
+            $userRoles = UserRole::where("user_id", Auth::user()->id)->pluck("role_id")->toArray();
+            session(["userRoles" => $userRoles]);
+
             return redirect()->route("profile");
-       }
-       else{
+       } else {
             return back()
                 ->withErrors("Hibás felhasználónév vagy jelszó!")
                 ->withInput();
@@ -48,6 +52,9 @@ class AuthController extends Controller
     }
     public function LogOut(){
         Auth::logout();
+
+        session()->flush();
+
         return redirect()->route("home");
     }
     public function Regist(){
@@ -133,9 +140,44 @@ class AuthController extends Controller
                 ->withInput();
 
         $user->password = Hash::make($request->password);
+        $user->status = 3;
         $user->save();
     
         return redirect()->route("profile")->with("successPassword", "A jelszó frissítve lett.");
+    }
+    public function PasswordStatus()
+    {
+        if(!Auth::check() || Auth::user()->status != 3){
+            abort(403);
+        }  
+        return view("Auth.PasswordStatus");
+    }
+    public function SendPasswordStatus(Request $request)
+    {
+        if(!Auth::check() || Auth::user()->status != 3){
+            abort(403);
+        } 
+
+        // 2. jelszó ellenőrzése
+        $rules = [
+            "password" => "required|confirmed"
+        ];
+        $messages = [
+            "password.required" => "A jelszó mező kitöltése kötelező!",
+            "password.confirmed" => "A beírt jelszavak nem egyeznek!"
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ( $validator->fails() )
+            return back()
+                ->withErrors($validator, "passwordError");
+
+        $user = User::findOrFail(Auth::user()->id);
+        $user->password = Hash::make($request->password);
+        $user->status = 1;
+        $user->save();
+
+        return redirect()->route("profile")->with("successPersonal", "A jelszó frissítve lett.");
     }
 
     public function SendChangeLostPassword(Request $request)
@@ -214,7 +256,7 @@ class AuthController extends Controller
         $user->lastname = $request->lastname;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        
+        $user->status = 1;
         $user->save();
 
         $role = new UserRole();

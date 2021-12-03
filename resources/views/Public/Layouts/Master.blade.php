@@ -60,6 +60,7 @@
     </div>
 <!-- Offcanvas Menu Section End -->
 
+
 <!-- Header Section Begin -->
 <header class="header-section examHeader">
     <div class="container-fluid">
@@ -100,14 +101,16 @@
                                 <ul>
                                     <li>
                                         @if (Auth::check())
-                                        <a href="#" ><i class="fa fa-user" style="font-size:25px;"></i></a>
+                                            <a href="#" ><i class="fa fa-user" style="font-size:25px;"></i></a>
                                             <ul class="dropdown profilMenu">
                                                 <!--<p class="p">{{Auth::user()->firstname}} {{Auth::user()->lastname}}</p><hr class="hr">-->
                                                 <li><a class="profilMenuItem" href="{{route('profile')}}">Profilom</a></li>
                                                 <li><a class="profilMenuItem" href="{{route('profile')}}">Rendeléseim</a></li>
-                                                @if (1 > 0)
-                                                <li><a class="profilMenuItem" href="{{route('admin')}}">Adminisztráció</a></li>
+                                                
+                                                @if ( session("userRoles")!=null && !in_array("4", session("userRoles")) )
+                                                    <li><a class="profilMenuItem" href="{{route('admin')}}">Adminisztráció</a></li>
                                                 @endif
+
                                                 <li><a class="profilMenuItem" href="{{route('logout')}}">Kijelentkezés</a></li>
                                             </ul>
                                         @else
@@ -132,7 +135,7 @@
 <section class="footer-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-12 col-lg-4 text-center text-lg-left">
                 <div class="fs-about">
                     <div class="fa-logo">
                         <a href="{{route('home')}}"><img src="/assets/frontend/img/logo.png" alt=""></a>
@@ -142,27 +145,26 @@
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa  fa-envelope-o"></i></a>
+                        <a href="#"><i class="fa fa-envelope-o"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7 col-md-3 col-sm-7 ">
+            <div class="col-12 col-lg-7 text-center text-lg-right">
                 <div class="gt-text">
+                    <div class="row">
                         <div class="col-12">
-                            <i class="fa fa-map-marker"></i>
-                            <p>333 Middle Winchendon Rd, Rindge, NH 03461</p>
+                            <p class="d-inline-block">333 Middle Winchendon Rd, Rindge, NH 03461</p>
+                            <i class="fa fa-map-marker d-none d-lg-inline-block"></i>
                         </div>
                         <div class="col-12">
-                            <i class="fa fa-mobile"></i>
-                            <ul>
-                                <li>125-711-811</li>
-                                <li>125-668-886</li>
-                            </ul>
+                            <p class="d-inline-block">125-711-811 | 125-668-886</p>
+                            <i class="fa fa-mobile d-none d-lg-inline-block"></i>
                         </div>
                         <div class="col-12">
-                            <i class="fa fa-envelope"></i>
-                            <p>info@forcegym.com</p>
+                            <p class="d-inline-block">info@forcegym.com</p>
+                            <i class="fa fa-envelope d-none d-lg-inline-block"></i>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

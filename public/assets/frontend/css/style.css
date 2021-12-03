@@ -1073,13 +1073,13 @@ ol {
 	font-size: 30px;
 	color: #ffffff;
 	display: inline-block;
-	height: 65px;
-	width: 65px;
+	/*height: 65px;
+	width: 65px;*/
 	background: #f36100;
 	border-radius: 50%;
 	line-height: 65px;
 	text-align: center;
-	float: left;
+	/*float: left;*/
 	margin-right: 20px;
 }
 
@@ -2863,7 +2863,7 @@ ol {
 	.canvas-open {
 		position: absolute;
 		right: 40px;
-		top: 61px;
+		top: 15px;
 		font-size: 22px;
 		width: 30px;
 		height: 30px;

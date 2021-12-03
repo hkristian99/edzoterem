@@ -83,4 +83,5 @@
 @section('custom2')
     <!-- FullCalendar -->
     <script src="/assets/admin/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src='/assets/admin/vendors/fullcalendar/dist/lang/hu.js'></script>
 @endsection

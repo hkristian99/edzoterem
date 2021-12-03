@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\UserRole;
+use App\Models\UserStatus;
 
 class AdminUserController extends Controller
 {
@@ -56,13 +57,6 @@ class AdminUserController extends Controller
     public function store(Request $request)
     {
         
-        $roles=$request->roles;
-        
-        dd($request);
-        foreach($roles as $roleID){ 
-            $val = $roles[1];
-        }
-        dd($val);
         //1. validálás
         $rules = [
             "firstname" => "required",
@@ -90,7 +84,7 @@ class AdminUserController extends Controller
         $user = new User();
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->email = $request->email;
         $user->save();
 
@@ -113,10 +107,15 @@ class AdminUserController extends Controller
     {
         $user = User::findOrFail($id);
         $roles = Role::orderBy("name")->get();
+        $userRoles = UserRole::where("user_id", $user->id)->pluck("role_id")->toArray();
+        $userStatuses = UserStatus::where("id", "!=", "3")->get();
 
+        
         return view("Admin.Users.Edit")
             ->with("user", $user)
-            ->with("roles", $roles);
+            ->with("roles", $roles)
+            ->with("userRoles", $userRoles)
+            ->with("userStatuses", $userStatuses);
     }
 
     /**
@@ -128,7 +127,66 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
+        $user = User::findOrFail($id); 
+        //1. validálás
+         $rules = [
+            "firstname" => "required",
+            "lastname" => "required",
+            "email" => "required|email",
+            "roles" => "required"
+        ];
+        if($request->email != $user->email){
+            $rules["email"] = "required|email|unique:users";
+        }
+
+        $messages = [
+            "firstname.required" => "A vezetéknév megadása kötelező!",
+            "lastname.required" => "A keresztnév megadása kötelező!",
+            "email.required" => "Az e-mail cím megadása kötelező!",
+            "email.unique" => "A megadott e-mail cím már létezik, válasszon másikat!",
+            "email.email" => "Az e-mail cím formátuma hibás!",
+            "roles.required" => "A szerepkör megadása kötelező!"
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ( $validator->fails() )
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->status = $request->status;
+
+        if( $request->password!="" ){
+            $user->password =  Hash::make($request->password);
+            $user->status = 3;
+        }
+        $user->save();
+
+        // töröljük azokat a role-okat, amelyek léteznek a táblában, de nem jött a request-ben
+        $userRoles = UserRole::where("user_id", $id)->get();
+        foreach ($userRoles as $userRole) {
+            if ( !in_array($userRole->role_id, $request->roles) ) {
+                $userRole->delete();
+            }
+        }
+
+        // felvesszük azokat a role-okat, amelyek jöttek request-ben, de nem léteznek a táblában
+        $userRoles = UserRole::where("user_id", $id)->pluck("role_id")->toArray();
+        foreach ($request->roles as $role) {
+            if ( !in_array($role, $userRoles) ) {
+                $uRole = new UserRole();
+                $uRole->user_id= $user->id;
+                $uRole->role_id=$role;
+                $uRole->save();
+            }
+        }
+
+        return redirect()->route("adminUsers")->withSuccess("A felhasználó adatainak módosítása sikerült!");
     }
 
     /**
@@ -139,6 +197,5 @@ class AdminUserController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 }
