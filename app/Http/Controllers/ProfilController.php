@@ -15,6 +15,7 @@ use App\Models\Address;
 use App\Models\Address_type;
 use App\Models\User;
 use App\Models\Country;
+use App\Models\Post;
 
 class ProfilController extends Controller
 {
@@ -55,6 +56,8 @@ class ProfilController extends Controller
             if ( $user->email != $request->email )
                 $rules["email"] = "required|email|unique:users";
 
+            if(session("userRoles")!=null && !in_array("4", session("userRoles")) && !$user->avatar)
+                $rules["avatar"] = "required";
 
             $messages = [
                 "firstname.required" => "A vezetéknév mező kitöltése kötelező!",
@@ -64,7 +67,7 @@ class ProfilController extends Controller
                 "email.email" => "Az e-mail cím formátuma hibás!",
                 "password.required" => "A jelszó mező kitöltése kötelező!",
                 "password.confirmed" => "A két beírt jelszó nem egyezik meg!",
-                
+                "avatar.required" => "Profilkép feltöltése kötelező!",
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
@@ -76,6 +79,21 @@ class ProfilController extends Controller
 
 
             // 2. kép feltöltés
+            //PROFILKÉP
+            if ( $request->avatar ) {
+                $path = public_path()."/images/profile/".$request->avatar;
+                if ( file_exists($path) ) 
+                    unlink($path);
+            
+                $image = $request->file('avatar');
+                $imageInfo = pathinfo($image->getClientOriginalName());
+                $imageName = \Carbon\Carbon::now()->format("U").Str::slug($user->firstname."_".$user->lastname."_profilkep").".".$imageInfo['extension'];
+                $destinationPath = public_path('/images/profile/');
+                $image->move($destinationPath, $imageName);
+                
+                $user->avatar = $imageName;
+            }
+            //DIÁKIGAZOLVÁNY ELŐLAP
             if ( $request->student_card_front ) {
                 $path = public_path()."/images/student_cards/".$request->student_card_front;
                 //dd($request->student_card_front);
@@ -90,7 +108,7 @@ class ProfilController extends Controller
                 
                 $user->student_card_front = $imageName;
             }
-
+            //DIÁKIGAZOLVÁNY HÁTLAP
             if ( $request->student_card_back ) {
                 $path = public_path()."/images/student_cards/".$request->student_card_back;
                 if ( file_exists($path) ) 
@@ -104,15 +122,17 @@ class ProfilController extends Controller
 
                 $user->student_card_back = $imageName;
             }
-
             //3. user update
-
+            
             $user->firstname = $request->firstname;
             $user->lastname = $request->lastname;
             $user->email = $request->email;
             if($request->student_card_number)
                 $user->student_card_number = $request->student_card_number;
-
+                
+            $user->instagram = $request->instagram;
+            $user->facebook = $request->facebook;
+            $user->twitter = $request->twitter;
             $user->save();
 
             return redirect()->route("profile")->with("successPersonal", "A módosításokat elmentettük.");

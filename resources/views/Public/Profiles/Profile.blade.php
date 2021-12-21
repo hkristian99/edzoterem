@@ -64,39 +64,63 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         <label class="text-white">Vezetéknév:</label>
                         <input class="input" id="firstname" name="firstname" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("firstname") : Auth::user()->firstname }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         <label class="text-white">Keresztnév:</label>
                         <input class="input" id="lastname" name="lastname" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("lastname") : Auth::user()->lastname }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         <label class="text-white">E-mail:</label>
                         <input class="input" id="email" name="email" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("email") : Auth::user()->email }}" type="email" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         <label class="text-white">Diákgazolványszám: <small>*</small></label>
                         <input class="input" id="student_card_number" name="student_card_number" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("student_card_number") : Auth::user()->student_card_number }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
                     </div>
-                    <div class="form-group col-md-12">
-                        <label class="text-white">Diákgazolványkép - előlap: <small>*</small></label><br>
-                        @if (Auth::user()->student_card_front != null)
-                            <img src="images/student_cards/{{Auth::user()->student_card_front}}"  class="student_card">
-                        @endif
-                        <input type="file" class="file " id="student_card_front" name="student_card_front" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="text-white">Diákgazolványkép - hátlap: <small>*</small></label><br>
-                        @if (Auth::user()->student_card_front != null)  
-                            <img src="images/student_cards/{{Auth::user()->student_card_back}}" class="student_card">
-                        @endif
-                        <input type="file" class="file" name="student_card_back" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
-                    </div>
-                    <div class="form-group col-md-12 text-left">
-                        <label style="color: #fff;"><small>*A kedvezményes bérlet igénybevételéhez szükséges az érvényes diákigazolvány feltöltése</small></label>
-                    </div>
+
+                    @if ( session("userRoles")!=null && !in_array("4", session("userRoles")) )
+                    
+                        <div class="form-group col-md-12 social">
+                            <label class="text-white">Közösségi média:</label><br>
+                            <span>Facebook</span>
+                            <input class="input" id="facebook" name="facebook" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("facebook") : Auth::user()->facebook }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                            <br>
+                            <span>Instagram</span>
+                            <input class="input" id="instagram" name="instagram" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("instagram") : Auth::user()->instagram }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                            <br>
+                            <span>Twitter</span>
+                            <input class="input" id="twitter" name="twitter" value="{{ old() && old("form_azonosito")=="alapadatok" ? old("twitter") : Auth::user()->twitter }}" type="text" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label class="text-white">Profilkép: <small>*</small></label><br>
+                            @if (Auth::user()->avatar != null)
+                                <img src="images/profile/{{Auth::user()->avatar}}"  class="student_card">
+                            @endif
+                            <input type="file" class="file " id="avatar" name="avatar" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                        </div>
+                    @else
+                        <div class="form-group col-md-6">
+                            <label class="text-white">Diákgazolványkép - előlap: <small>*</small></label><br>
+                            @if (Auth::user()->student_card_front != null)
+                                <img src="images/student_cards/{{Auth::user()->student_card_front}}"  class="student_card">
+                            @endif
+                            <input type="file" class="file " id="student_card_front" name="student_card_front" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-white">Diákgazolványkép - hátlap: <small>*</small></label><br>
+                            @if (Auth::user()->student_card_front != null)  
+                                <img src="images/student_cards/{{Auth::user()->student_card_back}}" class="student_card">
+                            @endif
+                            <input type="file" class="file" name="student_card_back" {{ old() && old("form_azonosito")=="alapadatok" ? "" : "disabled" }}>
+                        </div>
+                        <div class="form-group col-md-12 text-left">
+                            <label style="color: #fff;"><small>*A kedvezményes bérlet igénybevételéhez szükséges az érvényes diákigazolvány feltöltése</small></label>
+                        </div>
+                    @endif
                 </div>
             </form>
         </div>

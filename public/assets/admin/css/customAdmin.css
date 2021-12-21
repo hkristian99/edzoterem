@@ -45,3 +45,12 @@ span.add_roletag:hover{
 h4.taskModal{
     font-size: 19px;
 }
+
+
+/* BLOG TAGS */
+.tagList {
+    border: 1px solid #000;
+    padding:10px;
+    height:200px;
+    overflow: auto;
+}

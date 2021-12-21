@@ -80,9 +80,10 @@ p {
 	font-size: 14px;
 	font-family: "Muli", sans-serif;
 	color: #a9a9a9;
-	font-weight: 400;
+	font-weight: 300;
 	line-height: 24px;
 	margin: 0 0 15px 0;
+	text-align: justify;
 }
 
 img {
@@ -1975,38 +1976,46 @@ ol {
 }
 
 .chart-table table {
-	border: 1px solid #363636;
+	/*border: 1px solid #363636;
 	width: 100%;
+	border-radius: 10px !important;*/
+	border: 5px solid #363636;
+    width: 100%;
+    border-radius: 41px !important;
+    padding: 17px 0px;
 }
 
 .chart-table table thead {
-	border-bottom: 1px solid #363636;
+	/*border-bottom: 1px solid #363636;*/
 }
 
 .chart-table table thead tr th {
-	background: #060606;
+	/*background: #060606;*/
 	font-size: 14px;
 	color: #ffffff;
 	font-weight: 500;
 	text-transform: uppercase;
-	border-right: 1px solid #363636;
-	padding: 14px 0 11px 50px;
+	/*border: 1px solid #363636;*/
+	padding: 10px 0px;	
+	text-align: center;
+	vertical-align: middle;
 }
 
-.chart-table table tbody tr:nth-child(even) {
+/*.chart-table table tbody tr:nth-child(even) {
 	background: #111111;
-}
+}*/
 
 .chart-table table tbody tr td {
 	font-size: 14px;
 	color: #c4c4c4;
-	border-right: 1px solid #363636;
-	padding: 17px 0 17px 50px;
+	/*border: 1px solid #363636;*/
+	padding: 10px 0px;
+	text-align: center;
 }
 
-.chart-table table tbody tr td.point {
+/*.chart-table table tbody tr td.point {
 	width: 200px;
-}
+}*/
 
 .section-title.chart-calculate-title {
 	text-align: left;
@@ -2076,21 +2085,23 @@ ol {
 	margin-bottom: 40px;
 }
 
-.blog-item .bi-pic {
+/*.blog-item .bi-pic {
 	float: left;
-}
+}*/
 
-.blog-item .bi-pic img {
+/*.blog-item .bi-pic img {
 	width: 360px;
 	height: 240px;
 	min-width: 100%;
-}
+}*/
 
 .blog-item .bi-text {
-	border: 1px solid #363636;
-	overflow: hidden;
+	border: 2px solid #363636;
+    padding: 25px;
+    border-radius: 10px;
+	/*overflow: hidden;
 	height: 240px;
-	padding: 32px 30px 0 30px;
+	padding: 32px 30px 0 30px;*/
 }
 
 .blog-item .bi-text h5 {
@@ -2155,6 +2166,7 @@ ol {
 	-webkit-transition: all 0.3s;
 	-o-transition: all 0.3s;
 	transition: all 0.3s;
+	border-radius: 6px;
 }
 
 .blog-pagination a:last-child {
@@ -2170,8 +2182,10 @@ ol {
 --------------------------*/
 
 .blog-details-hero {
-	height: 900px;
-	padding-top: 365px;
+	height: 500px;
+	padding-top: 180px;
+	background-size: cover;
+	background-position: center;
 }
 
 .bh-text {
@@ -2184,7 +2198,7 @@ ol {
 	color: #ffffff;
 	font-weight: 600;
 	line-height: 39px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	margin-bottom: 10px;
 }
 
@@ -2222,20 +2236,21 @@ ol {
 	overflow: hidden;
 }
 
-.blog-details-text .blog-details-title {
+.blog-details-text .blog-details-title .blog-details-lead {
 	text-align: center;
 	margin-bottom: 32px;
 }
 
-.blog-details-text .blog-details-title p {
+.blog-details-text .blog-details-title .blog-details-lead p {
 	color: #c4c4c4;
+	text-align: justify;
 }
 
-.blog-details-text .blog-details-title p:first-child {
+.blog-details-text .blog-details-title .blog-details-lead p:first-child {
 	margin-bottom: 25px;
 }
 
-.blog-details-text .blog-details-title h5 {
+.blog-details-text .blog-details-title .blog-details-lead h5 {
 	font-size: 20px;
 	color: #ffffff;
 	font-weight: 600;
@@ -2377,7 +2392,7 @@ ol {
 .blog-details-text .blog-details-author .ba-pic {
 	position: absolute;
 	top: -45px;
-	left: 50%;
+	width: 100%;
 	-webkit-transform: translateX(-45px);
 	-ms-transform: translateX(-45px);
 	transform: translateX(-45px);
@@ -2385,7 +2400,6 @@ ol {
 
 .blog-details-text .blog-details-author .ba-pic img {
 	height: 90px;
-	width: 90px;
 	border-radius: 50%;
 }
 
@@ -2651,7 +2665,7 @@ ol {
 	width: 100%;
 	height: 100%;
 	z-index: 999;
-	background: rgba(0, 0, 0, 0.9);
+	background: rgba(0, 0, 0, 1);
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -2781,10 +2795,10 @@ ol {
 	.blog-item .bi-pic {
 		float: none;
 	}
-	.blog-item .bi-text {
+	/*.blog-item .bi-text {
 		height: auto;
 		padding: 32px 30px 30px 30px;
-	}
+	}*/
 	.blog-item .bi-pic img {
 		height: auto;
 	}
@@ -3138,9 +3152,9 @@ ol {
 	.chart-table {
 		overflow-x: auto;
 	}
-	.blog-section .p-0 {
+	/*.blog-section .p-0 {
 		padding: 15px !important;
-	}
+	}*/
 	.blog-section .sidebar-option {
 		padding-left: 0;
 	}

@@ -23,12 +23,26 @@
           <form id="contactForm" action="{{route('blogStore')}}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="text" class="form-control" name="title" value="{{ old("title") }}" placeholder="Cím"><br>
+            
             <input type="text" class="form-control" name="lead" value="{{ old("lead") }}" placeholder="Bevezető"> <br>
+            
             <textarea class="form-control" id="summary-ckeditor" name="body">{{ old("body") }}</textarea><br>
+            
             <div class="col form-group has-feedback">
               <label for="avatar">Borító</label>
               <input type="file" class="form-control-file" id="cover" name="cover">
             </div>
+
+            <div class="col form-group has-feedback">
+              <label for="avatar">Címkék</label>
+              <div class="tagList">
+                  @foreach ($tags as $tag)
+                      <input type="checkbox" class="flat" name="tags[]" value="{{ $tag->id }}" {{ old() && in_array($tag->id,old("tags")) ? "checked" : "" }}> {{ $tag->name }}
+                      <br>
+                  @endforeach
+              </div>
+            </div>
+
             <div class="clearfix">
                 <button type="submit" class="btn btn-success" name="publish">Beadás jóváhagyásra</button>
                 <button type="submit" class="btn btn-secondary" name="draft">Piszkozat</a>
@@ -41,14 +55,6 @@
 <!-- page content end-->
 @endsection
 @section('scripts')
-    <script src="/ckeditor/ckeditor.js"></script>
-    <script src="/ckeditor/ckeditor.js"></script>
-    <script src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
-    <script>
-    CKEDITOR.replace( 'summary-ckeditor' );
-    </script>
     <script src="//cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-    <script>
-    CKEDITOR.replace( 'summary-ckeditor' );
-    </script>
+    <script>CKEDITOR.replace( 'summary-ckeditor' );</script>
 @endsection

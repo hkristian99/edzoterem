@@ -9,7 +9,6 @@
                 <h3>Napi teendők</h3>
             </div>
         </div>
-        
         <div class="clearfix">
         </div>
         <div class="row">
@@ -76,7 +75,7 @@
                                     </div>
                                     <div class="modal-body">
                                             <h4 class="taskModal">Feladat leírása:</h4>
-                                            <input type="text" name="newTask" class="taskModalInput" id="addTask" placeholder="Leírás">
+                                            <input type="text" name="newTask" class="taskModalInput" id="newTask" placeholder="Leírás" autofocus>
                                     </div>
                                     <div class="modal-footer">
                                         <a href="#" class="btn btn-secondary" data-dismiss="modal">Mégse</a>
@@ -97,6 +96,7 @@
 @endsection
 @section('scripts')
 <script>
+
 
 $('input.flat.task').on('ifChecked', async function(event){
     //feladat ID
@@ -129,6 +129,9 @@ async function getAjax(val) {
         }
     });
 }
+$('.bs-example-modal-lg').on('show.bs.modal', function () {
+    $("#newTask").focus();
+});
 
 </script>
 @endsection

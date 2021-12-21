@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\WebshopController;
 use App\Http\Controllers\WorkoutController;
+use App\Http\Controllers\TagController;
 
 
 //PUBLIC
@@ -22,7 +23,14 @@ use App\Http\Controllers\WorkoutController;
     Route::get("/orarendek", [PublicController::class, "Timetable"])->name("timetable");
     Route::get("/bmi-kalkulator", [PublicController::class, "Bmi"])->name("bmi");
     Route::get("/galeria", [PublicController::class, "Gallery"])->name("gallery");
-    Route::get("/blog", [PublicController::class, "Blog"])->name("blog");
+
+    //Blog
+    Route::group(["prefix"=>"blog"], function(){
+        Route::get("/", [PublicController::class, "Blog"])->name("blog");
+        Route::get("/{slug}", [PublicController::class, "BlogDetails"])->name("blogDetails");
+        Route::get('/szerzo/{id}', [PublicController::class, "BlogBy"])->name('blogBy');
+        Route::get('/cimke/{tagName}', [PublicController::class, "BlogByTag"])->name('blogByTag');
+    });
 
 //LOGIN /  REGISZRÁCIÓ / ELFELEJTETT JELSZÓ
 
@@ -100,6 +108,14 @@ Route::group(["prefix"=>"profilom", 'middleware' => 'checkLogin'], function(){
             Route::get('/{postid}/approval', [BlogController::class, "PostApproval"])->name('postApproval');
         });
 
+        //BLOG TAGEK
+        Route::group(["prefix"=>"tags"], function(){
+            Route::get('/', [TagController::class, "index"])->name("tags");
+            Route::post('/store', [TagController::class, "store"])->name("tagStore");
+            Route::post('/update/{id}', [TagController::class, "update"])->name("tagUpdate");
+            Route::post('/destroy', [TagController::class, "destroy"])->name("tagDestroy");
+        });
+
         //EDZÉS
         Route::group(["prefix"=>"workout"], function(){
             Route::get('/edzestervek', [WorkoutController::class, "index"])->name('workoutPlans');
@@ -121,3 +137,10 @@ Route::group(["prefix"=>"profilom", 'middleware' => 'checkLogin'], function(){
             Route::get('/{productid}/approval', [WebshopController::class, "PostApproval"])->name('productApproval');
         });
     });
+
+
+Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
+    ->name('ckfinder_connector')->middleware('ckfinderauth');
+
+Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
+    ->name('ckfinder_browser')->middleware('ckfinderauth');

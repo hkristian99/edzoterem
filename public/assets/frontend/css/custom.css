@@ -1,3 +1,4 @@
+
 /* NAVIGATION */
   nav ul li a,
   nav ul li a:after,
@@ -14,10 +15,10 @@
     width: 100px;
 }
   /* stroke */
-  nav.stroke ul li a{
+nav.stroke ul li a{
     position: relative;
-  }
-  nav.stroke ul li a:after{
+}
+nav.stroke ul li a:after{
     position: absolute;
     bottom: 0;
     left: 0;
@@ -28,8 +29,8 @@
     color: transparent;
     background: #f36100;
     height: 2.5px;
-  }
-  li.stroke:after{
+}
+li.stroke:after{
     position: absolute;
     bottom: 0;
     left: 0;
@@ -40,105 +41,109 @@
     color: transparent;
     background: #f36100;
     height: 2.5px;
-  }
-  nav.stroke ul li a:hover:after {
+}
+nav.stroke ul li a:hover:after {
     width: 100%;
-  }
-  
-  .fa:hover{
+}
+
+.fa:hover{
     color: #f36100;
     transition: all 0.45s;
-  }
-  button.fa{
+}
+button.fa{
     border:0px;
     background-color: transparent;
     color: #fff;
-  }
-  .nav-menu ul li .dropdown{
+}
+.nav-menu ul li .dropdown{
     border-radius:15px;
-  }
-  a{
+}
+a{
     color:#f36100;
-  }
-  a.profile{
+}
+a.profile{
     font-size: 17px;
-  }
-  a.lostpw{
-    color:#fff;
-  }
-  a.lostpw:hover{
+}
+a.lostpw{
+color:#fff;
+}
+a.lostpw:hover{
     color:#f36100;
-  }
-  a.successLogin{
+}
+a.successLogin{
     color:#f36100 !important;
-  }
-  form input:focus{
+}
+form input:focus{
     border: 1.5px solid #f36100!important;
     transition: all 0.3s!important;
     background-color: rgba(243,97,0,0.05);
-  }
-  .profileContainer{
+}
+.profileContainer{
     background-color: rgba(27,27,27,0.3); 
     border-radius: 57px; 
     padding: 51px; 
     backdrop-filter: blur(5px); 
-   
-    /*margin:0% 24%;*/
-    
-  }
-  .profileformDiv input:focus{
+    /*margin:0% 24%;*/ 
+}
+tr.calculated{
+    color: #fff;
+    font-weight: 800;
+    background-color: #f3610059;
+}
+
+.profileformDiv input:focus{
     border: 1.5px solid #ffffff!important;
     transition: all 0.3s!important;
     background-color: rgba(255, 255, 255, 0.05);
-  }
-  form input:focus::placeholder {
+}
+form input:focus::placeholder {
     color:transparent;
-	}
-  a.reg{
+}
+a.reg{
     padding: 3.7%;
     margin:0% !important;
-  }
-  .profileLabel{
+}
+.profileLabel{
     font-size: 25px;
-  }
-  .copyright-textlogin {
+}
+.copyright-textlogin {
     font-size: 14px;
     color: #c4c4c4;
     letter-spacing: 0.5px;
     padding-bottom:3px;
-  }
-  .loginformDiv{
+}
+.loginformDiv{
     background-color: rgba(27,27,27,0.3); 
     border-radius: 57px; 
     padding: 51px; 
     backdrop-filter: blur(5px); 
     margin-bottom:450px;
-  }
-  .profileformDiv{
+}
+.profileformDiv{
     background-color: rgb(255 255 255 / 35%);
     border-radius: 57px;
     padding: 51px;
     backdrop-filter: blur(5px);
     margin-bottom: 50px;
-  }
-  .profileformDiv input{
+}
+.profileformDiv input{
     border: 2px solid #000000 !important;
-  }
-  .profileformDiv textarea{
+}
+.profileformDiv textarea{
     border: 2px solid #000000 !important;
-  }
-  .profileformDiv select{
+}
+.profileformDiv select{
     border: 2px solid #000000 !important;
-  }
-  
-  .registformDiv{
+}
+
+.registformDiv{
     background-color: rgba(27,27,27,0.3); 
     border-radius: 57px; 
     padding: 51px; 
     backdrop-filter: blur(5px); 
     margin-bottom:250px;
-  }
-  .examHeader{
+}
+.examHeader{
     background: rgba(0,0,0,0.5);
     opacity: 1;
     border-radius: 22px;
@@ -148,8 +153,8 @@
     margin-top: 3%;
     padding: 1%;
     position: absolute;
-  }
-  .nav-menu {
+}
+.nav-menu {
     width: 111%;
 }
   @media only screen and (min-width: 992px) and (max-width: 1381px){
@@ -188,252 +193,368 @@
       top: 17px;
     }
   }
-
-  ul.profilMenu{
-    left: -100px !important;
-    text-align: right !important;
-    padding-top:2% !important;
-    width: auto !important;
-  }
-  a.profilMenuItem{
-    left: -10%;
-  }
-  div.alert-danger{
-    color:#f36100;
-    background-color: rgb(21,21,21,0.7);
-    border:#f36100 solid 1px;
-    text-align: center;
-    margin-top: 2%;
-    border-radius:20px;
-  }
-  div.alert-success{
-    color:#37a820;
-    background-color: rgb(21,21,21);
-    border:#37a820 solid 1px;
-    text-align: center;
-    margin-top: 2%;
-    border-radius:20px;
-  }
-  hr.hr{
-    border: 1px solid #fff !important;
-    margin: 2px !important;
-  }
-  p.p{
-    text-align: center; 
-    margin:2px;
-  }
-  .modify-btn{
-    width:auto !important;
-    padding:14px 20px !important;
-    border:0px !important;
-  }
-  .cancel-btn{
-    width: auto !important;
-    margin-top: 0% !important;
-    height:46px !important;
-    padding:0px 20px !important;
-    left:10% !important;
-  }
-  .order-btn{
-    width: auto !important;
-    margin: 1% !important;
-    margin-right: 0% !important;
-    height: 36px !important;
-    padding: 0px 14px !important;
-    font-size: 24px;
-    cursor:pointer;
-  }
-  .save-btn{
-    width: auto !important;
-    margin:0px 20px;
-    left:10% !important;
-  }
-  ol{
-    color:#fff;
-    margin-left: 23px;
-  }
-  #billing-types{
-    padding-left:0px; 
-    margin: 0px !important; 
-    padding-left: 16px;
-  }
-  input.file{
-    font-size: 14px !important;
-    padding: 0px!important;
-    width: 269px!important;
-    height: 29px!important;
-    margin-left: 5px;
-  }
-  img.student_card{
-    width: 170px;
-    height: 110px;
-    border:#e7e7e7 solid 3px;
-    margin-left:0px !important;;
-  }
-
-  .pageProfile{
-    background: #000000c2;
-  }
-  .pageProfile form input{
-    margin-bottom: 0px;
-  }
-
-  .pageProfile form select{
-    font-size: 13px;
+.bmi{
+    height: calc(1.5em + 0.75rem + 14px);
+    padding: 0.375rem 0.75rem;
     color: #c4c4c4;
-    width: 100%;
-    height: 46px;
-    border: 1px solid #363636;
-    padding-left: 20px;
-    padding-right: 5px;
-    background: transparent;
-    border-radius: 0px;
-  }
-  .pageProfile form option{
-    font-size: 14px;
     background-color: #151515;
-    color: #fff;
-    border-radius: 0px;
-  }
-  .pageProfile form option:active{
-    font-size: 14px;
-    background-color: #c0bfbf;
-    color: rgb(99, 99, 99);
-    border-radius: 0px;
-  }
-  .registBtn{
-    width: 33% !important;
-  }
-
-  section.login {
-    height: 1225px;
-    padding-top: 230px;
-  }
-  section.regist {
-    height: 1200px;
-    padding-top: 230px;
-  }
-  div.loginForm{
-    margin-top:65px !important;
-  }
-  .vl {
-    border-left: 3px solid #fff;
-    height: 270px;
-  }
-  .vlRegist {
-    border-left: 3px solid #fff;
-    height: 400px;
-  }
-  .leave-comment form.login input{
-    color:#fff;
-    font-size: 20px;
-    border: 2px solid #363636;
-    text-align: left;
-    border-radius: 10px;
-  }
-  .leave-comment form.login select{
-    color:#fff;
-    font-size: 20px;
-    border: 2px solid #363636;
-    text-align: left;
-    border-radius: 10px;
-  }
-  .leave-comment form.login textarea{
-    color:#fff;
-    font-size: 20px;
-    border: 2px solid #363636;
-    text-align: left;
-    border-radius: 10px;
-  }
-  
-  .leave-comment form button {
-    border-radius: 10px;
-  }
-  .primary-btn.appoinment-btn {
-    border-radius: 10px;
-  }
-  .set-bgprofile{
-    height: auto;
-    padding-bottom:70px;
-    background-size: cover;
-    background-attachment: fixed;
-  }
-  .set-bglogin {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.1)) , url(/assets/frontend/img/about-us.jpg) !important;
-  }
-  h2.login{
-    letter-spacing: 10px;
-  }
-  h2.regist{
-    font-size:47px;
-    letter-spacing: 3px;
-    margin-bottom:10px;
-  }
-  .profilMenuBtn{
-    font-size: 15px;
-    color: #ffffff;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 700;
-    border-radius: 10px;
-    border: 2px solid #f36100;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .profilMenuBtn:hover{
-    background: #f36100;
-  }
-  .active-profilMenuBtn{
-    background: #f36100 !important;
-  }
-  #billing-types-ul{
+    background-clip: padding-box;
+    border: 1px solid #363636;
+    margin-bottom: 10px;
     border-radius:10px;
-  }
+}
+.bmi option{
+    height: calc(1.5em + 0.75rem + 14px);
+    padding: 0.375rem 0.75rem;
+    color: #c4c4c4;
+    background-color: #151515;
+    background-clip: padding-box;
+    border: 1px solid #363636;
+    margin-bottom: 10px;
+    border-radius:10px; 
+}
+.bmi option:hover{
+    background-color: rgba(243,97,0,0.05);
+}
 
-  
-  /* Keyframes */
-  @-webkit-keyframes fill {
-    0% {
-      width: 0%;
-      height: 1px;
-    }
-    50% {
-      width: 100%;
-      height: 1px;
-    }
-    100% {
-      width: 100%;
-      height: 100%;
-      background: #333;
-    }
+.table td, .table th {
+    border: 0px !important;
+}
+.table thead th {
+    border: 0px !important;
+}
+
+ul.profilMenu{
+  left: -100px !important;
+  text-align: right !important;
+  padding-top:2% !important;
+  width: auto !important;
+}
+a.profilMenuItem{
+  left: -10%;
+}
+div.alert-danger{
+  color:#f36100;
+  background-color: rgb(21,21,21,0.7);
+  border:#f36100 solid 1px;
+  text-align: center;
+  margin-top: 2%;
+  border-radius:20px;
+}
+div.alert-success{
+  color:#37a820;
+  background-color: rgb(21,21,21);
+  border:#37a820 solid 1px;
+  text-align: center;
+  margin-top: 2%;
+  border-radius:20px;
+}
+hr.hr{
+  border: 1px solid #fff !important;
+  margin: 2px !important;
+}
+p.p{
+  text-align: center; 
+  margin:2px;
+}
+.modify-btn{
+  width:auto !important;
+  padding:14px 20px !important;
+  border:0px !important;
+}
+.cancel-btn{
+  width: auto !important;
+  margin-top: 0% !important;
+  height:46px !important;
+  padding:0px 20px !important;
+  left:10% !important;
+}
+.order-btn{
+  width: auto !important;
+  margin: 1% !important;
+  margin-right: 0% !important;
+  height: 36px !important;
+  padding: 0px 14px !important;
+  font-size: 24px;
+  cursor:pointer;
+}
+.save-btn{
+  width: auto !important;
+  margin:0px 20px;
+  left:10% !important;
+}
+ol{
+  color:#fff;
+  margin-left: 23px;
+}
+#billing-types{
+  padding-left:0px; 
+  margin: 0px !important; 
+  padding-left: 16px;
+}
+input.file{
+  font-size: 14px !important;
+  padding: 0px!important;
+  width: 269px!important;
+  height: 29px!important;
+  margin-left: 5px;
+}
+img.student_card{
+  width: 170px;
+  height: 110px;
+  border:#e7e7e7 solid 3px;
+  margin-left:0px !important;;
+}
+
+.pageProfile{
+  background: #000000c2;
+}
+.pageProfile form input{
+  margin-bottom: 0px;
+}
+
+.pageProfile form select{
+  font-size: 13px;
+  color: #c4c4c4;
+  width: 100%;
+  height: 46px;
+  border: 1px solid #363636;
+  padding-left: 20px;
+  padding-right: 5px;
+  background: transparent;
+  border-radius: 0px;
+}
+.pageProfile form option{
+  font-size: 14px;
+  background-color: #151515;
+  color: #fff;
+  border-radius: 0px;
+}
+.pageProfile form option:active{
+  font-size: 14px;
+  background-color: #c0bfbf;
+  color: rgb(99, 99, 99);
+  border-radius: 0px;
+}
+.registBtn{
+  width: 33% !important;
+}
+
+section.login {
+  height: 1225px;
+  padding-top: 230px;
+}
+section.regist {
+  height: 1200px;
+  padding-top: 230px;
+}
+div.loginForm{
+  margin-top:65px !important;
+}
+.vl {
+  border-left: 3px solid #fff;
+  height: 270px;
+}
+.vlRegist {
+  border-left: 3px solid #fff;
+  height: 400px;
+}
+.leave-comment form.login input{
+  color:#fff;
+  font-size: 20px;
+  border: 2px solid #363636;
+  text-align: left;
+  border-radius: 10px;
+}
+.leave-comment form.login select{
+  color:#fff;
+  font-size: 20px;
+  border: 2px solid #363636;
+  text-align: left;
+  border-radius: 10px;
+}
+.leave-comment form.login textarea{
+  color:#fff;
+  font-size: 20px;
+  border: 2px solid #363636;
+  text-align: left;
+  border-radius: 10px;
+}
+
+.approvePost{
+  background-color: #ff000073;
+}
+
+.leave-comment form button {
+  border-radius: 10px;
+}
+.primary-btn.appoinment-btn {
+  border-radius: 10px;
+}
+.set-bgprofile{
+  height: auto;
+  padding-bottom:70px;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.set-bglogin {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.1)) , url(/assets/frontend/img/about-us.jpg) !important;
+}
+h2.login{
+  letter-spacing: 10px;
+}
+h2.regist{
+  font-size:47px;
+  letter-spacing: 3px;
+  margin-bottom:10px;
+}
+.profilMenuBtn{
+  font-size: 15px;
+  color: #ffffff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 10px;
+  border: 2px solid #f36100;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profilMenuBtn:hover{
+  background: #f36100;
+}
+.active-profilMenuBtn{
+  background: #f36100 !important;
+}
+#billing-types-ul{
+  border-radius:10px;
+}
+blockquote{
+  border-left: 5px solid #fff;
+  margin: 25px 0px 21px 44px;
+  padding: 10px 24px 10px 9px;
+  font-style: italic;
+  background: #000;
+  border-radius: 6px;
+}
+p:first-child{
+ margin: 0 !important;
+}
+.bh-text ul li {
+  font-size: 15px !important;
+  color: #d1d1d1 !important;
+}
+.bh-text h3 {
+  color: #ffffff;
+  font-weight: 600;
+  line-height: 39px;
+  margin-bottom: 10px;
+  font-size:25px;
+}
+.bh-text {
+  border-radius: 30px;
+}
+
+.lead{
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.blog-details-lead p{
+	color:#fff;
+}
+
+div.blog-details-text{
+background-color: #4c4b4b;
+padding: 15px 20px;
+border-radius: 10px;
+}
+.blog-details-text .blog-details-author {
+  border-radius: 15px;
+}
+.blog-details-text .blog-details-tag-share .tags a {
+  border-radius: 10px;
+}
+
+.tags a{
+  display: inline-block;
+  font-size: 11px;
+  color: #c4c4c4;
+  padding: 6px 8px;
+  background: #252525;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+.tags a:hover{
+  color: #f36100;
+}
+.set-bg::before{
+  background-color: rgba(0, 0, 0, 0.4);
+  content: '';
+  display: block;
+  height: 500px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+.form-control:focus {
+  color: #c4c4c4;
+  outline: 0;
+  border: 1.5px solid #f36100!important;
+  border-radius: 10px;
+  transition: all 0.3s!important;
+  background-color: rgba(243,97,0,0.05);
+  box-shadow: 0 0 0 0.2rem rgb(0 0 0 / 25%);
+}
+.chart-calculate-form form input {
+  border-radius: 10px;
+}
+.chart-calculate-form form button {
+  border-radius: 10px;
+}
+ 
+/* Keyframes */
+@-webkit-keyframes fill {
+  0% {
+    width: 0%;
+    height: 1px;
   }
-  /* Keyframes */
-  @-webkit-keyframes circle {
-    0% {
-      width: 1px;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      margin: auto;
-      height: 1px;
-      z-index: -1;
-      background: #eee;
-      border-radius: 100%;
-    }
-    100% {
-      background: #aaa;
-      height: 5000%;
-      width: 5000%;
-      z-index: -1;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
-      border-radius: 0;
-    }
+  50% {
+    width: 100%;
+    height: 1px;
   }
-  
+  100% {
+    width: 100%;
+    height: 100%;
+    background: #333;
+  }
+}
+/* Keyframes */
+@-webkit-keyframes circle {
+  0% {
+    width: 1px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: 1px;
+    z-index: -1;
+    background: #eee;
+    border-radius: 100%;
+  }
+  100% {
+    background: #aaa;
+    height: 5000%;
+    width: 5000%;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 0;
+  }
+}

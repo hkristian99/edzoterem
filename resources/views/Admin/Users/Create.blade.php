@@ -79,7 +79,7 @@
 </div>
 <!-- /page content -->
 @endsection
-@section('custom2')
+@section('scripts')
     <script>
         $( document ).ready(function() {
             $("#phoneNumber").inputmask("(99) 999-999[9]",{ "placeholder": "_" });

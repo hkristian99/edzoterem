@@ -1,5 +1,5 @@
 @extends('Admin.Layouts.Master')
-@section('custom1')
+@section('css')
     <!-- FullCalendar -->
     <link href="/assets/admin/vendors/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
     <link href="/assets/admin/vendors/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
@@ -80,7 +80,7 @@
 <!-- /page content -->
 
 @endsection
-@section('custom2')
+@section('scripts')
     <!-- FullCalendar -->
     <script src="/assets/admin/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src='/assets/admin/vendors/fullcalendar/dist/lang/hu.js'></script>
