@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Post_tag;
+use App\Models\Tag;
 
 class Post extends Model
 {
@@ -22,7 +23,7 @@ class Post extends Model
 
     public function tag()
     {
-        return $this->belongsToMany("App\Models\Tag");
+        return $this->belongsToMany("App\Models\Tag","post_tags","post_id","tag_id");
     }
 
 

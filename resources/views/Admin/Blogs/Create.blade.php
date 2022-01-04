@@ -24,7 +24,7 @@
             @csrf
             <input type="text" class="form-control" name="title" value="{{ old("title") }}" placeholder="Cím"><br>
             
-            <input type="text" class="form-control" name="lead" value="{{ old("lead") }}" placeholder="Bevezető"> <br>
+            <textarea type="text" class="form-control" name="lead" placeholder="Bevezető">{{old("lead")}}</textarea><br>
             
             <textarea class="form-control" id="summary-ckeditor" name="body">{{ old("body") }}</textarea><br>
             

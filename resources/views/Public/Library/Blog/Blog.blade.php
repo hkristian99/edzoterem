@@ -30,7 +30,7 @@
                                 <div class="blog-item">
                                     <div class="row" style="width: 1000px; height: 250px; margin:auto; ">
                                         <div class="bi-pic col-12 col-md-3 p-0">
-                                            <img src="{{$post->cover}}" alt="" class="img-fluid" style="width: 100%; height: 250px;">
+                                            <img src="{{$post->cover}}" alt="" class="img-fluid" style="width: 100%; height: 250px; border-radius:10px;">
                                         </div>
                                         <div class="bi-text col-12 col-md-9">
                                             <h5><a href="{{ route("blogDetails", $post->slug) }}">{{$post->title}}</a></h5>

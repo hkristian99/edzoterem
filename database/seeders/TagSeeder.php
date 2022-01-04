@@ -18,7 +18,7 @@ class TagSeeder extends Seeder
         //DB FELTÖLTÉSE BASIC ADATOKKAL
         //TAG TÁBLA
 
-        Tag::truncate();
+        //Tag::truncate();
 
         $handle = fopen(base_path()."/database/seeders/tags.txt", "r");
         if ($handle) {
