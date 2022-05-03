@@ -1,6 +1,4 @@
-.env-be felvenni(
-G_RECAPTCHA_SECRET_KEY="6LeRFRQdAAAAANX5WfuvRlAL0vHvwtnksIGcPn9e"
-G_RECAPTCHA_SITE_KEY="6LeRFRQdAAAAADfKbwMc9RwCXkjVo-NpIZOaj2KP")
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
